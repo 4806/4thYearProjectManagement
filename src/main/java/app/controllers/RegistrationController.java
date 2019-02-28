@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RegistrationController {
 
     @GetMapping("/register")
-    public String login() {
+    public String register() {
         return "registration";
     }
 
