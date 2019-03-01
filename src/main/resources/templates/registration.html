@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project Registration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body class="bg-light">
+    <header th:replace="layout :: site-header" />	
+    <div class="container-fluid bg-light py-3">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <form class="card card-body" th:action="@{/register}" th:object="${user}" method="post">
+                    <h3 class="text-center mb-4">Account Registration</h3>
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Username" name="username" type="text" th:field="*{username}" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Password" name="password" value="" type="password" th:field="*{password}" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Confirm Password" name="password" value="" type="password" th:field="*{password}" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control input-lg" th:field="*{role}">
+                                <option th:value="Student" th:text="Student"></option>
+                                <option th:value="Supervisor" th:text="Supervisor"></option>
+                                <option th:value="Coordinator" th:text="Coordinator"></option>
+                            </select>
+                        </div>
+                        <input class="btn btn-lg btn-primary btn-block" value="Register" type="submit">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</header>
+</body>
+</html>
