@@ -51,28 +51,28 @@
     <div class="container-fluid bg-light py-3">
         <div class="row">
             <div class="col-md-4 mx-auto">
-                <div class="card card-body">
+                <form class="card card-body" th:action="@{/register}" th:object="${user}" method="post">
                     <h3 class="text-center mb-4">Account Registration</h3>
                     <fieldset>
                         <div class="form-group">
-                            <input class="form-control input-lg" placeholder="Username" name="username" type="text" required>
+                            <input class="form-control input-lg" placeholder="Username" name="username" type="text" th:field="*{username}" required>
                         </div>
                         <div class="form-group">
-                            <input class="form-control input-lg" placeholder="Password" name="password" value="" type="password" required>
+                            <input class="form-control input-lg" placeholder="Password" name="password" value="" type="password" th:field="*{password}" required>
                         </div>
                         <div class="form-group">
-                            <input class="form-control input-lg" placeholder="Confirm Password" name="password" value="" type="password" required>
+                            <input class="form-control input-lg" placeholder="Confirm Password" name="password" value="" type="password" th:field="*{password}" required>
                         </div>
                         <div class="form-group">
-                            <select class="form-control input-lg">
-                                <option value="Student">Student</option>
-                                <option value="Supervisor">Supervisor</option>
-                                <option value="Coordinator">Coordinator</option>
+                            <select class="form-control input-lg" th:field="*{role}">
+                                <option th:value="Student" th:text="Student"></option>
+                                <option th:value="Supervisor" th:text="Supervisor"></option>
+                                <option th:value="Coordinator" th:text="Coordinator"></option>
                             </select>
                         </div>
                         <input class="btn btn-lg btn-primary btn-block" value="Register" type="submit">
                     </fieldset>
-                </div>
+                </form>
             </div>
         </div>
     </div>
