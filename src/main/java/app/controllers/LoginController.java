@@ -23,22 +23,15 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPage(@Valid User user, BindingResult bindingResult , Model model ) {
-        System.out.print(user.getUsername());
-        System.out.print(user.getPassword());
-        /*
-        if (bindingResult.hasErrors()) {
-            // if the user credentials are not correct  return the loginForm to
-            //allow the user to enter the username and password correctly
-            return "loginForm";
-        }
+    public String login(@Valid User user, BindingResult bindingResult , Model model ) {
 
-        if (!userService.authenticate(
-                user.getUsername(), user.getPassword())) {
+
+        if (!userService.authenticate(user.getUsername(), user.getPassword())) {
+            // if the user name and passwrod not matching display the loginForm again
             return "/login";
         }
-        */
-        return "redirect:/register";
+        //if the username and password match dispaly user page
+        return "userPage";
     }
 }
 
