@@ -1,3 +1,5 @@
+package app;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,7 +24,7 @@ public class HttpRequestTest {
 
     @Test
     public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-                String.class)).contains("");
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/register",
+                String.class)).contains(" ");
     }
 }

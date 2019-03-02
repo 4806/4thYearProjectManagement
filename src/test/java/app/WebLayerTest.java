@@ -1,3 +1,4 @@
+package app;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -20,7 +21,7 @@ public class WebLayerTest {
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello World")));
+        this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("username")));
     }
 }
