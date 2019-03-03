@@ -28,9 +28,15 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@Valid User user) {
         User temp = userRepository.findByUsername(user.getUsername());
+
+        //Todo: Implement Proper Authentication as a Service
         if (temp == null) {
             return "login";
+        } else if (!temp.getUsername().equals(user.getUsername())) {
+            return "login";
         }
+
+        //Todo: Check if user Passwords match (hashes)
         //if the username and password match display user page
         return "userPage";
     }
