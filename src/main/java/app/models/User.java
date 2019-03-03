@@ -1,6 +1,8 @@
 package app.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -8,6 +10,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Size(min=2, max=30, message = "Username size should be in the range [2...30]")
@@ -21,18 +24,10 @@ public class User {
 
     public User(){}
 
-    public  User(Long id , String username, String password, String role){
-        this.id = id ;
+    public User(@Size(min = 2, max = 30, message = "Username size should be in the range [2...30]") String username, @NotNull @Size(min = 1, max = 50) String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -57,9 +52,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", username='" + username + ", role='" + role +'}'+'"';
     }
 }

@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.models.User;
+import app.models.UserRepository;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,22 +16,22 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("user", new User());
-        return "loginForm";
+        return "login";
     }
 
     @PostMapping("/login")
     public String login(@Valid User user) {
-        if (!userService.authenticate(user.getUsername(), user.getPassword())) {
-            // if the user name and password not matching display the loginForm again
-            return "/login";
+        User temp = userRepository.findByUsername(user.getUsername());
+        if (temp == null) {
+            return "login";
         }
-
         //if the username and password match display user page
         return "userPage";
     }
 }
-
-
