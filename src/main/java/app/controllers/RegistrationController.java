@@ -23,6 +23,6 @@ public class RegistrationController {
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
         userRepository.save(user);
-        return "registration";
+        return "login";
     }
 }

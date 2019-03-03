@@ -10,7 +10,7 @@
 <div class="container py-3">
     <div class="row">
         <div class="col-md-4 mx-auto">
-            <form class="card card-body">
+            <form class="card card-body" th:action="@{/login}" th:object="${user}" method="post">
                 <h3 class="text-center mb-4">Sign in</h3>
                 <fieldset>
                     <div class="form-group">
@@ -18,7 +18,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                             </div>
-                            <input name="" class="form-control input-lg" placeholder="Username" type="text" required>
+                            <input name="" class="form-control input-lg" placeholder="Username" type="text" th:field="*{username}" required>
                         </div> <!-- input-group.// -->
                     </div> <!-- form-group// -->
                     <div class="form-group">
@@ -26,7 +26,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                             </div>
-                            <input class="form-control input-lg" placeholder="Password" type="password" required>
+                            <input class="form-control input-lg" placeholder="Password" type="password" th:field="*{password}" required>
                         </div> <!-- input-group.// -->
                     </div> <!-- form-group// -->
                     <div class="form-group">
