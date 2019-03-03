@@ -1,9 +1,13 @@
 package app.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class User {
+    @Id
     private Long id;
 
     @Size(min=2, max=30, message = "Username size should be in the range [2...30]")

@@ -5,9 +5,8 @@ import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
@@ -15,22 +14,21 @@ import javax.validation.Valid;
 public class LoginController {
     @Autowired
     private UserService userService;
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+
+    @GetMapping("/login")
     public String login(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
         return "loginForm";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@Valid User user, BindingResult bindingResult , Model model ) {
-
-
+    @PostMapping("/login")
+    public String login(@Valid User user) {
         if (!userService.authenticate(user.getUsername(), user.getPassword())) {
-            // if the user name and passwrod not matching display the loginForm again
+            // if the user name and password not matching display the loginForm again
             return "/login";
         }
-        //if the username and password match dispaly user page
+
+        //if the username and password match display user page
         return "userPage";
     }
 }
