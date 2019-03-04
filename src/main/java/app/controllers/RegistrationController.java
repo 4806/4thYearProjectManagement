@@ -22,7 +22,16 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
-        userRepository.save(user);
-        return "login";
+        User temp = userRepository.findByUsername(user.getUsername());
+
+        if(temp == null){
+            userRepository.save(user);
+            return "redirect:login";
+        }
+        else{
+            return "registration";
+        }
+
+
     }
 }

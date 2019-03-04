@@ -8,13 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 
 import javax.validation.Valid;
 
 @Controller
 public class LoginController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
@@ -26,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid User user) {
+    public String login(HttpServletResponse response, @Valid User user) {
         User temp = userRepository.findByUsername(user.getUsername());
 
         //Todo: Implement Proper Authentication as a Service
@@ -37,7 +38,24 @@ public class LoginController {
         }
 
         //Todo: Check if user Passwords match (hashes)
-        //if the username and password match display user page
-        return "userPage";
+        Cookie username = new Cookie("username", user.getUsername());
+        username.setMaxAge(60*60);
+        Cookie role = new Cookie("role", user.getRole());
+        role.setMaxAge(60*60);
+        response.addCookie(username);
+        response.addCookie(role);
+
+        return "redirect:";
+    }
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie username = new Cookie("username", "");
+        username.setMaxAge(0);
+        Cookie role = new Cookie("role", "");
+        role.setMaxAge(0);
+        response.addCookie(username);
+        response.addCookie(role);
+
+        return "redirect:login";
     }
 }
