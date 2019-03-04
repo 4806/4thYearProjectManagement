@@ -25,8 +25,8 @@ public class RegistrationController {
             return "registration";
         }
         else{
-            String referer = request.getHeader("Referer");
-            return "redirect:"+ referer;
+//            String referer = request.getHeader("Referer");
+            return "redirect:";
         }
 
     }

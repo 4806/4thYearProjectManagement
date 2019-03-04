@@ -30,8 +30,8 @@ public class LoginController {
             return "login";
         }
         else{
-            String referer = request.getHeader("Referer");
-            return "redirect:"+ referer;
+//            String referer = request.getHeader("Referer");
+            return "redirect:";
         }
 
     }
