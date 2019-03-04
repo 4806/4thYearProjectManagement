@@ -18,9 +18,17 @@ public class UserService {
         return u_name.equals(username) && pass.equals(password);
     }
 
-    boolean verifyUserRole (String username, String role){
+    public boolean verifyUserRole (String username, String role){
         User user = userRepository.findByUsername(username);
         String dataBase_role = user.getRole();
         return role.equals(dataBase_role);
+    }
+
+    public boolean userExist(String username){
+        if  (userRepository.findByUsername(username) == null){
+            return false;
+        }
+
+        return true;
     }
 }
