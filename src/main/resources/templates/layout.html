@@ -40,17 +40,17 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html" th:href="@{/login}">Login</a>
+                    <a class="nav-link" id="loginLink" href="login.html" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a hidden="true" class="nav-link" id="logoutLink" href="login.html" th:href="@{/logout}">Logout</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="registration.html" th:href="@{/register}">Register</a>
+                    <a class="nav-link" href="registration.html" id="registerLink" th:href="@{/register}">Register</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <form method="post" th:action="@{/logout}">
-        <input type="submit" value="Logout"/>
-    </form>
 
 </header>
 </body>
