@@ -6,10 +6,13 @@ import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
 
 
 import javax.validation.Valid;
@@ -21,9 +24,16 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("user", new User());
-        return "login";
+    public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
+        if(username.equals("noUserCookie")){
+            model.addAttribute("user", new User());
+            return "login";
+        }
+        else{
+            String referer = request.getHeader("Referer");
+            return "redirect:"+ referer;
+        }
+
     }
 
     @PostMapping("/login")
