@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RegistrationController {
+
     @Autowired
     UserRepository userRepository;
 
