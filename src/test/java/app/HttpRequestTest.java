@@ -23,8 +23,8 @@ public class HttpRequestTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void landingShouldReturnDefaultMessage(){
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+    public void registerShouldReturnDefaultMessage(){
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/register",
                 String.class)).contains(" ");
     }
 }

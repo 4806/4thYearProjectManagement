@@ -25,7 +25,7 @@ public class ApplicationTest {
 
     @Test
     public void applicationShouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString(" ")));
     }
 }
