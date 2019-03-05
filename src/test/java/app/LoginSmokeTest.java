@@ -17,7 +17,7 @@ public class LoginSmokeTest {
     private LoginController loginController;
 
     @Test
-    public void contexLoads() throws Exception {
+    public void contextLoads() {
         assertThat(loginController).isNotNull();
     }
 }

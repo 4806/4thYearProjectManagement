@@ -16,7 +16,7 @@ public class RegistrationSmokeTest {
     private RegistrationController regController;
 
     @Test
-    public void contexLoads() throws Exception {
+    public void contextLoads() {
         assertThat(regController).isNotNull();
     }
 }

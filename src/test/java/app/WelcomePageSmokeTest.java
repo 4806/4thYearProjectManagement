@@ -17,7 +17,7 @@ public class WelcomePageSmokeTest {
     private WelcomePageController welcomeController;
 
     @Test
-    public void contexLoads() throws Exception {
+    public void contextLoads() {
         assertThat(welcomeController).isNotNull();
     }
 }
