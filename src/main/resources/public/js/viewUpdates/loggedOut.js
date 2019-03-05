@@ -1,0 +1,2 @@
+
+$("#logoutLink").hide()

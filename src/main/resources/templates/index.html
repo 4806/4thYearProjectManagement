@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <head th:include="layout :: site-head">
-        <title id="pageTitle">Welcome</title>
-    </head>
-<body>
-<header th:replace="layout :: site-header"></header>
 
-<div class="mt-5">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <h1>Welcome to the 4th Year Project Management System</h1>
+<div th:fragment="index">
+    <div class="mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h1>Welcome to the 4th Year Project Management System</h1>
+            </div>
         </div>
     </div>
 </div>

@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="layout :: site-head">
-    <title id="pageTitle">User Registration</title>
-</head>
-<body class="bg-light">
-    <header th:replace="layout :: site-header" />	
+
+<div th:fragment="registration">
     <div class="container-fluid bg-light py-3">
         <div class="row">
             <div class="col-md-4 mx-auto">
@@ -34,6 +31,4 @@
         </div>
     </div>
 </div>
-</header>
-</body>
 </html>

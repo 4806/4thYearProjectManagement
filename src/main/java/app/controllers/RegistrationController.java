@@ -22,7 +22,8 @@ public class RegistrationController {
 
         if(username.equals("noUserCookie")){
             model.addAttribute("user", new User());
-            return "registration";
+            model.addAttribute("view", "registration");
+            return "layout";
         }
         else{
 //            String referer = request.getHeader("Referer");
@@ -32,7 +33,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
+    public String register(@ModelAttribute User user, Model model) {
         User temp = userRepository.findByUsername(user.getUsername());
 
         if(temp == null){
@@ -40,7 +41,8 @@ public class RegistrationController {
             return "redirect:login";
         }
         else{
-            return "registration";
+            model.addAttribute("view", "registration");
+            return "layout";
         }
 
 
