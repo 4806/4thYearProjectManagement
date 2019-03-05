@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="site-head">
-    <title th:include=":: #pageTitle">Layout Generic Title </title>
+    <title id="pageTitle">Layout Generic Title </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -39,19 +39,39 @@
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html" th:href="@{/login}">Login</a>
+                <li class="nav-item active">
+                    <a class="nav-link" id="loginLink" href="login.html" th:href="@{/login}">Login</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="registration.html" th:href="@{/register}">Register</a>
+                    <a class="nav-link" id="registrationLink" href="registration.html" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" id="logoutLink" href="registration.html" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <form method="post" th:action="@{/logout}">
-        <input type="submit" value="Logout"/>
-    </form>
+
 
 </header>
+
+<td th:switch="${view}">
+    <span th:case="'registration'">
+        <script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>
+        <script> $("#pageTitle").html("Register"); </script>
+        <div th:replace="registration"/>
+    </span>
+    <span th:case="'login'">
+        <script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>
+        <script> $("#pageTitle").html("Login"); </script>
+        <div th:replace="login"/>
+    </span>
+    <div th:case="'index'">
+        <script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>
+        <script> $("#pageTitle").html("4th Year Project"); </script>
+        <div th:replace="index"/>
+    </div>
+</td>
+
 </body>
 </html>
