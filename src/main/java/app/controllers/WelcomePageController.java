@@ -4,12 +4,16 @@ import app.models.User;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import app.models.UserRepository;
 import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.Map;
 
 @Controller
 public class WelcomePageController{
@@ -22,7 +26,7 @@ public class WelcomePageController{
     private UserRepository userRepository;
 
     @RequestMapping("/")
-    public String welcome(@CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletResponse response) {
+    public String welcome(@CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletResponse response, Model model){
 
         if(username.equals("noUserCookie")){
             return "redirect:login";
@@ -39,6 +43,7 @@ public class WelcomePageController{
             return "redirect:login";
         }
 
-        return "index";
+        model.addAttribute("view", "index");
+        return "layout";
     }
 }

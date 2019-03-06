@@ -1,0 +1,3 @@
+
+$("#loginLink").hide()
+$("#registrationLink").hide()

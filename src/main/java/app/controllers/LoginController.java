@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,8 @@ public class LoginController {
     public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
         if(username.equals("noUserCookie")){
             model.addAttribute("user", new User());
-            return "login";
+            model.addAttribute("view", "login");
+            return "layout";
         }
         else{
 //            String referer = request.getHeader("Referer");
@@ -37,14 +39,15 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(HttpServletResponse response, @Valid User user) {
+    public String login(HttpServletResponse response, @Valid User user, Model model) {
         User temp = userRepository.findByUsername(user.getUsername());
 
         //Todo: Implement Proper Authentication as a Service
+        model.addAttribute("view", "login");
         if (temp == null) {
-            return "login";
+            return "layout";
         } else if (!temp.getUsername().equals(user.getUsername())) {
-            return "login";
+            return "layout";
         }
 
         //Todo: Check if user Passwords match (hashes)
@@ -57,7 +60,8 @@ public class LoginController {
 
         return "redirect:";
     }
-    @PostMapping("/logout")
+
+    @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie username = new Cookie("username", "");
         username.setMaxAge(0);
