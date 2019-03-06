@@ -12,6 +12,11 @@ We will also inspect the README file, the Issues, the Kanban, the code reviews, 
 verify that everybody is participating in all aspects of the project (if that is not the case, different team
 members will end up with different grades).
 
+### Completed in Milestone 1 : 
+ - PM-4: Use Case 1 : User Registration
+ - PM-11: Use Case 2 : User Login
+ - Use Case 3 : Display a Welcome Page when logged in
+
 ## Milestone 2: Alpha Release. Give a 10-15 minute demo during the lab March 20
 For the alpha release your system should be somewhat usable, although not feature-complete. This
 means that a user should be able to use several related features of the app and do something reasonably
