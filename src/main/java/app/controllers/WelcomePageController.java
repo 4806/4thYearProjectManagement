@@ -43,6 +43,8 @@ public class WelcomePageController{
             return "redirect:login";
         }
 
+
+        model.addAttribute("user", temp);
         model.addAttribute("view", "index");
         return "layout";
     }
