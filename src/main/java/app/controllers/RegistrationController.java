@@ -27,7 +27,6 @@ public class RegistrationController {
             return "layout";
         }
         else{
-//            String referer = request.getHeader("Referer");
             return "redirect:";
         }
 
@@ -43,7 +42,8 @@ public class RegistrationController {
                 return "redirect:login";
             }
             else{
-                return "registration";
+                model.addAttribute("view", "registration");
+                return "layout";
             }
 
         }

@@ -34,7 +34,6 @@ public class LoginController {
             return "layout";
         }
         else{
-//            String referer = request.getHeader("Referer");
             return "redirect:";
         }
 
@@ -42,7 +41,7 @@ public class LoginController {
 
     @PostMapping("/login")
 
-    public String login(HttpServletResponse response, @Valid User user) {
+    public String login(Model model, HttpServletResponse response, @Valid User user) {
 
         if(userService.authenticate(user.getUsername(), user.getPassword())){
             Cookie username = new Cookie("username", user.getUsername());
@@ -56,7 +55,8 @@ public class LoginController {
         }
 
         else{
-            return "login";
+            model.addAttribute("view", "login");
+            return "layout";
         }
 
     }
