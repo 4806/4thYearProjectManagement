@@ -55,7 +55,7 @@
 
 </header>
 
-<td th:switch="${view}">
+<td th:switch="${view}" th:object="${user}">
     <span th:case="'registration'">
         <script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>
         <script> $("#pageTitle").html("Register"); </script>
@@ -70,6 +70,7 @@
         <script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>
         <script> $("#pageTitle").html("4th Year Project"); </script>
         <div th:replace="index"/>
+        <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span th:text="${user.username}"/>, you are a <span th:text="${user.role}"/>!</p>
     </div>
 </td>
 
