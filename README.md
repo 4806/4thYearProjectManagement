@@ -16,6 +16,25 @@ members will end up with different grades).
  - PM-4: Use Case 1 : User Registration
  - PM-11: Use Case 2 : User Login
  - Use Case 3 : Display a Welcome Page when logged in
+ 
+### Milestone 2 : Plan
+ - Convert identity and access control to Spring Security
+ - General backlog from M1
+ - Create Projects use case
+ - Delete Projects use Case
+ - Archive Projects use Case
+ - Unarchive Project use case
+ - Describe Project use Case
+ - Join Project use Case
+ 
+### Milestone 1 Schema : 
+
+## User
+   id
+   username
+   password
+   confPassword
+   role
 
 ## Milestone 2: Alpha Release. Give a 10-15 minute demo during the lab March 20
 For the alpha release your system should be somewhat usable, although not feature-complete. This
