@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,8 @@ public class LoginController {
     public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
         if(username.equals("noUserCookie")){
             model.addAttribute("user", new User());
-            return "login";
+            model.addAttribute("view", "login");
+            return "layout";
         }
         else{
 //            String referer = request.getHeader("Referer");
@@ -39,6 +41,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
+
     public String login(HttpServletResponse response, @Valid User user) {
 
         if(userService.authenticate(user.getUsername(), user.getPassword())){
@@ -57,7 +60,8 @@ public class LoginController {
         }
 
     }
-    @PostMapping("/logout")
+
+    @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie username = new Cookie("username", "");
         username.setMaxAge(0);
