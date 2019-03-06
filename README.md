@@ -30,11 +30,11 @@ members will end up with different grades).
 ### Milestone 1 Schema : 
 
 ## User
-   id
-   username
-   password
-   confPassword
-   role
+  - id   
+  - username
+  - password
+  - confPassword
+  - role
 
 ## Milestone 2: Alpha Release. Give a 10-15 minute demo during the lab March 20
 For the alpha release your system should be somewhat usable, although not feature-complete. This
