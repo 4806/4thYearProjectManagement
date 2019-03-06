@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 
-
 import javax.validation.Valid;
 
 @Controller
@@ -23,6 +22,9 @@ public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login")
     public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
@@ -32,33 +34,31 @@ public class LoginController {
             return "layout";
         }
         else{
-//            String referer = request.getHeader("Referer");
             return "redirect:";
         }
 
     }
 
     @PostMapping("/login")
-    public String login(HttpServletResponse response, @Valid User user, Model model) {
-        User temp = userRepository.findByUsername(user.getUsername());
 
-        //Todo: Implement Proper Authentication as a Service
-        model.addAttribute("view", "login");
-        if (temp == null) {
-            return "layout";
-        } else if (!temp.getUsername().equals(user.getUsername())) {
+    public String login(Model model, HttpServletResponse response, @Valid User user) {
+
+        if(userService.authenticate(user.getUsername(), user.getPassword())){
+            Cookie username = new Cookie("username", user.getUsername());
+            username.setMaxAge(60*60);
+            Cookie role = new Cookie("role", user.getRole());
+            role.setMaxAge(60*60);
+            response.addCookie(username);
+            response.addCookie(role);
+            return "redirect:";
+
+        }
+
+        else{
+            model.addAttribute("view", "login");
             return "layout";
         }
 
-        //Todo: Check if user Passwords match (hashes)
-        Cookie username = new Cookie("username", user.getUsername());
-        username.setMaxAge(60*60);
-        Cookie role = new Cookie("role", user.getRole());
-        role.setMaxAge(60*60);
-        response.addCookie(username);
-        response.addCookie(role);
-
-        return "redirect:";
     }
 
     @GetMapping("/logout")
