@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 
-
 import javax.validation.Valid;
 
 @Controller
@@ -22,6 +21,9 @@ public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login")
     public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
@@ -38,24 +40,22 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(HttpServletResponse response, @Valid User user) {
-        User temp = userRepository.findByUsername(user.getUsername());
 
-        //Todo: Implement Proper Authentication as a Service
-        if (temp == null) {
-            return "login";
-        } else if (!temp.getUsername().equals(user.getUsername())) {
+        if(userService.authenticate(user.getUsername(), user.getPassword())){
+            Cookie username = new Cookie("username", user.getUsername());
+            username.setMaxAge(60*60);
+            Cookie role = new Cookie("role", user.getRole());
+            role.setMaxAge(60*60);
+            response.addCookie(username);
+            response.addCookie(role);
+            return "redirect:";
+
+        }
+
+        else{
             return "login";
         }
 
-        //Todo: Check if user Passwords match (hashes)
-        Cookie username = new Cookie("username", user.getUsername());
-        username.setMaxAge(60*60);
-        Cookie role = new Cookie("role", user.getRole());
-        role.setMaxAge(60*60);
-        response.addCookie(username);
-        response.addCookie(role);
-
-        return "redirect:";
     }
     @PostMapping("/logout")
     public String logout(HttpServletResponse response) {

@@ -18,9 +18,12 @@ public class UserLoginService implements UserService {
     public boolean authenticate(String username, String password) {
         // check username and password
          User user = userRepository.findByUsername(username);
+         if(user == null){
+             return false;
+         }
          String u_name = user.getUsername();
          String pass = user.getPassword();
-        return u_name.equals(username) && pass.equals(password);
+         return u_name.equals(username) && pass.equals(password);
     }
 
 }

@@ -22,11 +22,14 @@ public class User {
 
     private String role;
 
+    private String confPassword;
+
     public User(){}
 
     public User(@Size(min = 2, max = 30, message = "Username size should be in the range [2...30]") String username, @NotNull @Size(min = 1, max = 50) String password, String role) {
         this.username = username;
         this.password = password;
+        this.confPassword = confPassword;
         this.role = role;
     }
 
@@ -52,5 +55,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getConfPassword() {
+        return confPassword;
+    }
+
+    public void setConfPassword(String pw){
+        this.confPassword = pw;
     }
 }

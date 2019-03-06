@@ -37,8 +37,14 @@ public class RegistrationController {
         User temp = userRepository.findByUsername(user.getUsername());
 
         if(temp == null){
-            userRepository.save(user);
-            return "redirect:login";
+            if(user.getPassword().equals(user.getConfPassword())){
+                userRepository.save(user);
+                return "redirect:login";
+            }
+            else{
+                return "registration";
+            }
+
         }
         else{
             return "registration";
