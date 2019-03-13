@@ -5,7 +5,7 @@ public class Student extends User {
     private Program program;
 
     public Student(String username, String password, Program program) {
-        super(username, password, "student");
+        super(username, password, Role.STUDENT);
         this.program = program;
     }
 

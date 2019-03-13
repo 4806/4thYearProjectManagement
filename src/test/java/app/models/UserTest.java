@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UserTest {
-    User user = new User("JaneDoe","Hashedpassword1%","Student");
+    User user = new User("JaneDoe","Hashedpassword1%", User.Role.STUDENT);
 
     @Test
     public void getUsername() {
@@ -38,7 +38,7 @@ public class UserTest {
 
     @Test
     public void setRole() {
-        user.setRole("Teacher");
-        assertEquals("Teacher",user.getRole());
+        user.setRole(User.Role.SUPERVISOR);
+        assertEquals(User.Role.SUPERVISOR,user.getRole());
     }
 }
