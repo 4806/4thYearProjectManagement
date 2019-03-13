@@ -32,7 +32,7 @@ public class UserTest {
 
     @Test
     public void getRole() {
-        assertEquals("Student",user.getRole());
+        assertEquals(User.Role.STUDENT, user.getRole());
 
     }
 
