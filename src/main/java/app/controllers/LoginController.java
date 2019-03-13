@@ -46,10 +46,10 @@ public class LoginController {
         if(userService.authenticate(user.getUsername(), user.getPassword())){
             Cookie username = new Cookie("username", user.getUsername());
             username.setMaxAge(60*60);
-            Cookie role = new Cookie("role", user.getRole());
-            role.setMaxAge(60*60);
+            //Cookie role = new Cookie("role", user.getRole());
+            //role.setMaxAge(60*60);
             response.addCookie(username);
-            response.addCookie(role);
+            //response.addCookie(role);
             return "redirect:";
 
         }
