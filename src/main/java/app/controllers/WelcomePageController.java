@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import app.models.UserRepository;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class WelcomePageController{
     public String welcome(@CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletResponse response, Model model){
 
         if(username.equals("noUserCookie")){
-            return "redirect:login";
+            return "layout";
         }
 
         User temp = userRepository.findByUsername(username);
@@ -40,7 +41,7 @@ public class WelcomePageController{
             role.setMaxAge(0);
             response.addCookie(user);
             response.addCookie(role);
-            return "redirect:login";
+            return "layout";
         }
 
 
