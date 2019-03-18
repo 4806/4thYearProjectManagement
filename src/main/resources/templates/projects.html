@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<table cellspacing="10">
+    <thead>
+    <tr>
+        <th> Title </th>
+        <th> Descrpition </th>'
+        <th> Number of students </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${project.empty}">
+        <td colspan="2"> No Projects Available </td>
+    </tr>
+    <tr th:each="proj : ${project}">
+        <td ><p th:text="${proj.getName()}">Title</p></td>
+        <td ><p th:text="${proj.getDescription()}">Descrpition</p></td>
+        <td><p th:text="${proj.getNumberStudents()}">Number of students</p></td>
+
+
+    </tr>
+    <tr th:lo>
+
+    </tr>
+    </tbody>
+</table>
+
+</html>

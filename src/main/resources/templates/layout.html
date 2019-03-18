@@ -18,10 +18,10 @@
                     <a class="nav-link" href="index.html" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="projects.html" th:href="@{#}">Projects</a>
+                    <a class="nav-link" href="projects.html" th:href="@{/projects}">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="request.html" th:href="@{#}">Request Project</a>
+                    <a class="nav-link" href="request.html" th:href="@{/request}">Request Project</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.html" th:href="@{#}">Profile</a>
@@ -66,6 +66,14 @@
         <script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>
         <script> $("#pageTitle").html("Login"); </script>
         <div th:replace="login"/>
+    </span>
+    <!--<span th:case="'request'">-->
+        <!--<script> $("#pageTitle").html("Request Project"); </script>-->
+        <!--<div th:replace="request"/>-->
+    <!--</span>-->
+    <span th:case="'projects'">
+        <script> $("#pageTitle").html("Projects List"); </script>
+        <div th:replace="projects"/>
     </span>
     <div th:case="'index'">
         <script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>
