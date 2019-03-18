@@ -6,10 +6,8 @@ import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +28,9 @@ public class LoginController {
     public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
         if(username.equals("noUserCookie")){
             model.addAttribute("user", new User());
-            model.addAttribute("view", "login");
+            //model.addAttribute("view", "login");
+            model.addAttribute("loggedIn", true);
+
             return "layout";
         }
         else{
@@ -55,12 +55,13 @@ public class LoginController {
         }
 
         else{
-            model.addAttribute("view", "login");
-            return "layout";
+            model.addAttribute("loggedIn", true);
+            return "redirect:";
         }
 
     }
 
+    @ResponseBody
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie username = new Cookie("username", "");
@@ -69,7 +70,6 @@ public class LoginController {
         role.setMaxAge(0);
         response.addCookie(username);
         response.addCookie(role);
-
-        return "redirect:login";
+        return "";
     }
 }

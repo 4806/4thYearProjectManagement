@@ -3,32 +3,29 @@ $( document ).ready(function() {
     console.log("refreshed");
 
     $("#loginLink").click(function () {
-        console.log("working");
+        console.log("calling GET_login");
         GET_login();
     });
 
     $("#registrationLink").click(function () {
-        console.log("working");
+        console.log("calling GET_register");
         GET_register();
     });
 
     $("#logoutLink").click(function () {
-        console.log("working");
-        GET_index();
+        console.log("calling GET_logout");
+        GET_logout();
     });
 
 
+//    $("#loginSubmit").click(function () {
+//        console.log("calling GET_index");
+//        GET_index();
+//    });
 
 
 })
 
-//.attr("hidden", false)
-
-    // $("#search-form").submit(function (event) {
-    //     //stop submit the form, we will post it manually.
-    //     event.preventDefault();
-    //     fire_ajax_submit();
-    // });
 
 
 function GET_login(){
@@ -37,6 +34,16 @@ function GET_login(){
         url: 'http://localhost:8081/login',
     }).then(function(data){
         console.log("LOGIN", data)
+        displayLogin()
+    })
+}
+
+function GET_logout(){
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8081/logout',
+    }).then(function(data){
+        console.log("LOGOUT", data)
         displayLogin()
     })
 }
@@ -63,11 +70,9 @@ function GET_index(){
 }
 
 function displayLogin(){
-    // $("#loginComponent").attr("hidden", false)
-    // $("#registerComponent").attr("hidden", true)
-    // $("#indexComponent").attr("hidden", true)
-    $("#bodyComponent").replaceWith("login.html");
-    console.log("should have replaced")
+    $("#loginComponent").attr("hidden", false)
+    $("#registerComponent").attr("hidden", true)
+    $("#indexComponent").attr("hidden", true)
     loggedOut()
 }
 
@@ -82,7 +87,7 @@ function displayIndex(){
     $("#loginComponent").attr("hidden", true)
     $("#registerComponent").attr("hidden", true)
     $("#indexComponent").attr("hidden", false)
-    loggedOut()
+    loggedIn()
 }
 
 function loggedIn(){

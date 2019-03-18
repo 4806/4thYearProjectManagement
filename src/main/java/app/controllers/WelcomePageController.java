@@ -29,7 +29,10 @@ public class WelcomePageController{
     @RequestMapping("/")
     public String welcome(@CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletResponse response, Model model){
 
+        model.addAttribute("user", new User());
+
         if(username.equals("noUserCookie")){
+            model.addAttribute("loggedIn", false); // if not logged in, go to login screen
             return "layout";
         }
 
@@ -41,12 +44,14 @@ public class WelcomePageController{
             role.setMaxAge(0);
             response.addCookie(user);
             response.addCookie(role);
+            model.addAttribute("loggedIn", false); // if not logged in, go to login screen
             return "layout";
         }
 
 
         model.addAttribute("user", temp);
         model.addAttribute("view", "index");
+        model.addAttribute("loggedIn", true); // if not logged in, go to login screen
         return "layout";
     }
 }

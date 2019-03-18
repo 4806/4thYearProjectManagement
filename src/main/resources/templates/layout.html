@@ -86,18 +86,34 @@
 <script type="text/javascript" src="js/ajax/RESTListeners.js"> </script>
 
 
-<div id="bodyComponent"></div>
-
-
-<div id="registerComponent" hidden>
+<div id="components">
+    <p> components under here</p>
+<div id="registerComponent" hidden> <p> reg </p>
     <div th:replace="registration"></div>
 </div>
-<div id="loginComponent" hidden>
+<div id="loginComponent" hidden> <p> log </p>
     <div th:replace="login"></div>
 </div>
-<div id="indexComponent" hidden>
+<div id="indexComponent" hidden> <p> ind </p>
     <div th:replace="index"></div>
 </div>
+    <p> components above here</p>
+</div>
+
+
+<td th:switch="${loggedIn}">
+
+    <span th:case="false">
+        <script> $("#loginComponent").attr("hidden", false); </script>
+        <script type="text/javascript" src="js/viewUpdates/navBarLoggedOut.js"> </script>
+    </span>
+
+    <span th:case="true">
+        <script> $("#indexComponent").attr("hidden", false); </script>
+        <script type="text/javascript" src="js/viewUpdates/navBarLoggedIn.js"> </script>
+    </span>
+
+</td>
 
 </body>
 </html>
