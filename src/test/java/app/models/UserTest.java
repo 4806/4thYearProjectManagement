@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UserTest {
-    User user = new User("JaneDoe","Hashedpassword1%", User.Role.STUDENT);
+    User user = new User("JaneDoe","Hashedpassword1%", "Hashedpassword1%", User.Role.STUDENT);
 
     @Test
     public void getUsername() {
