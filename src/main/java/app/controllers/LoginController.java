@@ -27,10 +27,15 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String login(Model model, HttpServletRequest request) {
-        model.addAttribute("user", new User());
-        model.addAttribute("view", "login");
-        return "layout";
+    public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
+        if(username.equals("noUserCookie")){
+            model.addAttribute("user", new User());
+            model.addAttribute("view", "login");
+            return "layout";
+        }
+        else{
+            return "redirect:";
+        }
 
     }
 
@@ -38,32 +43,32 @@ public class LoginController {
 
     public String login(Model model, HttpServletResponse response, @Valid User user) {
 
-//        if(userService.authenticate(user.getUsername(), user.getPassword())){
-//            Cookie username = new Cookie("username", user.getUsername());
-//            username.setMaxAge(60*60);
-//            //Cookie role = new Cookie("role", user.getRole());
-//            //role.setMaxAge(60*60);
-//            response.addCookie(username);
-//            //response.addCookie(role);
-//            return "redirect:";
-//
-//        }
-//
-//        else{
-        model.addAttribute("view", "login");
-        return "layout";
-//        }
+        if(userService.authenticate(user.getUsername(), user.getPassword())){
+            Cookie username = new Cookie("username", user.getUsername());
+            username.setMaxAge(60*60);
+            //Cookie role = new Cookie("role", user.getRole());
+            //role.setMaxAge(60*60);
+            response.addCookie(username);
+            //response.addCookie(role);
+            return "redirect:";
+
+        }
+
+        else{
+            model.addAttribute("view", "login");
+            return "layout";
+        }
 
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
-//        Cookie username = new Cookie("username", "");
-//        username.setMaxAge(0);
-//        Cookie role = new Cookie("role", "");
-//        role.setMaxAge(0);
-//        response.addCookie(username);
-//        response.addCookie(role);
+        Cookie username = new Cookie("username", "");
+        username.setMaxAge(0);
+        Cookie role = new Cookie("role", "");
+        role.setMaxAge(0);
+        response.addCookie(username);
+        response.addCookie(role);
 
         return "redirect:login";
     }

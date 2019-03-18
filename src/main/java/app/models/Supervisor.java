@@ -6,8 +6,8 @@ public class Supervisor extends User {
     //List of projects supervised by this supervisor
     private ArrayList<Project> projects;
 
-    public Supervisor(String username, String password, String confPassword, ArrayList<Project> projects) {
-        super(username, password, confPassword, Role.SUPERVISOR);
+    public Supervisor(String username, String password, ArrayList<Project> projects) {
+        super(username, password, Role.SUPERVISOR);
         this.projects = projects;
     }
 
