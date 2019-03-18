@@ -1,22 +1,21 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Entity
+@Table(name="user", schema = "projectmanagement")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "username")
     @Size(min=2, max=30, message = "Username size should be in the range [2...30]")
     private String username;
 
+    @Column(name = "password")
     @NotNull
     @Size(min=1, max=50)
     private String password;
@@ -25,8 +24,10 @@ public class User {
         STUDENT, SUPERVISOR, COORDINATOR
     }
 
+    @Column(name = "role")
     private Role role;
 
+    @Column(name = "confPassword")
     private String confPassword;
 
     public User(){}

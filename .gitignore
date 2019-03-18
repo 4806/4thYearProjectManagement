@@ -27,3 +27,5 @@
 
 # Build Specific
 /target
+
+.idea/dataSources/
