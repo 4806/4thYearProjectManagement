@@ -1,3 +1,3 @@
-$("#loginLink").attr("hidden", false)
-$("#registrationLink").attr("hidden", false)
+$("#loginLink").show()
+$("#registrationLink").show()
 $("#logoutLink").hide()

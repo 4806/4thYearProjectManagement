@@ -33,7 +33,7 @@ function GET_login(){
         type: 'GET',
         url: 'http://localhost:8081/login',
     }).then(function(data){
-        console.log("LOGIN", data)
+        console.log("LOGIN")
         displayLogin()
     })
 }
@@ -43,7 +43,7 @@ function GET_logout(){
         type: 'GET',
         url: 'http://localhost:8081/logout',
     }).then(function(data){
-        console.log("LOGOUT", data)
+        console.log("LOGOUT")
         displayLogin()
     })
 }
@@ -54,7 +54,7 @@ function GET_register(){
         url: 'http://localhost:8081/register',
 
     }).then(function(data){
-        console.log("REGISTER", data)
+        console.log("REGISTER")
         displayRegister()
     })
 }
@@ -64,7 +64,7 @@ function GET_index(){
         type: 'GET',
         url: 'http://localhost:8081/',
     }).then(function(data){
-        console.log("INDEX", data)
+        console.log("INDEX")
         displayIndex()
     })
 }
@@ -93,11 +93,11 @@ function displayIndex(){
 function loggedIn(){
     $("#loginLink").hide()
     $("#registrationLink").hide()
-    $("#logoutLink").attr("hidden", false)
+    $("#logoutLink").show()
 }
 
 function loggedOut() {
-    $("#loginLink").attr("hidden", false)
-    $("#registrationLink").attr("hidden", false)
+    $("#loginLink").show()
+    $("#registrationLink").show()
     $("#logoutLink").hide()
 }
