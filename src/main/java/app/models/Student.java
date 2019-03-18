@@ -4,8 +4,8 @@ public class Student extends User {
     //Program this Student belongs to
     private Program program;
 
-    public Student(String username, String password, Program program) {
-        super(username, password, Role.STUDENT);
+    public Student(String username, String password,String confPassword, Program program) {
+        super(username, password,confPassword, Role.STUDENT);
         this.program = program;
     }
 

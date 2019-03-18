@@ -26,25 +26,25 @@ public class WelcomePageController{
     private UserRepository userRepository;
 
     @RequestMapping("/")
-    public String welcome(@CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletResponse response, Model model){
+    public String welcome(HttpServletResponse response, Model model){
 
-        if(username.equals("noUserCookie")){
-            return "redirect:login";
-        }
+//        if(username.equals("noUserCookie")){
+//            return "redirect:login";
+//        }
+//
+//        User temp = userRepository.findByUsername(username);
+//        if (temp == null) {
+//            Cookie user = new Cookie("username", "");
+//            user.setMaxAge(0);
+//            Cookie role = new Cookie("role", "");
+//            role.setMaxAge(0);
+//            response.addCookie(user);
+//            response.addCookie(role);
+//            return "redirect:login";
+//        }
 
-        User temp = userRepository.findByUsername(username);
-        if (temp == null) {
-            Cookie user = new Cookie("username", "");
-            user.setMaxAge(0);
-            Cookie role = new Cookie("role", "");
-            role.setMaxAge(0);
-            response.addCookie(user);
-            response.addCookie(role);
-            return "redirect:login";
-        }
 
-
-        model.addAttribute("user", temp);
+//        model.addAttribute("user", t);
         model.addAttribute("view", "index");
         return "layout";
     }
