@@ -3,6 +3,9 @@ package app.controllers;
 import app.models.User;
 import app.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -24,6 +27,14 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String register(Model model, HttpServletRequest request) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+
+            /* The user is logged in :) */
+            return "redirect:";
+        }
 
         model.addAttribute("user", new User());
         model.addAttribute("view", "registration");
