@@ -14,28 +14,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Size(min=2, max=30, message = "Username size should be in the range [2...30]")
     private String username;
 
     @NotNull
+    @Size(min=1, max=50)
     private String password;
 
-//    @NotNull
     protected enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
     }
-//    @NotNull
+
     private Role role;
-//    @NotNull
+
     private String confPassword;
 
     public User(){}
 
-    public User(@Size(min = 2, max = 30, message = "Username size should be in the range [2...30]") String username, @NotNull @Size(min = 1, max = 50) String password, String confPassword, Role role) {
+    public User(@Size(min = 2, max = 30, message = "Username size should be in the range [2...30]") String username, @NotNull @Size(min = 1, max = 50) String password, Role role) {
         this.username = username;
         this.password = password;
         this.confPassword = confPassword;
-//        this.role = Role.valueOf(role);
         this.role = role;
     }
 
@@ -57,10 +56,6 @@ public class User {
 
     public Role getRole() {
         return role;
-    }
-
-    public String getRoleValue(){
-        return role.name();
     }
 
     public void setRole(Role role) {
