@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @Configuration
-public class leafConfig {
+public class LeafConfig {
 
     @Bean
     public SpringSecurityDialect springSecurityDialect(){
