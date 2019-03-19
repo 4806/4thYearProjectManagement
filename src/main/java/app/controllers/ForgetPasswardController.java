@@ -27,6 +27,7 @@ public class ForgetPasswardController {
     @RequestMapping(value = "/forgot",method = RequestMethod.POST)
     public String processPasswordForm(@ModelAttribute User user, Model model ){
         String  username = user.getUsername();
+        System.out.print(username);
          User DBuser = userRepository.findByUsername(username);
          if (DBuser ==null) {
              // user do not have an account
@@ -42,7 +43,8 @@ public class ForgetPasswardController {
     @RequestMapping(value ="/reset",method = RequestMethod.GET)
     public String dispalyresetPasswordForm(Model model){
         model.addAttribute("user", new User());
-        return "resetPassword";
+        model.addAttribute("view", "resetPassword");
+        return "layout";
     }
     @RequestMapping(value = "/reset",method = RequestMethod.POST)
     public String processResetPasswordForm(@ModelAttribute User user){
@@ -50,7 +52,7 @@ public class ForgetPasswardController {
             userRepository.save(user);
             return "redirect:login";
         }
-        return "resetPassword";
+        return "redirect:login";
     }
 
 }
