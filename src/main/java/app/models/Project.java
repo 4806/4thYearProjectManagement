@@ -1,10 +1,11 @@
 package app.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Project {
+public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,9 +16,12 @@ public class Project {
     //Maximum Number of students
     private int numberStudents;
 
+    // Increased Column Size due to serialized objects
+    @Column(length=1024)
     private Supervisor supervisor;
 
     //Current Students participating in Project
+    @Column(length=1024)
     private ArrayList<Student> students;
 
     //Required Program for Students Participating
