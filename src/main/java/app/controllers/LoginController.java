@@ -4,6 +4,9 @@ import app.models.User;
 import app.models.UserRepository;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -27,15 +30,19 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String login(Model model, @CookieValue(name="username", defaultValue = "noUserCookie") String username, HttpServletRequest request) {
-        if(username.equals("noUserCookie")){
-            model.addAttribute("user", new User());
-            model.addAttribute("view", "login");
-            return "layout";
-        }
-        else{
+    public String login(Model model, HttpServletRequest request) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+
+            /* The user is logged in :) */
             return "redirect:";
         }
+
+        model.addAttribute("user", new User());
+        model.addAttribute("view", "login");
+        return "layout";
 
     }
 
@@ -44,12 +51,7 @@ public class LoginController {
     public String login(Model model, HttpServletResponse response, @Valid User user) {
 
         if(userService.authenticate(user.getUsername(), user.getPassword())){
-            Cookie username = new Cookie("username", user.getUsername());
-            username.setMaxAge(60*60);
-            //Cookie role = new Cookie("role", user.getRole());
-            //role.setMaxAge(60*60);
-            response.addCookie(username);
-            //response.addCookie(role);
+            model.addAttribute("view", "index" );
             return "redirect:";
 
         }
@@ -63,12 +65,6 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
-        Cookie username = new Cookie("username", "");
-        username.setMaxAge(0);
-        Cookie role = new Cookie("role", "");
-        role.setMaxAge(0);
-        response.addCookie(username);
-        response.addCookie(role);
 
         return "redirect:login";
     }
