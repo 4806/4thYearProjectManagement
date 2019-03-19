@@ -5,9 +5,6 @@ import app.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.PrivateKey;
-import java.util.Objects;
-
 @Service
 public class UserLoginService implements UserService {
 
