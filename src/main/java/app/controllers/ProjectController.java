@@ -14,10 +14,10 @@ import java.util.List;
 @Controller
 public class ProjectController {
 
-    @GetMapping("/request")
+    @GetMapping("/createProject")
     public String request(Model model) {
 
-        model.addAttribute("view", "request");
+        model.addAttribute("view", "createProject");
         return "layout";
     }
 
@@ -60,6 +60,15 @@ public class ProjectController {
         Project project2 = new Project("Title Project", "Description Project", 65, null, null, programArrayList);
 
         List<Project> list = new ArrayList<Project>();
+        list.add(project);
+        list.add(project1);
+        list.add(project2);
+        list.add(project);
+        list.add(project1);
+        list.add(project2);
+        list.add(project);
+        list.add(project1);
+        list.add(project2);
         list.add(project);
         list.add(project1);
         list.add(project2);
