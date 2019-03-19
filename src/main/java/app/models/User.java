@@ -20,7 +20,7 @@ public class User {
     @NotNull
     private String password;
 
-    protected enum Role {
+    public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
     }
 
