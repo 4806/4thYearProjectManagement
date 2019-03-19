@@ -1,10 +1,9 @@
 package app.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +34,10 @@ public class Project {
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+    }
+
+    public Project() {
+
     }
 
     public String getName() {
