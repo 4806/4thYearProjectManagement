@@ -1,4 +1,4 @@
-package app.repositories;
+package app.models;
 
 import app.models.User;
 import org.springframework.stereotype.Repository;
