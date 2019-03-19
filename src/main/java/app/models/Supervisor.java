@@ -11,6 +11,15 @@ public class Supervisor extends User {
         this.projects = projects;
     }
 
+    public Supervisor(String username, String password, String confPassword){
+        super(username, password, confPassword, Role.SUPERVISOR);
+        this.projects = new ArrayList<Project>();
+    }
+
+    public void addProject(Project project){
+        this.projects.add(project);
+    }
+
     public ArrayList<Project> getProjects() {
         return projects;
     }
