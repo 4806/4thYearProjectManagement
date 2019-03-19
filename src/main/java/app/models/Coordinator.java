@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Coordinator extends User {
     private ArrayList<Program> programs;
 
-    public Coordinator(String username, String password, ArrayList<Program> programs) {
-        super(username, password, Role.COORDINATOR);
+    public Coordinator(String username, String password, String confPassword, ArrayList<Program> programs) {
+        super(username, password, confPassword, Role.COORDINATOR);
         this.programs = programs;
     }
 

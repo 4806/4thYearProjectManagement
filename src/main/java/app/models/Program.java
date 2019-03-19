@@ -11,7 +11,7 @@ public class Program {
     private String name;
     private Acronym acronym;
 
-    private enum Acronym {
+    public enum Acronym {
         SOFT,
         MECH,
         CIV,

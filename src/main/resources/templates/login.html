@@ -7,6 +7,8 @@
             <div class="col-md-4 mx-auto">
                 <form class="card card-body" th:action="@{/login}" th:object="${user}" method="post">
                     <h3 class="text-center mb-4">Sign in</h3>
+                    <p th:if="${loginError}" class="error text-danger text-center">Invalid username/password</p>
+                    <p th:if="${logout}" class="text-success text-center">Logout successful</p>
                     <fieldset>
                         <div class="form-group">
                             <div class="input-group">

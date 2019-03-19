@@ -12,12 +12,11 @@ public class User {
     private Long id;
 
     @Column(name = "username")
-    @Size(min=2, max=30, message = "Username size should be in the range [2...30]")
+    @NotNull
     private String username;
 
     @Column(name = "password")
     @NotNull
-    @Size(min=1, max=50)
     private String password;
 
     protected enum Role {
@@ -32,7 +31,7 @@ public class User {
 
     public User(){}
 
-    public User(@Size(min = 2, max = 30, message = "Username size should be in the range [2...30]") String username, @NotNull @Size(min = 1, max = 50) String password, Role role) {
+    public User(String username, String password, String confPassword, Role role) {
         this.username = username;
         this.password = password;
         this.confPassword = confPassword;
@@ -57,6 +56,19 @@ public class User {
 
     public Role getRole() {
         return role;
+    }
+
+    public String getRoleValue(){
+
+        switch(role) {
+            case STUDENT:
+                return "STUDENT";
+            case SUPERVISOR:
+                return "SUPERVISOR";
+            case COORDINATOR:
+                return "COORDINATOR";
+        }
+        return role.name();
     }
 
     public void setRole(Role role) {
