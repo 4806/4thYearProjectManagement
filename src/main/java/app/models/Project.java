@@ -34,6 +34,7 @@ public class Project {
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+        this.activate();
     }
 
     public Project() {
@@ -95,5 +96,14 @@ public class Project {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public void activate(){
+        this.status = Status.ACTIVE;
+    }
+
+    public void deactivate(){
+        this.status = Status.INACTIVE;
+    }
+
 }
 
