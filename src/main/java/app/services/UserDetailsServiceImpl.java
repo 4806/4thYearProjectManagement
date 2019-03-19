@@ -2,6 +2,7 @@ package app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import app.models.User;
 import app.models.UserRepository;
@@ -36,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         boolean accountNonLocked = true;
 
         List<String> roles = new ArrayList<>();
-        roles.add(user.getRoleValue());
+        roles = Arrays.asList(user.getRoleValue());
 
         return  new org.springframework.security.core.userdetails.User
                 (user.getUsername(),

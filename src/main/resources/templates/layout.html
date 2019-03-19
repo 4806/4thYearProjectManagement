@@ -21,7 +21,7 @@
                     <a class="nav-link" href="projects.html" th:href="@{#}">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="request.html" th:href="@{#}">Request Project</a>
+                    <a class="nav-link" sec:authorize="hasAuthority('STUDENT')" href="request.html" th:href="@{#}">Request Project</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.html" th:href="@{#}">Profile</a>
@@ -71,7 +71,7 @@
         <!--<script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>-->
         <script> $("#pageTitle").html("4th Year Project"); </script>
         <div th:replace="index"/>
-        <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span sec:authentication="name"/>, you are a <span sec:authetication="authorities">Nothing</span>!</p>
+        <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span sec:authentication="name"/>, you are a <span sec:authorize="hasAuthority('STUDENT')">STUDENT</span><span sec:authorize="hasAuthority('COORDINATOR')">COORDINATOR</span><span sec:authorize="hasAuthority('SUPERVISOR')">SUPERVISOR</span>!</p>
         <!--<p> Hello there</p>-->
     </div>
 </td>
