@@ -12,23 +12,28 @@ import java.util.List;
 public class ProjectController {
 
     @GetMapping("/request")
-public String request(Model model){
+    public String request(Model model) {
 
         model.addAttribute("view", "request");
         return "layout";
-}
-@GetMapping("/projects")
-public String listProjects(Model model){
-    List<Project> arrayList = new ArrayList<Project>(){{
-        add(new Project("Title Project","Description Project",5,null,null,null));
-        add(new Project("Title Project","Description Project",9,null,null,null));
-        add(new Project("Title Project","Description Project",65,null,null,null));
-    }};
-    //projectRepository.save(new Project("Title Project","Description Project",5,null,null,null));
+    }
 
-    model.addAttribute("project",arrayList);
-        model.addAttribute("view","projects");
+    @GetMapping("/projects")
+    public String listProjects(Model model) {
+
+        //projectRepository.save(new Project("Title Project","Description Project",5,null,null,null));
+        List<Project> arrayList = AddProjects();
+        model.addAttribute("project", arrayList);
+        model.addAttribute("view", "projects");
         return "layout";
-}
+    }
+
+    private List<Project> AddProjects() {
+        List<Project> list = new ArrayList<Project>();
+        list.add(new Project("Title Project", "Description Project", 5, null, null, null));
+        list.add(new Project("Title Project", "Description Project", 9, null, null, null));
+        list.add(new Project("Title Project", "Description Project", 65, null, null, null));
+        return list;
+    }
 
 }

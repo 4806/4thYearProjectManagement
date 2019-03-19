@@ -2,13 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
+<div class="mx-auto py-5" style="width: 80%;">
 
-<table cellspacing="10">
-    <thead>
+<table class="table">
+    <thead class="thead-light">
     <tr>
         <th> Title </th>
-        <th> Descrpition </th>'
+        <th> Description </th>
         <th> Number of students </th>
+        <th> Supervisor </th>
+
     </tr>
     </thead>
     <tbody>
@@ -16,7 +19,7 @@
         <td colspan="2"> No Projects Available </td>
     </tr>
     <tr th:each="proj : ${project}">
-        <td ><p th:text="${proj.getName()}">Title</p></td>
+        <td><span th:text="${proj.getName()}">Title</span></td>
         <td ><p th:text="${proj.getDescription()}">Descrpition</p></td>
         <td><p th:text="${proj.getNumberStudents()}">Number of students</p></td>
 
@@ -27,5 +30,7 @@
     </tr>
     </tbody>
 </table>
+
+</div>
 
 </html>
