@@ -45,9 +45,43 @@ public class LoginController {
         return "layout";
 
     }
+    @GetMapping("/login-logout")
+    public String loggedOut(Model model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+
+            /* The user is logged in :) */
+            return "redirect:logout";
+        }
+
+        model.addAttribute("user", new User());
+        model.addAttribute("view", "login");
+        model.addAttribute("logout", true);
+        return "layout";
+
+    }
+
+
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+
+            /* The user is logged in :) */
+            return "redirect:";
+        }
+
+        model.addAttribute("loginError", true);
+        model.addAttribute("user", new User());
+        model.addAttribute("view", "login");
+        return "layout";
+    }
 
     @PostMapping("/login")
-
     public String login(Model model, HttpServletResponse response, @Valid User user) {
 
         if(userService.authenticate(user.getUsername(), user.getPassword())){
@@ -63,9 +97,4 @@ public class LoginController {
 
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpServletResponse response) {
-
-        return "redirect:login";
-    }
 }
