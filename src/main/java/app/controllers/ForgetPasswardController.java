@@ -20,7 +20,8 @@ public class ForgetPasswardController {
     @RequestMapping(value = "/forgot",method = RequestMethod.GET)
     public String dispalyforgotPasswordForm(Model model){
         model.addAttribute("user", new User());
-        return "forgotPassword";
+        model.addAttribute("view", "forgotPassword");
+        return "layout";
     }
 
     @RequestMapping(value = "/forgot",method = RequestMethod.POST)
