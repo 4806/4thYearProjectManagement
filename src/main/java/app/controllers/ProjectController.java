@@ -55,9 +55,9 @@ public class ProjectController {
         Supervisor supervisor = new Supervisor("Babak Esfandiari", "Password", "Password",projectArrayList);
 
         //projects for list
-        Project project = new Project("Title Project", "Description Project", 4, supervisor, null, null);
-        Project project1 = new Project("Title Project", "Description Project", 2, null, studentArrayList, null);
-        Project project2 = new Project("Title Project", "Description Project", 65, null, null, programArrayList);
+        Project project = new Project("Title Project 1", "Description for Project 1", 4, supervisor, null, null);
+        Project project1 = new Project("Title Project 2", "Description for Project 2", 2, null, studentArrayList, null);
+        Project project2 = new Project("Title Project 3", "Description for Project 3", 65, null, null, programArrayList);
 
         List<Project> list = new ArrayList<Project>();
         list.add(project);
