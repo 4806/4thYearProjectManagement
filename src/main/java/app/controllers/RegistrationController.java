@@ -56,12 +56,14 @@ public class RegistrationController {
             }
             else{
                 model.addAttribute("view", "registration");
+                model.addAttribute("pwError", true);
                 return "layout";
             }
 
         }
         else{
             model.addAttribute("view", "registration");
+            model.addAttribute("regError", true);
             return "layout";
         }
 
