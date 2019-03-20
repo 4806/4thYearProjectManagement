@@ -23,7 +23,6 @@ public class ProjectController {
     @Autowired
     ProjectRepository projectRepository;
 
-
     @Autowired
     private UserRepository userRepository;
 
@@ -47,6 +46,10 @@ public class ProjectController {
                 project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),null));
             }
 
+            if (project.getStudents() == null){
+                project.setStudents(new ArrayList<User>());
+            }
+
             project.activate();
             projectRepository.save(project);
             return "redirect:projects";
@@ -59,7 +62,6 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public String listProjects(Model model) {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         Iterable<Project> all = projectRepository.findAll();
@@ -79,7 +81,29 @@ public class ProjectController {
             model.addAttribute("view", "projects");
             return "layout";
         }
+    }
 
+    @PostMapping("/join")
+    public String join(@ModelAttribute Project select, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+
+        Project selected = projectRepository.findByName(select.getName());
+        if(!(selected.addStudent(user))){
+            model.addAttribute("addError", true);
+        }
+        projectRepository.save(selected);
+
+        Iterable<Project> all = projectRepository.findAll();
+        List<Project> active = new ArrayList<>();
+        for(Project project : all){
+            if(project.isActive()){
+                active.add(project);
+            }
+        }
+        model.addAttribute("project", active);
+        model.addAttribute("view", "projects");
+        return "layout";
     }
 
     @PostMapping("/archive")
@@ -115,6 +139,4 @@ public class ProjectController {
 
         return "redirect:projects";
     }
-
-
 }

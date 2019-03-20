@@ -1,10 +1,7 @@
 
 package app.repositories;
 
-import app.models.Program;
-import app.models.Project;
-import app.models.Student;
-import app.models.Supervisor;
+import app.models.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +27,7 @@ public class ProjectRepoTest {
 
         Program program = new Program("Computer Science", Program.Acronym.COMP);
         Student student = new Student("", "", "", program);
-        ArrayList<Student> students = new ArrayList<>();
+        ArrayList<User> students = new ArrayList<>();
         students.add(student);
 
         ArrayList<Program> programs = new ArrayList<>();
