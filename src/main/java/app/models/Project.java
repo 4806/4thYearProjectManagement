@@ -1,11 +1,11 @@
 package app.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project {
+@Entity
+public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,12 +16,16 @@ public class Project {
     //Maximum Number of students
     private int numberStudents;
 
+    // Increased Column Size due to serialized objects
+    @Column(length=1024)
     private Supervisor supervisor;
 
     //Current Students participating in Project
+    @Column(length=1024)
     private ArrayList<Student> students;
 
     //Required Program for Students Participating
+    @Column(length=1024)
     private ArrayList<Program> restrictions;
 
     //Status of the project
@@ -35,6 +39,10 @@ public class Project {
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+    }
+
+    public Project() {
+
     }
 
     public String getName() {
@@ -91,6 +99,10 @@ public class Project {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
 

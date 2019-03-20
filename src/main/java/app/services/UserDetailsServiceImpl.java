@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Arrays;
 
 import app.models.User;
-import app.models.UserRepository;
+import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
