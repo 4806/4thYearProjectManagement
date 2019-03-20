@@ -4,6 +4,7 @@ import app.models.*;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
@@ -46,7 +47,7 @@ public class ProjectController {
                 project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),null));
             }
 
-
+            project.activate();
             projectRepository.save(project);
             return "redirect:projects";
         }else{
@@ -59,9 +60,26 @@ public class ProjectController {
     @GetMapping("/projects")
     public String listProjects(Model model) {
 
-        model.addAttribute("project", projectRepository.findAll());
-        model.addAttribute("view", "projects");
-        return "layout";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        Iterable<Project> all = projectRepository.findAll();
+        if(auth instanceof AnonymousAuthenticationToken || user.getRoleValue().equals("STUDENT")){
+            List<Project> active = new ArrayList<>();
+            for(Project project : all){
+                if(project.isActive()){
+                    active.add(project);
+                }
+            }
+            model.addAttribute("project", active);
+            model.addAttribute("view", "projects");
+            return "layout";
+        }
+        else{
+            model.addAttribute("project", all);
+            model.addAttribute("view", "projects");
+            return "layout";
+        }
+
     }
 
     @PostMapping("/archive")
@@ -70,8 +88,9 @@ public class ProjectController {
         Project temp = projectRepository.findByName(oper.getName());
 
         temp.deactivate();
+        projectRepository.save(temp);
 
-        return "redirect:";
+        return "redirect:projects";
 
     }
 
@@ -81,8 +100,9 @@ public class ProjectController {
         Project temp = projectRepository.findByName(oper.getName());
 
         temp.activate();
+        projectRepository.save(temp);
 
-        return "redirect:";
+        return "redirect:projects";
 
     }
 
