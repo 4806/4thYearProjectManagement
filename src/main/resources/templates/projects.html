@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <div class="mx-auto py-5" style="width: 95%;">
-
+    <p th:if="${addError}" class="error text-danger text-center">Failed to add Student to Project.</p>
     <table class="table">
         <thead class="thead-light">
         <tr>
             <th> Title</th>
-            <th> Description</th>
+            <!-- <th> Description</th> -->
             <th> Number of students</th>
-            <th> Supervisor</th>
             <th> Students</th>
+            <th> Supervisor</th>
             <th> Restrictions</th>
+            <th>  </th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${project.empty}">
+        <tr th:if="${project == null}">
             <td colspan="2"> No Projects Available</td>
         </tr>
         <tr th:each="proj : ${project}">
             <td><span th:text="${proj.getName()}">Title</span></td>
-            <td><span th:text="${proj.getDescription()}">Descrpition</span></td>
+            <!-- <td><span th:text="${proj.getDescription()}">Descrpition</span></td> -->
             <td><span th:text="${proj.getNumberStudents()}">Number of students</span></td>
-            <td>
-                <div th:switch="${proj.getSupervisor()}">
-                    <span th:case="null">No Supervisor for this project</span>
-                    <span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>
-                </div>
-            </td>
             <td>
                 <div th:switch="${proj.getStudents()}">
                     <span th:case="null">No Students for this project</span>
@@ -41,15 +36,84 @@
                 </div>
             </td>
             <td>
-                <div th:switch="${proj.getRestrictions()}">
-                    <span th:case="null">No Restrictions for this project</span>
-                    <span th:case="*"><div th:each="rest : ${proj.getRestrictions()}">
-                    <span th:text="${rest.getName()}">Restrictions</span>
-                </div>
-                    </span>
+                <div th:switch="${proj.getSupervisor()}">
+                    <span th:case="null">No Supervisor for this project</span>
+                    <span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>
                 </div>
             </td>
+            <td>
+                <div th:switch="${proj.getRestrictions()}">
+                    <span th:case="null">No Restrictions for this project</span>
+                    <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
+                        <span th:text="${rest.getName()}">Restrictions</span> </span> </span>
+                </div>
 
+            </td>
+            <td>
+                <span id="details-button">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${proj.getName()}"> Details
+                    </button>
+                </span>
+            </td>
+
+            <div class="modal fade" th:id="details+${proj.getName()}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><span th:text="${proj.getName()}" ></span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p th:text="${proj.getDescription()}"></p>
+                            <p>Number of Students: <span th:text="${proj.getNumberStudents()}"></span> </p>
+                            <p>Students:
+                                <span th:switch="${proj.getStudents()}">
+                                    <span th:case="null">No Students for this project</span>
+                                    <span th:case="*"><span th:each="student : ${proj.getStudents()}">
+                                        <span th:text="${student.getUsername()}">Students</span></span></span>
+                                </span></p>
+
+                            <p>Supervisor:
+                                    <span th:switch="${proj.getSupervisor()}">
+                                        <span th:case="null">No Supervisor for this project</span>
+                                        <span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>
+                                     </span> </p>
+                            <p>Restrictions:
+                                <span th:switch="${proj.getRestrictions()}">
+                                <span th:case="null">No Restrictions for this project</span>
+                                <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
+                                    <span th:text="${rest.getName()}">Restrictions</span> </span> </span>
+                                </span> </p>
+
+                        <div class="modal-footer" th:switch="${proj.isActive()}">
+                            <button hidden type="button" class="btn btn-primary" sec:authorize="hasAuthority('SUPERVISOR')">Edit</button>
+                            <form th:action="@{/join}" th:object="${select}" method="post" sec:authorize="hasAuthority('STUDENT')">
+                                <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                                <button type="submit" class="btn btn-primary">Join</button>
+                            </form>
+                            <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post" th:case="true">
+                                <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                                <button type="submit" class="btn btn-primary"> Archive</button>
+                            </form>
+                            <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post" th:case="false">
+                                <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                                <button type="submit" class="btn btn-primary"> Unarchive</button>
+                            </form>
+                            <form sec:authorize="hasAnyAuthority('SUPERVISOR', 'COORDINATOR')" th:action="@{/delete}" th:object="${delproj}" method="post">
+                                <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                                <button type="submit" class="btn btn-primary"> Delete</button>
+                            </form>
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </td>
 
         </tr>
         <tr th:lo>

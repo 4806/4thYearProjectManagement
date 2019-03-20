@@ -1,12 +1,9 @@
 package app.services;
 
 import app.models.User;
-import app.models.UserRepository;
+import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.security.PrivateKey;
-import java.util.Objects;
 
 @Service
 public class UserLoginService implements UserService {
