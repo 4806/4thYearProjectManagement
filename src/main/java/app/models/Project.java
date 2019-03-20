@@ -43,6 +43,7 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+        this.activate();
     }
 
 
@@ -106,6 +107,7 @@ public class Project implements Serializable {
         return id;
     }
 
+
     public void addStudent(User student){
         for (User s : students) {
             if (s.getUsername().equals(student.getUsername())) {
@@ -113,6 +115,14 @@ public class Project implements Serializable {
             }
         }
         this.students.add(student);
+    }
+
+    public void activate(){
+        this.status = Status.ACTIVE;
+    }
+
+    public void deactivate(){
+        this.status = Status.INACTIVE;
     }
 }
 

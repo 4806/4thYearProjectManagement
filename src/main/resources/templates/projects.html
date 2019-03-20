@@ -54,6 +54,17 @@
                     <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${proj.getName()}"> Details
                     </button>
                 </span>
+            </td>
+            <td sec:authorize="isAuthenticated()">
+                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post">
+                    <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                    <button type="submit"> Archive</button>
+                </form>
+                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post">
+                    <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                    <button type="submit"> Unarchive</button>
+                </form>
+            </td>
 
             <div class="modal fade" th:id="details+${proj.getName()}">
                 <div class="modal-dialog">
