@@ -27,6 +27,8 @@ public class Program implements Serializable {
         this.acronym = acronym;
     }
 
+    public Program() {}
+
     public String getName() {
         return name;
     }
