@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -13,25 +14,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min=2, max=30, message = "Username size should be in the range [2...30]")
-    private String username;
     @NotNull
-    @Size(min=1, max=50)
-    private String password;
-    private String role;
-    private String confPassword;
+    private String username;
 
-    private String answerToSecurityQuestion;
+    @NotNull
+    private String password;
+
+    protected enum Role {
+        STUDENT, SUPERVISOR, COORDINATOR
+    }
+
+    private Role role;
+
+    private String confPassword;
 
     public User(){}
 
-    public User(@Size(min = 2, max = 30, message = "Username size should be in the range [2...30]") String username, @NotNull @Size(min = 1, max = 50) String password,
-                String role, String answerToSecurityQuestion) {
+    public User(String username, String password, String confPassword, Role role) {
         this.username = username;
         this.password = password;
         this.confPassword = confPassword;
         this.role = role;
-        this.answerToSecurityQuestion= answerToSecurityQuestion;
     }
 
     public String getUsername() {
@@ -50,11 +53,24 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public String getRoleValue(){
+
+        switch(role) {
+            case STUDENT:
+                return "STUDENT";
+            case SUPERVISOR:
+                return "SUPERVISOR";
+            case COORDINATOR:
+                return "COORDINATOR";
+        }
+        return role.name();
+    }
+
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -64,13 +80,5 @@ public class User {
 
     public void setConfPassword(String pw){
         this.confPassword = pw;
-    }
-
-    public String getAnswerToSecurityQuestion() {
-        return answerToSecurityQuestion;
-    }
-
-    public void setAnswerToSecurityQuestion(String answerToSecurityQuestion) {
-        this.answerToSecurityQuestion = answerToSecurityQuestion;
     }
 }
