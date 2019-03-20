@@ -83,7 +83,7 @@ public class ProjectController {
 
           projectRepository.save(project);
         projectRepository.save(project1);
-        projectRepository.save(project2);
+//        projectRepository.save(project2);
 //        projectRepository.save(project);
 //        projectRepository.save(project1);
 //        projectRepository.save(project2);
