@@ -86,7 +86,7 @@ public class ProjectController {
 
     }
 
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public String deleteProject(Model model, Project delproj){
 
         Project temp = projectRepository.findByName(delproj.getName());
