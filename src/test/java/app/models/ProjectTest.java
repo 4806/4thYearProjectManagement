@@ -38,30 +38,35 @@ public class ProjectTest {
     @Test
     public void setName() {
         project.setName("FRAMM");
-        assertEquals(project.getName(), "FRAMM");
+        assertEquals("FRAMM", project.getName());
     }
 
     @Test
     public void getDescription() {
-        assertEquals(project.getDescription(), "Movie identification");
+        assertEquals("Movie identification", project.getDescription());
     }
 
     @Test
     public void setDescription() {
         project.setDescription("Facial Rec");
-        assertEquals(project.getName(), "Facial Rec");
+        assertEquals("Facial Rec", project.getDescription());
     }
 
     @Test
     public void getNumberStudents() {
+        assertEquals("Movie identification", project.getNumberStudents());
     }
 
     @Test
     public void setNumberStudents() {
+        project.setDescription("Facial");
+        assertEquals("Facial", project.getDescription());
     }
 
     @Test
     public void getSupervisor() {
+        assertEquals("Movie identification", project.getNumberStudents());
+
     }
 
     @Test
