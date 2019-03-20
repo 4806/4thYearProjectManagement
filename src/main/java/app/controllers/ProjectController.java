@@ -90,7 +90,7 @@ public class ProjectController {
         temp.deactivate();
         projectRepository.save(temp);
 
-        return "redirect:";
+        return "redirect:projects";
 
     }
 
@@ -102,7 +102,7 @@ public class ProjectController {
         temp.activate();
         projectRepository.save(temp);
 
-        return "redirect:";
+        return "redirect:projects";
 
     }
 

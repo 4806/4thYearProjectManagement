@@ -49,12 +49,12 @@
                     </span>
                 </div>
             </td>
-            <td sec:authorize="isAuthenticated()">
-                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post">
+            <td sec:authorize="isAuthenticated()" th:switch="${proj.isActive()}">
+                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post" th:case="true">
                     <input type="hidden" th:value="${proj.getName()}" name="name"/>
                     <button type="submit"> Archive</button>
                 </form>
-                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post">
+                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post" th:case="false">
                     <input type="hidden" th:value="${proj.getName()}" name="name"/>
                     <button type="submit"> Unarchive</button>
                 </form>
