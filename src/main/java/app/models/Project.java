@@ -28,6 +28,10 @@ public class Project {
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
+    public Project() {
+
+    }
+
     public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<Student> students, ArrayList<Program> restrictions) {
         this.name = name;
         this.description = description;

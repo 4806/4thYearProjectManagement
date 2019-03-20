@@ -33,15 +33,20 @@ public class ProjectController {
         List<Project> arrayList = addProjectStubMethod();
         model.addAttribute("project", arrayList);
         model.addAttribute("view", "projects");
+        model.addAttribute("select", new Project());
         return "layout";
     }
 
     @PostMapping("/join")
-    public String join(@ModelAttribute Project project, Model model){
+    public String join(@ModelAttribute Project select, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
-        project.getStudents().add(user);
-        model.addAttribute("project", project);
+
+        //todo: use select.getName() in project repo to get the project
+
+        //Need to fetch list of projects from project repo
+        model.addAttribute("project", select);
+        model.addAttribute("select", new Project());
         model.addAttribute("view", "projects");
         return "layout";
     }

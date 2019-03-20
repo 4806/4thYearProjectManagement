@@ -89,9 +89,9 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" sec:authorize="hasAuthority('COORDINATOR')">Edit</button>
-                            <form th:action="@{/join}" th:object="${proj}" method="post">
-                                <span th:field></span>
-                            <button type="submit" class="btn btn-primary" sec:authorize="hasAuthority('STUDENT')">Join</button>
+                            <form th:action="@{/join}" th:object="${select}" method="post">
+                                <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                                <button type="submit" class="btn btn-primary" sec:authorize="hasAuthority('STUDENT')">Join</button>
                             </form>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
