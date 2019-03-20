@@ -1,8 +1,9 @@
 package app.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Supervisor extends User {
+public class Supervisor extends User implements Serializable {
     //List of projects supervised by this supervisor
     private ArrayList<Project> projects;
 

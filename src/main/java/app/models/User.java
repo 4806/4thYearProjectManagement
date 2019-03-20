@@ -5,11 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Set;
+import java.io.Serializable;
 
 @Entity
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +19,7 @@ public class User {
     @NotNull
     private String password;
 
-    protected enum Role {
+    public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
     }
 
