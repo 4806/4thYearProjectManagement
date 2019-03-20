@@ -22,7 +22,7 @@ public class Project implements Serializable {
 
     //Current Students participating in Project
     @Column(length=1024)
-    private ArrayList<Student> students;
+    private ArrayList<User> students;
 
     //Required Program for Students Participating
     @Column(length=1024)
@@ -36,7 +36,7 @@ public class Project implements Serializable {
 
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<Student> students, ArrayList<Program> restrictions) {
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
@@ -45,9 +45,6 @@ public class Project implements Serializable {
         this.restrictions = restrictions;
     }
 
-    public Project() {
-
-    }
 
     public String getName() {
         return name;
@@ -81,11 +78,11 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<User> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(ArrayList<User> students) {
         this.students = students;
     }
 
@@ -107,6 +104,15 @@ public class Project implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void addStudent(User student){
+        for (User s : students) {
+            if (s.getUsername().equals(student.getUsername())) {
+                return;
+            }
+        }
+        this.students.add(student);
     }
 }
 

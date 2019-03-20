@@ -44,7 +44,9 @@ public class ProjectController {
             if (project.getSupervisor()==null){
                 project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),null));
             }
-
+            if (project.getStudents() == null){
+                project.setStudents(new ArrayList<User>());
+            }
 
             projectRepository.save(project);
             return "redirect:projects";
@@ -57,9 +59,6 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public String listProjects(Model model) {
-        //projectRepository.save(new Project("Title Project","Description Project",5,null,null,null));
-        //List<Project> arrayList = addProjectStubMethod();
-//        addProjectStubMethod();
         model.addAttribute("project", projectRepository.findAll());
         model.addAttribute("view", "projects");
         model.addAttribute("select", new Project());
@@ -71,27 +70,25 @@ public class ProjectController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
-        //todo: use select.getName() in project repo to get the project
+        Project selected = projectRepository.findByName(select.getName());
+        selected.addStudent(user);
+        projectRepository.save(selected);
 
-        //Need to fetch list of projects from project repo
-        model.addAttribute("project", select);
-        model.addAttribute("select", new Project());
+        model.addAttribute("project", projectRepository.findAll());
         model.addAttribute("view", "projects");
         return "layout";
     }
 
     private List<Project> addProjectStubMethod() {
-        //program stub
         Program program = new Program("Software Engineering", Program.Acronym.SOFT);
         Program program1 =new Program("Computer Systems Engineering", Program.Acronym.COMP);
         ArrayList<Program> programArrayList = new ArrayList<Program>();
         programArrayList.add(program);
         programArrayList.add(program1);
 
-        // Students stubs
         Student student = new Student("Jacob Marshland","","",null);
         Student student1 = new Student("Jerry Burburaz","","",null);
-        ArrayList<Student> studentArrayList = new ArrayList<Student>();
+        ArrayList<User> studentArrayList = new ArrayList<User>();
         studentArrayList.add(student);
         studentArrayList.add(student1);
 
