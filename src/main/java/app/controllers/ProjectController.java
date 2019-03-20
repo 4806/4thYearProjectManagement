@@ -1,18 +1,23 @@
 package app.controllers;
 
-import app.models.Program;
-import app.models.Project;
-import app.models.Student;
-import app.models.Supervisor;
+import app.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class ProjectController {
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/request")
     public String request(Model model) {
@@ -27,6 +32,16 @@ public class ProjectController {
         //projectRepository.save(new Project("Title Project","Description Project",5,null,null,null));
         List<Project> arrayList = addProjectStubMethod();
         model.addAttribute("project", arrayList);
+        model.addAttribute("view", "projects");
+        return "layout";
+    }
+
+    @PostMapping("/join")
+    public String join(@ModelAttribute Project project, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        project.getStudents().add(user);
+        model.addAttribute("project", project);
         model.addAttribute("view", "projects");
         return "layout";
     }

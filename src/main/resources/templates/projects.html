@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${project.empty}">
+        <tr th:if="${project == null}">
             <td colspan="2"> No Projects Available</td>
         </tr>
         <tr th:each="proj : ${project}">
@@ -51,7 +51,7 @@
             </td>
             <td>
                 <span id="details-button">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${proj.getName()}"> Details <span th:text="${proj.getName()}"></span>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${proj.getName()}"> Details
                     </button>
                 </span>
 
@@ -89,7 +89,10 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" sec:authorize="hasAuthority('COORDINATOR')">Edit</button>
-                            <button type="button" class="btn btn-primary" sec:authorize="hasAuthority('STUDENT')">Join</button>
+                            <form th:action="@{/join}" th:object="${proj}" method="post">
+                                <span th:field></span>
+                            <button type="submit" class="btn btn-primary" sec:authorize="hasAuthority('STUDENT')">Join</button>
+                            </form>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
