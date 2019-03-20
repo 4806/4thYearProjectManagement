@@ -43,7 +43,7 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
-        this.activate();
+        this.status = Status.ACTIVE;
     }
 
 
@@ -127,6 +127,10 @@ public class Project implements Serializable {
 
     public void deactivate(){
         this.status = Status.INACTIVE;
+    }
+
+    public boolean isActive(){
+        return this.status == Status.ACTIVE;
     }
 }
 

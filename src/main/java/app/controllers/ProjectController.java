@@ -4,6 +4,7 @@ import app.models.*;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
@@ -21,7 +22,6 @@ public class ProjectController {
 
     @Autowired
     ProjectRepository projectRepository;
-
 
     @Autowired
     private UserRepository userRepository;
@@ -45,10 +45,12 @@ public class ProjectController {
             if (project.getSupervisor()==null){
                 project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),null));
             }
+
             if (project.getStudents() == null){
                 project.setStudents(new ArrayList<User>());
             }
 
+            project.activate();
             projectRepository.save(project);
             return "redirect:projects";
         }else{
@@ -60,10 +62,25 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public String listProjects(Model model) {
-        model.addAttribute("project", projectRepository.findAll());
-        model.addAttribute("view", "projects");
-        model.addAttribute("select", new Project());
-        return "layout";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        Iterable<Project> all = projectRepository.findAll();
+        if(auth instanceof AnonymousAuthenticationToken || user.getRoleValue().equals("STUDENT")){
+            List<Project> active = new ArrayList<>();
+            for(Project project : all){
+                if(project.isActive()){
+                    active.add(project);
+                }
+            }
+            model.addAttribute("project", active);
+            model.addAttribute("view", "projects");
+            return "layout";
+        }
+        else{
+            model.addAttribute("project", all);
+            model.addAttribute("view", "projects");
+            return "layout";
+        }
     }
 
     @PostMapping("/join")
@@ -87,8 +104,9 @@ public class ProjectController {
         Project temp = projectRepository.findByName(oper.getName());
 
         temp.deactivate();
+        projectRepository.save(temp);
 
-        return "redirect:";
+        return "redirect:projects";
 
     }
 
@@ -98,8 +116,19 @@ public class ProjectController {
         Project temp = projectRepository.findByName(oper.getName());
 
         temp.activate();
+        projectRepository.save(temp);
 
-        return "redirect:";
+        return "redirect:projects";
 
+    }
+
+    @PostMapping("/delete")
+    public String deleteProject(Model model, Project delproj){
+
+        Project temp = projectRepository.findByName(delproj.getName());
+
+        projectRepository.delete(temp);
+
+        return "redirect:projects";
     }
 }
