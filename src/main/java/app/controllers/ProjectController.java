@@ -93,7 +93,15 @@ public class ProjectController {
             model.addAttribute("addError", true);
         }
         projectRepository.save(selected);
-        model.addAttribute("project", projectRepository.findAll());
+
+        Iterable<Project> all = projectRepository.findAll();
+        List<Project> active = new ArrayList<>();
+        for(Project project : all){
+            if(project.isActive()){
+                active.add(project);
+            }
+        }
+        model.addAttribute("project", active);
         model.addAttribute("view", "projects");
         return "layout";
     }
