@@ -58,7 +58,7 @@
                     <input type="hidden" th:value="${proj.getName()}" name="name"/>
                     <button type="submit" class="btn btn-primary"> Unarchive</button>
                 </form>
-                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/delete}" th:object="${delproj}" method="post">
+                <form sec:authorize="hasAnyAuthority('SUPERVISOR', 'COORDINATOR')" th:action="@{/delete}" th:object="${delproj}" method="post">
                     <input type="hidden" th:value="${proj.getName()}" name="name"/>
                     <button type="submit" class="btn btn-primary"> Delete</button>
                 </form>
