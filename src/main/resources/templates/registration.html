@@ -20,6 +20,9 @@
                             <input class="form-control input-lg" placeholder="Confirm Password" name="confPassword" value="" type="password" th:field="*{confPassword}" required>
                         </div>
                         <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Answer" name="answer" value="" type="text" th:field="*{answerTosecurityQuestion}" >
+                        </div>
+                        <div class="form-group">
                             <select class="form-control input-lg" th:field="*{role}">
                                 <option th:value="STUDENT" th:text="Student"></option>
                                 <option th:value="SUPERVISOR" th:text="Supervisor"></option>
