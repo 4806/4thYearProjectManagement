@@ -82,17 +82,17 @@ public class ProjectController {
         Project project2 = new Project("Tvdect", "Description Project", 65, null, null, programArrayList);
 
           projectRepository.save(project);
+          projectRepository.save(project1);
+        projectRepository.save(project2);
+        projectRepository.save(project);
         projectRepository.save(project1);
-//        projectRepository.save(project2);
-//        projectRepository.save(project);
-//        projectRepository.save(project1);
-//        projectRepository.save(project2);
-//        projectRepository.save(project);
-//        projectRepository.save(project1);
-//        projectRepository.save(project2);
-//        projectRepository.save(project);
-//        projectRepository.save(project1);
-//        projectRepository.save(project2);
+        projectRepository.save(project2);
+        projectRepository.save(project);
+        projectRepository.save(project1);
+        projectRepository.save(project2);
+        projectRepository.save(project);
+        projectRepository.save(project1);
+        projectRepository.save(project2);
     }
 
 }
