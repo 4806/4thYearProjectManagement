@@ -44,29 +44,29 @@ public class ProjectController {
     @PostMapping("/archive")
     public String archive_project(Model model, Project oper){
 
-//        Project temp = projectRepository.findByName(oper.getName());
-//
-//        temp.deactivate();
-        if(oper.getName().equals("Title Project1")){
-            return "redirect:";
-        }
+        Project temp = projectRepository.findByName(oper.getName());
 
-        return "redirect:projects";
+        temp.deactivate();
+//        if(oper.getName().equals("Title Project1")){
+//            return "redirect:";
+//        }
+
+        return "redirect:";
 
     }
 
     @PostMapping("/unarchive")
     public String unarchive_project(Model model, Project oper){
 
-//        Project temp = projectRepository.findByName(oper.getName());
-//
-//        temp.activate();
+        Project temp = projectRepository.findByName(oper.getName());
 
-        if(oper.getName().equals("Title Project1")){
-            return "redirect:";
-        }
+        temp.activate();
 
-        return "redirect:projects";
+//        if(oper.getName().equals("Title Project1")){
+//            return "redirect:";
+//        }
+
+        return "redirect:";
 
     }
 
@@ -101,11 +101,11 @@ public class ProjectController {
 
         List<Project> list = new ArrayList<Project>();
         list.add(project);
-//        projectRepository.save(project);
+        projectRepository.save(project);
         list.add(project1);
-//        projectRepository.save(project1);
+        projectRepository.save(project1);
         list.add(project2);
-//        projectRepository.save(project2);
+        projectRepository.save(project2);
         return list;
     }
 
