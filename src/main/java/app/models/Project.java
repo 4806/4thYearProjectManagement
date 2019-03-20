@@ -39,6 +39,7 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+        this.activate();
     }
 
     public Project() {
@@ -104,5 +105,14 @@ public class Project implements Serializable {
     public Long getId() {
         return id;
     }
+
+    public void activate(){
+        this.status = Status.ACTIVE;
+    }
+
+    public void deactivate(){
+        this.status = Status.INACTIVE;
+    }
+
 }
 
