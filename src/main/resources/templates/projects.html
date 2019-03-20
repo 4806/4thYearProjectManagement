@@ -52,11 +52,15 @@
             <td sec:authorize="isAuthenticated()" th:switch="${proj.isActive()}">
                 <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post" th:case="true">
                     <input type="hidden" th:value="${proj.getName()}" name="name"/>
-                    <button type="submit"> Archive</button>
+                    <button type="submit" class="btn btn-primary"> Archive</button>
                 </form>
                 <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post" th:case="false">
                     <input type="hidden" th:value="${proj.getName()}" name="name"/>
-                    <button type="submit"> Unarchive</button>
+                    <button type="submit" class="btn btn-primary"> Unarchive</button>
+                </form>
+                <form sec:authorize="hasAnyAuthority('SUPERVISOR', 'COORDINATOR')" th:action="@{/delete}" th:object="${delproj}" method="post">
+                    <input type="hidden" th:value="${proj.getName()}" name="name"/>
+                    <button type="submit" class="btn btn-primary"> Delete</button>
                 </form>
             </td>
 

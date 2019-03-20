@@ -106,5 +106,15 @@ public class ProjectController {
 
     }
 
+    @PostMapping("/delete")
+    public String deleteProject(Model model, Project delproj){
+
+        Project temp = projectRepository.findByName(delproj.getName());
+
+        projectRepository.delete(temp);
+
+        return "redirect:projects";
+    }
+
 
 }
