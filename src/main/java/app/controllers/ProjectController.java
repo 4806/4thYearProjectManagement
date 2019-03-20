@@ -72,7 +72,9 @@ public class ProjectController {
         User user = userRepository.findByUsername(auth.getName());
 
         Project selected = projectRepository.findByName(select.getName());
-        selected.addStudent(user);
+        if(!(selected.addStudent(user))){
+            model.addAttribute("addError", true);
+        }
         projectRepository.save(selected);
         model.addAttribute("project", projectRepository.findAll());
         model.addAttribute("view", "projects");

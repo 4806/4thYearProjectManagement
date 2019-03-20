@@ -108,13 +108,17 @@ public class Project implements Serializable {
     }
 
 
-    public void addStudent(User student){
+    public boolean addStudent(User student){
+        if(this.getNumberStudents() == this.students.size()){
+            return false;
+        }
         for (User s : students) {
             if (s.getUsername().equals(student.getUsername())) {
-                return;
+                return false;
             }
         }
         this.students.add(student);
+        return true;
     }
 
     public void activate(){
