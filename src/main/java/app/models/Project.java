@@ -25,6 +25,7 @@ public class Project implements Serializable {
     private ArrayList<Student> students;
 
     //Required Program for Students Participating
+    @Column(length=1024)
     private ArrayList<Program> restrictions;
 
     //Status of the project
