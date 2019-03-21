@@ -1,10 +1,11 @@
 package app.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Project {
+public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,30 +16,36 @@ public class Project {
     //Maximum Number of students
     private int numberStudents;
 
+    // Increased Column Size due to serialized objects
+    @Column(length=1024)
     private Supervisor supervisor;
 
     //Current Students participating in Project
-    private ArrayList<Student> students;
+    @Column(length=1024)
+    private ArrayList<User> students;
 
     //Required Program for Students Participating
+    @Column(length=1024)
     private ArrayList<Program> restrictions;
 
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<Student> students, ArrayList<Program> restrictions) {
+    public Project() {
+
+    }
+
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+        this.status = Status.ACTIVE;
     }
 
-    public Project() {
-
-    }
 
     public String getName() {
         return name;
@@ -72,11 +79,11 @@ public class Project {
         this.supervisor = supervisor;
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<User> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(ArrayList<User> students) {
         this.students = students;
     }
 
@@ -94,6 +101,36 @@ public class Project {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public boolean addStudent(User student){
+        if(this.getNumberStudents() == this.students.size()){
+            return false;
+        }
+        for (User s : students) {
+            if (s.getUsername().equals(student.getUsername())) {
+                return false;
+            }
+        }
+        this.students.add(student);
+        return true;
+    }
+
+    public void activate(){
+        this.status = Status.ACTIVE;
+    }
+
+    public void deactivate(){
+        this.status = Status.INACTIVE;
+    }
+
+    public boolean isActive(){
+        return this.status == Status.ACTIVE;
     }
 }
 

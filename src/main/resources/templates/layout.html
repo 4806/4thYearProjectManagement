@@ -21,7 +21,7 @@
                     <a class="nav-link" href="projects.html" th:href="@{/projects}">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="hasAuthority('STUDENT')" href="request.html" th:href="@{#}">Request Project</a>
+                    <a class="nav-link" sec:authorize="hasAuthority('SUPERVISOR')" href="createProject.html" th:href="@{/createProject}">Create Project</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.html" th:href="@{#}">Profile</a>
@@ -79,6 +79,10 @@
         <!--<script> $("#pageTitle").html("Request Project"); </script>-->
         <!--<div th:replace="request"/>-->
     <!--</span>-->
+    <span th:case="'createProject'">
+        <script> $("#pageTitle").html("Create Project"); </script>
+        <div th:replace="createProject"/>
+    </span>
     <span th:case="'projects'">
         <script> $("#pageTitle").html("Projects List"); </script>
         <div th:replace="projects"/>
