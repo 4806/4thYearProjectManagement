@@ -9,6 +9,8 @@
                     <h3 class="text-center mb-4">Sign in</h3>
                     <p th:if="${loginError}" class="error text-danger text-center">Invalid username/password</p>
                     <p th:if="${logout}" class="text-success text-center">Logout successful</p>
+                    <p th:if="${resetSuccess}" class="text-success text-center">You have successfuly Reset your Password </p>
+
                     <fieldset>
                         <div class="form-group">
                             <div class="input-group">

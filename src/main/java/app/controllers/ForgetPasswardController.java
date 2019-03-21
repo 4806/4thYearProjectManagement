@@ -36,14 +36,20 @@ public class ForgetPasswardController {
         resetUser= userRepository.findByUsername(username);
 
         if (resetUser ==null) {
-             // user do not have an account
-             return "redirect:login";
+             // user do not have an account  usernameError
+            model.addAttribute("view", "forgotPassword");
+            model.addAttribute("usernameError", true);
+             return "layout";
         }
          // ToDO: check the user 's answer for the security question
         if(resetUser.getAnswerTosecurityQuestion().equals(user.getAnswerTosecurityQuestion())){
              return "redirect:reset";
+        }else {
+            model.addAttribute("view", "forgotPassword");
+            model.addAttribute("answerError", true);
+            return "layout";
         }
-        return "redirect:login";
+        //return "redirect:login";
     }
 
     @RequestMapping(value ="/reset",method = RequestMethod.GET)
@@ -53,15 +59,21 @@ public class ForgetPasswardController {
         return "layout";
     }
     @RequestMapping(value = "/reset",method = RequestMethod.POST)
-    public String processResetPasswordForm(@ModelAttribute User user){
+    public String processResetPasswordForm(@ModelAttribute User user, Model model){
 
         if(user.getPassword().equals(user.getConfPassword())){
             resetUser.setPassword(passwordEncoder.encode(user.getPassword()));
             resetUser.setConfPassword(passwordEncoder.encode(user.getConfPassword()));
             userRepository.save(resetUser);
-            return "redirect:login";
-       }
-        return "redirect:reset";
+            model.addAttribute("view", "login");
+            model.addAttribute("resetSuccess", true);
+            return "layout";
+       }else {
+            model.addAttribute("view", "resetPassword");
+            model.addAttribute("pwError", true);
+            return "layout";
+        }
+
     }
 
 }
