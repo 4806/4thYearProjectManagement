@@ -17,8 +17,6 @@ public class ForgetPasswardController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserService userService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     private User resetUser;
@@ -34,43 +32,28 @@ public class ForgetPasswardController {
     public String processPasswordForm(@ModelAttribute User user, Model model ){
         String  username = user.getUsername();
         resetUser= userRepository.findByUsername(username);
-
+        // if  no account with username  provided exists print username error message
         if (resetUser ==null) {
-             // user do not have an account  usernameError
             model.addAttribute("view", "forgotPassword");
             model.addAttribute("usernameError", true);
              return "layout";
         }
-         // ToDO: check the user 's answer for the security question
         if(resetUser.getAnswerTosecurityQuestion().equals(user.getAnswerTosecurityQuestion())){
-             return "redirect:reset";
+            if(user.getPassword().equals(user.getConfPassword())){
+                resetUser.setPassword(passwordEncoder.encode(user.getPassword()));
+                resetUser.setConfPassword(passwordEncoder.encode(user.getConfPassword()));
+                userRepository.save(resetUser);
+                model.addAttribute("view", "login");
+                model.addAttribute("resetSuccess", true);
+                return "layout";
+            }else {
+                model.addAttribute("view", "forgotPassword");
+                model.addAttribute("pwError", true);
+                return "layout";
+            }
         }else {
             model.addAttribute("view", "forgotPassword");
             model.addAttribute("answerError", true);
-            return "layout";
-        }
-        //return "redirect:login";
-    }
-
-    @RequestMapping(value ="/reset",method = RequestMethod.GET)
-    public String dispalyresetPasswordForm(Model model){
-        model.addAttribute("user", new User());
-        model.addAttribute("view", "resetPassword");
-        return "layout";
-    }
-    @RequestMapping(value = "/reset",method = RequestMethod.POST)
-    public String processResetPasswordForm(@ModelAttribute User user, Model model){
-
-        if(user.getPassword().equals(user.getConfPassword())){
-            resetUser.setPassword(passwordEncoder.encode(user.getPassword()));
-            resetUser.setConfPassword(passwordEncoder.encode(user.getConfPassword()));
-            userRepository.save(resetUser);
-            model.addAttribute("view", "login");
-            model.addAttribute("resetSuccess", true);
-            return "layout";
-       }else {
-            model.addAttribute("view", "resetPassword");
-            model.addAttribute("pwError", true);
             return "layout";
         }
 
