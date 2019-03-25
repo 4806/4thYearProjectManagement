@@ -22,7 +22,7 @@ public class Project implements Serializable {
 
     //Current Students participating in Project
     @Column(length=1024)
-    private ArrayList<Student> students;
+    private ArrayList<User> students;
 
     //Required Program for Students Participating
     @Column(length=1024)
@@ -32,18 +32,20 @@ public class Project implements Serializable {
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<Student> students, ArrayList<Program> restrictions) {
+    public Project() {
+
+    }
+
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
         this.supervisor = supervisor;
         this.students = students;
         this.restrictions = restrictions;
+        this.status = Status.ACTIVE;
     }
 
-    public Project() {
-
-    }
 
     public String getName() {
         return name;
@@ -77,11 +79,11 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<User> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(ArrayList<User> students) {
         this.students = students;
     }
 
@@ -103,6 +105,32 @@ public class Project implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+
+    public boolean addStudent(User student){
+        if(this.getNumberStudents() == this.students.size()){
+            return false;
+        }
+        for (User s : students) {
+            if (s.getUsername().equals(student.getUsername())) {
+                return false;
+            }
+        }
+        this.students.add(student);
+        return true;
+    }
+
+    public void activate(){
+        this.status = Status.ACTIVE;
+    }
+
+    public void deactivate(){
+        this.status = Status.INACTIVE;
+    }
+
+    public boolean isActive(){
+        return this.status == Status.ACTIVE;
     }
 }
 
