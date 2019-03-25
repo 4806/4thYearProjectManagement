@@ -1,27 +1,22 @@
-.fixed_header{
-    width: 400px;
-    table-layout: fixed;
-    border-collapse: collapse;
-}
-
-.fixed_header tbody{
-    display:block;
-    width: 100%;
-    overflow: auto;
-    height: 100px;
-}
-
-.fixed_header thead tr {
+.fixed_header tbody {
     display: block;
+    height: 480px;
+    overflow: auto;
+}
+
+.fixed_header thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;/* even columns width , fix width of table too*/
 }
 
 .fixed_header thead {
-    background: black;
-    color:#fff;
+    width: calc( 100% - 0em )/* scrollbar is average 1em/16px width, remove it from thead width */
+}
+.fixed_header table {
+    width:250px;
 }
 
-.fixed_header th, .fixed_header td {
-    padding: 5px;
-    text-align: left;
-    width: 200px;
+.fixed_header button{
+    float: right;
 }
