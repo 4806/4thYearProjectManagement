@@ -62,22 +62,11 @@ public class ProjectController {
 
     }
 
-    public void addProjectStub(Supervisor user){
-
-
-        projectRepository.save(new Project("Tesvoihwv","svjiajb",5,user,null,null));
-        projectRepository.save(new Project("TeasdgWFE","svjiajb",5,user,null,null));
-        projectRepository.save(new Project("TesQFDqefv","svjefwefjb",5,user,null,null));
-
-
-    }
-
     @GetMapping("/projects")
     public String listProjects(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         Supervisor supervisor = new Supervisor("Supervisor","password","password",null);
-        addProjectStub(supervisor);
         Iterable<Project> all = projectRepository.findAll();
         if(auth instanceof AnonymousAuthenticationToken || user.getRoleValue().equals("STUDENT")){
             List<Project> active = new ArrayList<>();
