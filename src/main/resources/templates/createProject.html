@@ -17,15 +17,16 @@
                             <textarea class="form-control" placeholder="Description of the Project" name="description" th:field="*{description}" required></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="form-control input-lg" placeholder="Number of Students required in the project" name="numberStudents" type="number"  th:field="*{numberStudents}" required>
+                            <input class="form-control input-lg" placeholder="Number of Students required in the project" name="numberStudents" type="number"  min="1" max="20" th:field="*{numberStudents}" required>
                         </div>
                         <div class="form-group">
                             <select class="form-control input-lg" multiple="multiple">
-                                    <option value="SOFT">Software Engineering</option>
-                                    <option value="COMP">Computer Systems Engineering</option>
-                                    <option value="CIVE">Civil Engineering</option>
-                                    <option value="MECH">Mechanical Engineering</option>
-                                    <option value="ELEC">Electrical Engineering</option>
+                                    <option disabled>Please Select Restrictions for this project</option>
+                                    <option th:each="acronym : ${T(app.models.Program.Acronym).values()}"
+                                            th:value="${acronym}"
+                                            th:text="${acronym.value}">
+
+                                    </option>
                                 </select>
                             </select>
 

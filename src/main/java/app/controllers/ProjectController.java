@@ -41,13 +41,17 @@ public class ProjectController {
         User user = userRepository.findByUsername(auth.getName());
 
         Project temp = projectRepository.findByName(project.getName());
+        ArrayList<Project> projects= new ArrayList<Project>();
         if (temp == null){
             if (project.getSupervisor()==null){
-                project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),null));
+                project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),projects));
             }
 
             if (project.getStudents() == null){
                 project.setStudents(new ArrayList<User>());
+            }
+            if (project.getRestrictions() == null){
+                project.setRestrictions(new ArrayList<Program>());
             }
 
             project.activate();
