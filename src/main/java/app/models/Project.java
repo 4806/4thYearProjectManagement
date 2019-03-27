@@ -22,7 +22,7 @@ public class Project implements Serializable {
     private Supervisor supervisor;
 
     //Current Students participating in Project
-    @Column(length=1024)
+    @Column(length=10024)
     private ArrayList<User> students;
 
     //Required Program for Students Participating

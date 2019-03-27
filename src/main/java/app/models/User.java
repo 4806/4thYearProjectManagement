@@ -1,9 +1,6 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -28,6 +25,7 @@ public class User implements Serializable {
     private String confPassword;
 
     // Current Project for user assuming Student
+    @Column(length=10024)
     private Project project;
 
     public User(){}
