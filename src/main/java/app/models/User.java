@@ -19,6 +19,7 @@ public class User implements Serializable {
     @NotNull
     private String password;
 
+
     public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
     }

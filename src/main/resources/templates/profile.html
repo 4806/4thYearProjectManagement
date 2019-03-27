@@ -3,7 +3,40 @@
 <div>
 
     <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span sec:authentication="name"/>, you are a <span sec:authorize="hasAuthority('STUDENT')">STUDENT</span><span sec:authorize="hasAuthority('COORDINATOR')">COORDINATOR</span><span sec:authorize="hasAuthority('SUPERVISOR')">SUPERVISOR</span>!</p>
+</div >
+<div class="card card-body">
+        <div >
+            <h5>User Info</h5>
+        </div>
+        <hr>
+        <div>
+            <h5>Project Activity</h5>
+        </div>
+        <hr>
+        <div>
+            <h5> Account Settings</h5> <br>
+            <div >
+                <h6>Change Password:</h6>
+                <form class="card card-body">
+                    <fieldset>
+                        <div class="form-group" >
+                            <div class="col-lg-4">
+                                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <input type="password" class="form-control" id="Password" placeholder=" Enter new Password">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <input type="password" class="form-control" id="confPassword" placeholder="Confirm new Password">
+                        </div >
+                        <div class="form-group col-lg-2">
+                            <input type="submit" class="btn btn-primary" value="Change Password"/>
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
 </div>
-
-
 </html>
