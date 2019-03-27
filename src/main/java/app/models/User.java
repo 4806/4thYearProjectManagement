@@ -27,6 +27,9 @@ public class User implements Serializable {
 
     private String confPassword;
 
+    // Current Project for user assuming Student
+    private Project project;
+
     public User(){}
 
     public User(String username, String password, String confPassword, Role role) {
@@ -79,5 +82,13 @@ public class User implements Serializable {
 
     public void setConfPassword(String pw){
         this.confPassword = pw;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }
