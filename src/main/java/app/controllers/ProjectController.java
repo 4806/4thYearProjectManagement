@@ -98,6 +98,8 @@ public class ProjectController {
             model.addAttribute("addError", true);
         }
         projectRepository.save(selected);
+        user.setProject(selected);
+        userRepository.save(user);
 
         Iterable<Project> all = projectRepository.findAll();
         List<Project> active = new ArrayList<>();
