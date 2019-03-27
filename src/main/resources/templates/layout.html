@@ -77,6 +77,11 @@
         <script> $("#pageTitle").html("Projects List"); </script>
         <div th:replace="projects"/>
     </span>
+    <span th:case="'project'">
+        <!--<script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>-->
+        <script> $("#pageTitle").html("Current Project"); </script>
+        <div th:replace="project"/>
+    </span>
     <div th:case="'index'">
         <!--<script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>-->
         <script> $("#pageTitle").html("4th Year Project"); </script>
