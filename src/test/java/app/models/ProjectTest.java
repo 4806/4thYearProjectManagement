@@ -26,7 +26,7 @@ public class ProjectTest {
         students.add(student1);
         students.add(student2);
 
-        Supervisor supervisor = new Supervisor("Bailey", "1234", "1234");
+        Supervisor supervisor = new Supervisor("Bailey", "1234", "1234", new ArrayList<Project>());
 
         this.project = new Project("project1", "Website", 3, supervisor, students, programs);
     }
@@ -66,13 +66,13 @@ public class ProjectTest {
 
     @Test
     public void getSupervisor() {
-        assertEquals(new Supervisor("Bailey", "1234", "1234"), project.getSupervisor());
+        assertEquals(new Supervisor("Bailey", "1234", "1234", new ArrayList<Project>()), project.getSupervisor());
     }
 
     @Test
     public void setSupervisor() {
-        project.setSupervisor(new Supervisor("Babak", "5678", "5678"));
-        assertEquals(new Supervisor("Babak", "5678", "5678"), project.getSupervisor());
+        project.setSupervisor(new Supervisor("Babak", "5678", "5678", new ArrayList<Project>()));
+        assertEquals(new Supervisor("Babak", "5678", "5678", new ArrayList<Project>()), project.getSupervisor());
 
     }
 

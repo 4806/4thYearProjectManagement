@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class SupervisorTest {
 
-    Supervisor supervisor = new Supervisor("Bailey", "1234", "1234");
+    Supervisor supervisor;
     ArrayList<User> students;
     ArrayList<Program> programs;
 
@@ -26,7 +26,7 @@ public class SupervisorTest {
         students.add(student1);
         students.add(student2);
 
-        supervisor = new Supervisor("Bailey", "1234", "1234");
+        supervisor = new Supervisor("Bailey", "1234", "1234", new ArrayList<Project>());
         supervisor.addProject(new Project("project1", "Website", 3, supervisor, students, programs));
     }
 
