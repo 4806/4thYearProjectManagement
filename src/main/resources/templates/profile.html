@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div>
+
+    <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span sec:authentication="name"/>, you are a <span sec:authorize="hasAuthority('STUDENT')">STUDENT</span><span sec:authorize="hasAuthority('COORDINATOR')">COORDINATOR</span><span sec:authorize="hasAuthority('SUPERVISOR')">SUPERVISOR</span>!</p>
+</div>
+
+
+</html>
