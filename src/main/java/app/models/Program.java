@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Program implements Serializable {
@@ -44,4 +45,15 @@ public class Program implements Serializable {
     public void setAcronym(Acronym acronym) {
         this.acronym = acronym;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Program)) return false;
+        Program program = (Program) o;
+        return Objects.equals(id, program.id) &&
+                Objects.equals(name, program.name) &&
+                acronym == program.acronym;
+    }
+
 }

@@ -41,4 +41,5 @@ public class UserTest {
         user.setRole(User.Role.SUPERVISOR);
         assertEquals(User.Role.SUPERVISOR,user.getRole());
     }
+
 }

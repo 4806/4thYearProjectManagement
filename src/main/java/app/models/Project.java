@@ -3,6 +3,7 @@ package app.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Entity
 public class Project implements Serializable {
@@ -29,7 +30,7 @@ public class Project implements Serializable {
     private ArrayList<Program> restrictions;
 
     //Status of the project
-    private enum Status {ACTIVE, INACTIVE}
+    public enum Status {ACTIVE, INACTIVE}
     private Status status;
 
     public Project() {
@@ -132,5 +133,21 @@ public class Project implements Serializable {
     public boolean isActive(){
         return this.status == Status.ACTIVE;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project)) return false;
+        Project project = (Project) o;
+        return numberStudents == project.numberStudents &&
+                Objects.equals(id, project.id) &&
+                Objects.equals(name, project.name) &&
+                Objects.equals(description, project.description) &&
+                Objects.equals(supervisor, project.supervisor) &&
+                Objects.equals(students, project.students) &&
+                Objects.equals(restrictions, project.restrictions) &&
+                status == project.status;
+    }
+
 }
 
