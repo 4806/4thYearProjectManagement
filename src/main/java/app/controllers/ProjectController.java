@@ -150,7 +150,7 @@ public class ProjectController {
     @GetMapping("/project")
     public String accessProject(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        model.addAttribute("project", user.getProject());
+        model.addAttribute("selected", user.getProject());
         model.addAttribute("view", "project");
         return "layout";
     }

@@ -5,6 +5,8 @@
     <title>Project</title>
 </head>
 <body>
-    <h1>Hello</h1>
+<div th:object="${selected}">
+    <h1 th:text="${selected.getName()}">Hello</h1>
+</div>
 </body>
 </html>
