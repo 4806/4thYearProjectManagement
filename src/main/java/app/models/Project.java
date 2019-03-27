@@ -3,6 +3,7 @@ package app.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Project implements Serializable {
@@ -31,6 +32,10 @@ public class Project implements Serializable {
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
+
+    // Project Deliverables
+    @OneToMany
+    private List<Deliverable> deliverables;
 
     public Project() {
 
