@@ -1,0 +1,22 @@
+.fixed_header tbody {
+    display: block;
+    height: 750px;
+    overflow: auto;
+}
+
+.fixed_header thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;/* even columns width , fix width of table too*/
+}
+
+.fixed_header thead {
+    width: calc( 100% - 0em )/* scrollbar is average 1em/16px width, remove it from thead width */
+}
+.fixed_header table {
+    width:250px;
+}
+
+.fixed_header button{
+    float: right;
+}
