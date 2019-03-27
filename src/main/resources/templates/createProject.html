@@ -7,7 +7,7 @@
     <div class="container-fluid py-2">
         <div class="row">
             <div class="col-md-9 mx-auto">
-                <form class="card card-body" th:action="@{/createProject}" th:object="${project}" method="post">
+                <form id="form-project" class="card card-body" th:action="@{/createProject}" th:object="${project}" method="post">
                     <h3 class="text-center mb-4">Project Form</h3>
                     <fieldset>
                         <div class="form-group">
@@ -20,14 +20,14 @@
                             <input class="form-control input-lg" placeholder="Number of Students required in the project" name="numberStudents" type="number"  min="1" max="20" th:field="*{numberStudents}" required>
                         </div>
                         <div class="form-group">
-                            <select class="form-control input-lg" multiple="multiple">
+                            <input type="checkbox" name="test" value="testvalue">
+                            <select form="form-project" class="form-control input-lg" multiple="multiple">
                                     <option disabled>Please Select Restrictions for this project</option>
                                     <option th:each="acronym : ${T(app.models.Program.Acronym).values()}"
-                                            th:value="${acronym}"
+                                            th:value="${acronym.value}"
                                             th:text="${acronym.value}">
 
                                     </option>
-                                </select>
                             </select>
 
                         </div>
