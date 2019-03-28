@@ -34,8 +34,8 @@ public class Project implements Serializable {
     private Status status;
 
     // Project Deliverables
-    @OneToMany
-    private List<Deliverable> deliverables;
+    @Column(length=10024)
+    private ArrayList<Deliverable> deliverables = new ArrayList<>();
 
     public Project() {
 
@@ -124,6 +124,14 @@ public class Project implements Serializable {
         }
         this.students.add(student);
         return true;
+    }
+
+    public void addDeliverable(Deliverable deliverable) {
+        deliverables.add(deliverable);
+    }
+
+    public List<Deliverable> getDeliverables() {
+        return deliverables;
     }
 
     public void activate(){

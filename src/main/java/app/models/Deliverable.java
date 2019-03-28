@@ -22,6 +22,7 @@ public class Deliverable {
     // File to store the submission
     private File file;
     private Date submissionDate;
+    private String status = "Submitted";
 
     public Deliverable(Date dueDate, String title, String description) {
         this.dueDate = dueDate;
@@ -72,5 +73,13 @@ public class Deliverable {
 
     public void setSubmissionDate(Date submissionDate) {
         this.submissionDate = submissionDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

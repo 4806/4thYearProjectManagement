@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -150,8 +151,18 @@ public class ProjectController {
     @GetMapping("/project")
     public String accessProject(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
+        test(user.getProject());
         model.addAttribute("selected", user.getProject());
+        model.addAttribute("deliverables", user.getProject().getDeliverables());
         model.addAttribute("view", "project");
         return "layout";
+    }
+
+    private void test(Project project) {
+        Deliverable deliverable1 = new Deliverable(new Date(2019, 3, 10), "Progress Report", "Progress Report");
+        Deliverable deliverable2 = new Deliverable(new Date(2019, 4, 15), "Final Report", "Final Report");
+
+        project.addDeliverable(deliverable1);
+        project.addDeliverable(deliverable2);
     }
 }

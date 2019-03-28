@@ -1,12 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Project</title>
-</head>
-<body>
-<div th:object="${selected}">
-    <h1 th:text="${selected.getName()}">Hello</h1>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<div class="mx-auto py-5" style="width: 95%;">
+    <p th:if="${addError}" class="error text-danger text-center">Failed to add Student to Project.</p>
+    <table class="table fixed_header">
+        <thead class="thead-light" >
+        <tr >
+            <th> Deliverable</th>
+            <th> Description</th>
+            <th> Due Date</th>
+            <th> Status</th>
+            <th>  </th>
+        </tr>
+        </thead>
+
+
+        <tbody >
+        <tr th:if="${deliverables == null}">
+            <td colspan="2"> No Current Deliverables</td>
+        </tr>
+
+        <tr th:each="deliverable : ${deliverables}" >
+            <td><span th:text="${deliverable.getTitle()}">Title</span></td>
+            <td><span th:text="${deliverable.getDescription()}">Descrpition</span></td>
+            <td><span th:text="${deliverable.getDueDate()}">Due Date</span></td>
+            <td><span th:text="${deliverable.getStatus()}">Status</span></td>
+
+            <td>
+                <span id="details-button">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${deliverable.getTitle()}"> Details
+                    </button>
+                </span>
+            </td>
+
+            <div class="modal fade" th:id="details+${deliverable.getTitle()}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><span th:text="${deliverable.getTitle()}" ></span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p th:text="${deliverable.getDescription()}"></p>
+                            <p>Status: <span th:text="${deliverable.getStatus()}"></span> </p>
+
+                            <div class="modal-footer" th:switch="${deliverable.isActive()}">
+                                <button hidden type="button" class="btn btn-primary" sec:authorize="hasAuthority('SUPERVISOR')">Edit</button>
+                                <form th:action="@{/join}" th:object="${select}" method="post" sec:authorize="hasAuthority('STUDENT')">
+                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
+                                    <button type="submit" class="btn btn-primary">Join</button>
+                                </form>
+                                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post" th:case="true">
+                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
+                                    <button type="submit" class="btn btn-primary"> Archive</button>
+                                </form>
+                                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post" th:case="false">
+                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
+                                    <button type="submit" class="btn btn-primary"> Unarchive</button>
+                                </form>
+                                <form sec:authorize="hasAnyAuthority('SUPERVISOR', 'COORDINATOR')" th:action="@{/delete}" th:object="${delproj}" method="post">
+                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
+                                    <button type="submit" class="btn btn-primary"> Delete</button>
+                                </form>
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
 </div>
-</body>
+
+</html>
+
 </html>
