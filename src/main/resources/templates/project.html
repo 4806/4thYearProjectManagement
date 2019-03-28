@@ -6,10 +6,10 @@
 
 
 <div class="mx-auto py-5" style="width: 95%;">
-    <p th:if="${addError}" class="error text-danger text-center">Failed to add Student to Project.</p>
-    <table class="table fixed_header">
+    <p th:if="${addError}" class="error text-danger text-center">Not a Member of a Project</p>
+    <table th:unless="${addError}" class="table fixed_header">
         <thead class="thead-light" >
-        <tr >
+        <tr>
             <th> Deliverable</th>
             <th> Description</th>
             <th> Due Date</th>
@@ -20,7 +20,7 @@
 
 
         <tbody >
-        <tr th:if="${deliverables == null}">
+        <tr  th:if="${deliverables == null}">
             <td colspan="2"> No Current Deliverables</td>
         </tr>
 
@@ -51,25 +51,12 @@
                             <p th:text="${deliverable.getDescription()}"></p>
                             <p>Status: <span th:text="${deliverable.getStatus()}"></span> </p>
 
-                            <div class="modal-footer" th:switch="${deliverable.isActive()}">
+                            <div class="modal-footer">
                                 <button hidden type="button" class="btn btn-primary" sec:authorize="hasAuthority('SUPERVISOR')">Edit</button>
-                                <form th:action="@{/join}" th:object="${select}" method="post" sec:authorize="hasAuthority('STUDENT')">
+                                <form th:action="@{/upload}" th:object="${deliverable}" method="post" sec:authorize="hasAuthority('STUDENT')">
                                     <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
-                                    <button type="submit" class="btn btn-primary">Join</button>
+                                    <button type="submit" class="btn btn-primary">Upload File</button>
                                 </form>
-                                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/archive}" th:object="${oper}" method="post" th:case="true">
-                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
-                                    <button type="submit" class="btn btn-primary"> Archive</button>
-                                </form>
-                                <form sec:authorize="hasAuthority('SUPERVISOR')" th:action="@{/unarchive}" th:object="${oper}" method="post" th:case="false">
-                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
-                                    <button type="submit" class="btn btn-primary"> Unarchive</button>
-                                </form>
-                                <form sec:authorize="hasAnyAuthority('SUPERVISOR', 'COORDINATOR')" th:action="@{/delete}" th:object="${delproj}" method="post">
-                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
-                                    <button type="submit" class="btn btn-primary"> Delete</button>
-                                </form>
-
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>

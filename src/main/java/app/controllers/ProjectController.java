@@ -151,9 +151,13 @@ public class ProjectController {
     @GetMapping("/project")
     public String accessProject(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        test(user.getProject());
-        model.addAttribute("selected", user.getProject());
-        model.addAttribute("deliverables", user.getProject().getDeliverables());
+        if (user.getProject() == null) {
+            model.addAttribute("addError", true);
+        } else {
+            test(user.getProject());
+            model.addAttribute("selected", user.getProject());
+            model.addAttribute("deliverables", user.getProject().getDeliverables());
+        }
         model.addAttribute("view", "project");
         return "layout";
     }
