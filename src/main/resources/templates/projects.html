@@ -4,9 +4,9 @@
 
 <div class="mx-auto py-5" style="width: 95%;">
     <p th:if="${addError}" class="error text-danger text-center">Failed to add Student to Project.</p>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
+    <table class="table fixed_header">
+        <thead class="thead-light" >
+        <tr >
             <th> Title</th>
             <!-- <th> Description</th> -->
             <th> Number of students</th>
@@ -17,11 +17,14 @@
 
         </tr>
         </thead>
-        <tbody>
+
+
+        <tbody >
         <tr th:if="${project == null}">
             <td colspan="2"> No Projects Available</td>
         </tr>
-        <tr th:each="proj : ${project}">
+
+        <tr th:each="proj : ${project}" >
             <td><span th:text="${proj.getName()}">Title</span></td>
             <!-- <td><span th:text="${proj.getDescription()}">Descrpition</span></td> -->
             <td><span th:text="${proj.getNumberStudents()}">Number of students</span></td>
@@ -114,9 +117,6 @@
             </div>
             </div>
             </td>
-
-        </tr>
-        <tr th:lo>
 
         </tr>
         </tbody>

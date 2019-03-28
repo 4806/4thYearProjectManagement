@@ -40,6 +40,8 @@ public class ProjectController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
+
+
         Project temp = projectRepository.findByName(project.getName());
         if (temp == null){
             if (project.getSupervisor()==null){
@@ -64,6 +66,7 @@ public class ProjectController {
     public String listProjects(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
+        Supervisor supervisor = new Supervisor("Supervisor","password","password",null);
         Iterable<Project> all = projectRepository.findAll();
         if(auth instanceof AnonymousAuthenticationToken || user.getRoleValue().equals("STUDENT")){
             List<Project> active = new ArrayList<>();
@@ -82,6 +85,8 @@ public class ProjectController {
             return "layout";
         }
     }
+
+
 
     @PostMapping("/join")
     public String join(@ModelAttribute Project select, Model model){

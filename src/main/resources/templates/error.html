@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:replace="layout :: site-head" />
+<div class="mx-auto py-3" style="width: 40%;">
+<h1>Oops that didnt go as expected !</h1>
+<p>Error Code: <span id="status" th:text="${status}"></span></p>
+<p>The Error is : <span th:text="${error}"></span></p>
+<a href="/" class="btn btn-primary">Go Home</a>
+</div>
+</body>
+</html>
