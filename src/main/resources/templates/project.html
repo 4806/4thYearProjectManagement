@@ -27,7 +27,7 @@
                 </span>
             </th>
 
-            <div class="modal fade" th:id="details+${selected.getName()}">
+            <div class="modal fade" th:object="${deliverable}" th:id="details+${selected.getName()}">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -38,8 +38,8 @@
                         </div>
 
                         <div class="modal-body">
-                            <input class="form-control input-lg" placeholder="Deliverable Name" name="title" type="text" required>
-                            <textarea class="form-control" rows="5" placeholder="Deliverable Description" id="comment" required></textarea>
+                            <input class="form-control input-lg" placeholder="Deliverable Name" name="title" type="text" th:field="*{title}" required>
+                            <textarea class="form-control" rows="5" placeholder="Deliverable Description" id="comment" th:field="*{description}" required></textarea>
                             <div class="modal-footer">
                                 <form sec:authorize="hasAuthority('STUDENT')" th:action="@{/addDeliverable}" method="post">
                                     <input type="hidden" th:value="${selected.getName()}" name="name"/>

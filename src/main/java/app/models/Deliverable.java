@@ -30,6 +30,8 @@ public class Deliverable {
         this.description = description;
     }
 
+    public Deliverable() {}
+
     public void submit(Date currentDate, File file) {
         this.submissionDate = currentDate;
         this.file = file;

@@ -157,7 +157,17 @@ public class ProjectController {
             test(user.getProject());
             model.addAttribute("selected", user.getProject());
             model.addAttribute("deliverables", user.getProject().getDeliverables());
+            model.addAttribute("deliverable", new Deliverable());
         }
+        model.addAttribute("view", "project");
+        return "layout";
+    }
+
+    @PostMapping("/addDeliverable")
+    public String addDeliverable(Model model, @ModelAttribute Deliverable deliverable, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        // todo: if user supervises multiple projects add deliverable to all?
+        user.getProject().getDeliverables().add(deliverable);
         model.addAttribute("view", "project");
         return "layout";
     }
