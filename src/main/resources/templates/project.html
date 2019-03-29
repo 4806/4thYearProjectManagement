@@ -13,14 +13,44 @@
         <p><span th:text="${selected.getDescription()}"></span></p>
     </div>
 
-    <table th:unless="${addError}" class="table fixed_header">
+    <table th:object="${selected}" th:unless="${addError}" class="table fixed_header">
         <thead class="thead-light" >
         <tr>
             <th> Deliverables</th>
             <th> Description</th>
             <th> Due Date</th>
             <th> Status</th>
-            <th>  </th>
+            <th>
+                <span id="details-button" sec:authorize="hasAuthority('STUDENT')" >
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${selected.getName()}"> Add Deliverable
+                    </button>
+                </span>
+            </th>
+
+            <div class="modal fade" th:id="details+${selected.getName()}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><span th:text="${selected.getName()}" ></span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input class="form-control input-lg" placeholder="Deliverable Name" name="title" type="text" required>
+                            <textarea class="form-control" rows="5" placeholder="Deliverable Description" id="comment" required></textarea>
+                            <div class="modal-footer">
+                                <form sec:authorize="hasAuthority('STUDENT')" th:action="@{/addDeliverable}" method="post">
+                                    <input type="hidden" th:value="${selected.getName()}" name="name"/>
+                                    <button type="submit" class="btn btn-primary"> Add Deliverable</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </tr>
         </thead>
 
