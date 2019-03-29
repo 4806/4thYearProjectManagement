@@ -1,6 +1,5 @@
 .fixed_header tbody {
     display: block;
-    height: 750px;
     overflow: auto;
 }
 
