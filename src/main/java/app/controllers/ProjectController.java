@@ -188,8 +188,11 @@ public class ProjectController {
     }
 
     private void test(Project project) {
-        Deliverable deliverable1 = new Deliverable(new Date(2019, 3, 10), "Progress Report", "Progress Report");
-        Deliverable deliverable2 = new Deliverable(new Date(2019, 4, 15), "Final Report", "Final Report");
+        Date dueDate1 = new Date(2019, 4, 10, 10,30);
+        Date dueDate2 = new Date(2019, 5, 10, 10,30);
+
+        Deliverable deliverable1 = new Deliverable(dueDate1, "Progress Report", "Progress Report");
+        Deliverable deliverable2 = new Deliverable(dueDate2, "Final Report", "Final Report");
 
         project.addDeliverable(deliverable1);
         project.addDeliverable(deliverable2);
