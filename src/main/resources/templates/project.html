@@ -7,14 +7,13 @@
 
 <div class="mx-auto py-5" style="width: 95%;">
     <p th:if="${addError}" class="error text-danger text-center">Not a Member of a Project</p>
-    <table th:object="${selected}" th:unless="${addError}" class="table fixed_header">
 
-        <tr><td>Title: <span th:text="${selected.getName()}"></span></td></tr>
-        <tr><td>Description: <span th:text="${selected.getDescription()}"></span></td></tr>
-        <tr><td>Number of Students: <span th:text="${selected.getNumberStudents()}"></span></td></tr>
-        <tr><td>Supervisor: <span th:text="${selected.getSupervisor().getUsername()}"></span></td></tr>
-        <tr><td>Restrictions: <span th:text="${selected.getRestrictions()}"></span></td></tr>
+    <div th:unless="${addError}" th:object="${selected}">
+        <h1><span th:text="${selected.getName()}"></span></h1>
+        <p><span th:text="${selected.getDescription()}"></span></p>
+    </div>
 
+    <table th:unless="${addError}" class="table fixed_header">
         <thead class="thead-light" >
         <tr>
             <th> Deliverables</th>

@@ -12,6 +12,7 @@ public class Project implements Serializable {
     private Long id;
 
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     //Maximum Number of students

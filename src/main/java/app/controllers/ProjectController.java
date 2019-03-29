@@ -162,6 +162,31 @@ public class ProjectController {
         return "layout";
     }
 
+    private boolean executed = false;
+
+    @GetMapping("/populate")
+    public String populateProjects(Model model) {
+        ArrayList<Program> restrictions = new ArrayList<>();
+        ArrayList<User> students = new ArrayList<>();
+        Supervisor supervisor = new Supervisor("Donald Bailey", "password", "password");
+        Project project1 = new Project("Software Development for the Northern Nomad Tiny House", "The Nomad is equipped with several home automation features. We are looking for novel ways to apply these features in a net-zero dwelling.\n" +
+                "\n" +
+                "The Northern Nomad website suggests one project: the house will inform the occupants if windows are left open when the heating and cooling heat pump is running.\n" +
+                "\n" +
+                "Another suggested project is to develop software that enables the house to learn about the day-to-day behaviour of its occupants. For example, the house will learn when occupants typically leave and return home on week days and weekends, and will automatically regulate the heating/cooling system and lighting controls in response, depending on the season and current weather conditions. This project should be of interest to students who are interested in machine learning. We recommend that these students obtain an introduction to machine learning prior to September; for example, by completing one or more of the free machine learning courses offered by coursera and edX.\n" +
+                "\n", 6, supervisor, students, restrictions);
+        Project project2 = new Project("FRAME: Facial Recognition Automated Movie Evaluation", "Within the realm of Anti Piracy and media rights, enforcement validation of media files is a key, but often manual, process. The intention of this project is to use machine-learning-based facial recognition as well as targeted extraction to build an automated movie validation system for use in an end-to-end anti-piracy system. The project will be done in conjunction with the Online Piracy Detection team at Irdeto, a cyber security and technology company in Kanata. The goal is to design a proof-of-concept system. This will be done either by using cloud computing or system virtualization technologies such as Docker to simulate cloud based machines. The three main components to be developed are a movie frame extraction system, a facial recognition system and the database query segment for determining the video. The system will start by extracting screenshots from the movie to locate faces for facial recognition. The extracted screenshots will then be ran through facial recognition to determine actors and characters found in the movie. This data will then be used to query an IMDB like database to find what possible movies have those actors and characters to a given threshold of certainty. Post development, a large investigation will be necessary to determine the optimal configuration of the system; for example, the number of screenshots needed on average, the spread of screenshots, the number of faces/characters needed to validate a movie and other factors observed throughout development. Prior experience with Python, cloud computing and/or system virtualization technologies is an asset. ", 6, supervisor, students, restrictions);
+
+        if (!executed) {
+            projectRepository.save(project1);
+            projectRepository.save(project2);
+            executed = true;
+        }
+
+        model.addAttribute("view", "projects");
+        return "layout";
+    }
+
     private void test(Project project) {
         Deliverable deliverable1 = new Deliverable(new Date(2019, 3, 10), "Progress Report", "Progress Report");
         Deliverable deliverable2 = new Deliverable(new Date(2019, 4, 15), "Final Report", "Final Report");
