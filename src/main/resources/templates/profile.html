@@ -17,7 +17,7 @@
             <h5> Account Settings</h5> <br>
             <div >
                 <h6>Change Password:</h6>
-                <form class="card card-body">
+                <form class="card card-body" th:action="@{/profile}" th:object="${user}" method="post">
                     <fieldset>
                         <div class="form-group" >
                             <div class="col-lg-4">

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,12 @@ public class ProfileController {
     public String profilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
-
         model.addAttribute("view", "profile");
         return "layout";
-
+    }
+    @PostMapping("/profile")
+    public String  changePassword(@ModelAttribute User user, Model model){
+        System.out.println(user.getPassword());
+        return "redirect:login";
     }
 }
