@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +29,46 @@ public class ProfileController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    private User user;
     @GetMapping("/profile")
     public String profilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(auth.getName());
+         user = userRepository.findByUsername(auth.getName());
+
+        System.out.println("logged user "+user.getUsername());
+        model.addAttribute("user", user);
         model.addAttribute("view", "profile");
         return "layout";
     }
+
     @PostMapping("/profile")
-    public String  changePassword(@ModelAttribute User user, Model model){
-        System.out.println(user.getPassword());
-        return "redirect:login";
+    public String  changePassword(@ModelAttribute User formUser,  Model model) {
+        // check if current password matches
+
+        //if (user.getPassword().equals(passwordEncoder.encode(formUser.getCurrentPassword()))) {
+            // check the new password and confirm password match
+            if(formUser.getPassword().equals(formUser.getConfPassword())){
+                user.setPassword(passwordEncoder.encode(formUser.getPassword()));
+                user.setConfPassword(passwordEncoder.encode(formUser.getConfPassword()));
+                userRepository.save(user);
+                model.addAttribute("view", "profile");
+                model.addAttribute("resetSuccess", true);
+                return "layout";
+            }else {
+                // if password do not match return an error message.
+                model.addAttribute("view", "forgotPassword");
+                model.addAttribute("pwError", true);
+                return "layout";
+            }
+    /*
+    }else {
+            model.addAttribute("view", "profile");
+            model.addAttribute("pwError", true);
+            return "layout";
+        }
+      */
     }
 }

@@ -14,21 +14,26 @@
         </div>
         <hr>
         <div>
-            <h5> Account Settings</h5> <br>
+            <h5> Account Settings</h5>
+            <div>
+                <a class="btn btn-outline-primary" th:href="@{/projects}">Change password</a>
+            </div>
             <div >
                 <h6>Change Password:</h6>
                 <form class="card card-body" th:action="@{/profile}" th:object="${user}" method="post">
+                    <p th:if="${pwError}" class="error text-danger text-left form-group"> Password Does not Match </p>
+                    <p th:if="${resetSuccess}" class="text-success text-left form-group">You have successfuly changed your password </p>
                     <fieldset>
                         <div class="form-group" >
                             <div class="col-lg-4">
-                                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+                                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password" th:field="*{currentPassword}" required>
                             </div>
                         </div>
                         <div class="form-group col-lg-4">
-                            <input type="password" class="form-control" id="Password" placeholder=" Enter new Password">
+                            <input type="password" class="form-control" id="Password" placeholder=" Enter new Password" th:field="*{Password}" required>
                         </div>
                         <div class="form-group col-lg-4">
-                            <input type="password" class="form-control" id="confPassword" placeholder="Confirm new Password">
+                            <input type="password" class="form-control" id="confPassword" placeholder="Confirm new Password" th:field="*{confPassword}" required>
                         </div >
                         <div class="form-group col-lg-2">
                             <input type="submit" class="btn btn-primary" value="Change Password"/>
