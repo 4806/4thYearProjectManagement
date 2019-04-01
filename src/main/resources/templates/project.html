@@ -25,7 +25,7 @@
             <th> Due Date</th>
             <th> Status</th>
             <th>
-                <span id="details-button" sec:authorize="hasAuthority('STUDENT')" >
+                <span id="details-button" sec:authorize="hasAuthority('SUPERVISOR')" >
                     <button class="btn btn-primary" data-toggle="modal" data-target="#details" th:attr="data-target='#details'+${selected.getName()}"> Add Deliverable
                     </button>
                 </span>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <form sec:authorize="hasAuthority('STUDENT')" th:object="${deliverable}" th:action="@{/project}" method="post">
+                            <form sec:authorize="hasAuthority('SUPERVISOR')" th:object="${deliverable}" th:action="@{/project}" method="post">
                                 <div class="form-group">
                                     <p>Title:</p>
                                     <input class="form-control input-lg" placeholder="Deliverable Title" name="title" type="text" th:field="*{title}" required>
