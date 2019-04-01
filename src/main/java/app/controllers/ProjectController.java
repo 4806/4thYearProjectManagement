@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -186,9 +188,8 @@ public class ProjectController {
             model.addAttribute("addError", true);
         } else {
             if (deliverable != null) {
-                // Hardcoded Date Temporarily
-                Calendar dueDate1 = Calendar.getInstance();
-                dueDate1.set(2019, Calendar.MARCH, 10, 10, 30);
+                String str = deliverable.getInputDate() + " - " + deliverable.getInputTime();
+                Calendar dueDate1 = convertString(str);
                 deliverable.setDueDate(dueDate1);
                 user.getProject().getDeliverables().add(deliverable);
                 userRepository.save(user);
@@ -243,6 +244,19 @@ public class ProjectController {
             project.addDeliverable(deliverable1);
             project.addDeliverable(deliverable2);
             called = true;
+        }
+    }
+
+    private Calendar convertString(String strDate) {
+        try {
+            Calendar cal = Calendar.getInstance();
+            String format = "yyyy-MM-dd - HH:mm";
+            SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+            cal.setTime(sdf.parse(strDate));
+            return cal;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

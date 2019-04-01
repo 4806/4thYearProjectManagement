@@ -18,6 +18,9 @@ public class Deliverable implements Serializable {
 
     // Date the deliverable is due
     private Calendar dueDate;
+    // Values obtained from front-end
+    private String inputTime;
+    private String inputDate;
 
     private String title;
     private String description;
@@ -107,5 +110,21 @@ public class Deliverable implements Serializable {
 
     public void setLate(boolean late) {
         this.late = late;
+    }
+
+    public String getInputTime() {
+        return inputTime;
+    }
+
+    public void setInputTime(String inputTime) {
+        this.inputTime = inputTime;
+    }
+
+    public String getInputDate() {
+        return inputDate;
+    }
+
+    public void setInputDate(String inputDate) {
+        this.inputDate = inputDate;
     }
 }
