@@ -23,7 +23,7 @@ public class Project implements Serializable {
     private Supervisor supervisor;
 
     //Current Students participating in Project
-    @Column(length=10024)
+    @Column(length=1000024)
     private ArrayList<User> students;
 
     //Required Program for Students Participating
@@ -35,7 +35,7 @@ public class Project implements Serializable {
     private Status status;
 
     // Project Deliverables
-    @Column(length=10024)
+    @Column(length=1000024)
     private ArrayList<Deliverable> deliverables = new ArrayList<>();
 
     public Project() {

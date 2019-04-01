@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String confPassword;
 
     // Current Project for user assuming Student
-    @Column(length=10024)
+    @Column(length=1000024)
     private Project project;
 
     public User(){}

@@ -41,7 +41,7 @@
                             <input class="form-control input-lg" placeholder="Deliverable Name" name="title" type="text" th:field="*{title}" required>
                             <textarea class="form-control" rows="5" placeholder="Deliverable Description" id="comment" th:field="*{description}" required></textarea>
                             <div class="modal-footer">
-                                <form sec:authorize="hasAuthority('STUDENT')" th:action="@{/addDeliverable}" method="post">
+                                <form sec:authorize="hasAuthority('STUDENT')" th:action="@{/project}" method="post">
                                     <input type="hidden" th:value="${selected.getName()}" name="name"/>
                                     <button type="submit" class="btn btn-primary"> Add Deliverable</button>
                                 </form>

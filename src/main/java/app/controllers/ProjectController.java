@@ -162,7 +162,7 @@ public class ProjectController {
             for (Deliverable deliverable : project.getDeliverables()) {
                 if (deliverable.getDueDate().before(current)) {
                     deliverable.setLate(true);
-                    deliverable.setStatus("Deliverable is Overdue!");
+                    deliverable.setStatus("Deliverable is overdue.");
                     projectRepository.save(project);
                     userRepository.save(user);
                 }
@@ -176,17 +176,35 @@ public class ProjectController {
         return "layout";
     }
 
-    @PostMapping("/addDeliverable")
+    @PostMapping("/project")
     public String addDeliverable(Model model, @ModelAttribute Deliverable deliverable, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
+        Project project = user.getProject();
+
         // todo: if user supervises multiple projects add deliverable to all?
-        user.getProject().getDeliverables().add(deliverable);
+        if (project == null) {
+            model.addAttribute("addError", true);
+        } else {
+            if (deliverable != null) {
+                // Hardcoded Date Temporarily
+                Calendar dueDate1 = Calendar.getInstance();
+                dueDate1.set(2019, Calendar.MARCH, 10, 10, 30);
+                deliverable.setDueDate(dueDate1);
+                user.getProject().getDeliverables().add(deliverable);
+                userRepository.save(user);
+                projectRepository.save(project);
+            }
+
+            model.addAttribute("selected", user.getProject());
+            model.addAttribute("deliverables", user.getProject().getDeliverables());
+            model.addAttribute("deliverable", new Deliverable());
+        }
+
         model.addAttribute("view", "project");
-        return "layout";
+        return "redirect:project";
     }
 
     private boolean executed = false;
-
     @GetMapping("/populate")
     public String populateProjects(Model model) {
         ArrayList<Program> restrictions = new ArrayList<>();
@@ -210,6 +228,7 @@ public class ProjectController {
         return "layout";
     }
 
+    private boolean called = false;
     private void test(Project project) {
 
         Calendar dueDate1 = Calendar.getInstance();
@@ -220,8 +239,10 @@ public class ProjectController {
 
         Deliverable deliverable1 = new Deliverable(dueDate1, "Progress Report", "Progress Report");
         Deliverable deliverable2 = new Deliverable(dueDate2, "Final Report", "Final Report");
-
-        project.addDeliverable(deliverable1);
-        project.addDeliverable(deliverable2);
+        if (!called) {
+            project.addDeliverable(deliverable1);
+            project.addDeliverable(deliverable2);
+            called = true;
+        }
     }
 }
