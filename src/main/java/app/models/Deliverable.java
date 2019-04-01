@@ -5,26 +5,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.File;
-import java.util.Date;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Entity
-public class Deliverable {
+public class Deliverable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // Date the deliverable is due
-    private Date dueDate;
+    private Calendar dueDate;
 
     private String title;
     private String description;
 
     // File to store the submission
     private File file;
-    private Date submissionDate;
-    private String status = "Submitted";
+    // Default to no file uploaded, update when uploaded
+    private String filename = "No file Uploaded";
+    // If current date is > than due date deliverable is late
+    private boolean late = false;
+    private Calendar submissionDate;
+    private String status = "No attempt";
 
-    public Deliverable(Date dueDate, String title, String description) {
+    public Deliverable(Calendar dueDate, String title, String description) {
         this.dueDate = dueDate;
         this.title = title;
         this.description = description;
@@ -32,16 +39,21 @@ public class Deliverable {
 
     public Deliverable() {}
 
-    public void submit(Date currentDate, File file) {
+    public void submit(Calendar currentDate, File file) {
         this.submissionDate = currentDate;
         this.file = file;
     }
 
-    public Date getDueDate() {
+    public Calendar getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public String formatDate() {
+        DateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MMMM-dd, HH:MM");
+        return formatter.format(dueDate.getTime());
+    }
+
+    public void setDueDate(Calendar dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -69,11 +81,11 @@ public class Deliverable {
         this.file = file;
     }
 
-    public Date getSubmissionDate() {
+    public Calendar getSubmissionDate() {
         return submissionDate;
     }
 
-    public void setSubmissionDate(Date submissionDate) {
+    public void setSubmissionDate(Calendar submissionDate) {
         this.submissionDate = submissionDate;
     }
 
@@ -83,5 +95,17 @@ public class Deliverable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public boolean isLate() {
+        return late;
+    }
+
+    public void setLate(boolean late) {
+        this.late = late;
     }
 }

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ProjectController {
@@ -151,10 +149,25 @@ public class ProjectController {
     @GetMapping("/project")
     public String accessProject(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        if (user.getProject() == null) {
+        Project project = user.getProject();
+        if (project == null) {
             model.addAttribute("addError", true);
         } else {
-            test(user.getProject());
+            // Populate project with default deliverables
+            test(project);
+
+            // Set status according to actual date (Late - disable upload)
+            Calendar current = Calendar.getInstance();
+
+            for (Deliverable deliverable : project.getDeliverables()) {
+                if (deliverable.getDueDate().before(current)) {
+                    deliverable.setLate(true);
+                    deliverable.setStatus("Deliverable is Overdue!");
+                    projectRepository.save(project);
+                    userRepository.save(user);
+                }
+            }
+
             model.addAttribute("selected", user.getProject());
             model.addAttribute("deliverables", user.getProject().getDeliverables());
             model.addAttribute("deliverable", new Deliverable());
@@ -198,8 +211,12 @@ public class ProjectController {
     }
 
     private void test(Project project) {
-        Date dueDate1 = new Date(2019, 4, 10, 10,30);
-        Date dueDate2 = new Date(2019, 5, 10, 10,30);
+
+        Calendar dueDate1 = Calendar.getInstance();
+        dueDate1.set(2019, Calendar.MARCH, 10, 10, 30);
+
+        Calendar dueDate2 = Calendar.getInstance();
+        dueDate2.set(2019, Calendar.APRIL, 10, 10, 30);
 
         Deliverable deliverable1 = new Deliverable(dueDate1, "Progress Report", "Progress Report");
         Deliverable deliverable2 = new Deliverable(dueDate2, "Final Report", "Final Report");

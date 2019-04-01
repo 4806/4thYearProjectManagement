@@ -63,7 +63,7 @@
         <tr th:each="deliverable : ${deliverables}" >
             <td><span th:text="${deliverable.getTitle()}">Title</span></td>
             <td><span th:text="${deliverable.getDescription()}">Descrpition</span></td>
-            <td><span th:text="${deliverable.getDueDate()}">Due Date</span></td>
+            <td><span th:text="${deliverable.formatDate()}">Due Date</span></td>
             <td><span th:text="${deliverable.getStatus()}">Status</span></td>
 
             <td>
@@ -85,6 +85,7 @@
 
                         <div class="modal-body">
                             <p th:text="${deliverable.getDescription()}"></p>
+                            <p>Due Date: <span th:text="${deliverable.formatDate()}"></span></p>
                             <p>Status: <span th:text="${deliverable.getStatus()}"></span> </p>
 
                             <div class="modal-footer">
