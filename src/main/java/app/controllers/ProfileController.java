@@ -48,7 +48,6 @@ public class ProfileController {
     public String  changePassword(@ModelAttribute User formUser,  Model model) {
         // check if current password matches
 
-        //if (user.getPassword().equals(passwordEncoder.encode(formUser.getCurrentPassword()))) {
             // check the new password and confirm password match
             if(formUser.getPassword().equals(formUser.getConfPassword())){
                 user.setPassword(passwordEncoder.encode(formUser.getPassword()));
@@ -63,12 +62,5 @@ public class ProfileController {
                 model.addAttribute("pwError", true);
                 return "layout";
             }
-    /*
-    }else {
-            model.addAttribute("view", "profile");
-            model.addAttribute("pwError", true);
-            return "layout";
-        }
-      */
     }
 }
