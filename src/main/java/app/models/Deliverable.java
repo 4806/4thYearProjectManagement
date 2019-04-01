@@ -49,7 +49,7 @@ public class Deliverable implements Serializable {
     }
 
     public String formatDate() {
-        DateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MMMM-dd, HH:MM");
+        DateFormat formatter = new SimpleDateFormat("EEEE, yyyy - MMMM dd, HH:MM");
         return formatter.format(dueDate.getTime());
     }
 
