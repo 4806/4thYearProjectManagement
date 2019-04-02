@@ -23,10 +23,10 @@ public class ProjectRepoTest {
         Project project1 = new Project();
         ArrayList<Project> projects = new ArrayList<>();
         projects.add(project1);
-        Supervisor supervisor = new Supervisor("Rick", "pass", "pass", projects);
+        User supervisor = new User("Rick", "pass", "pass", projects);
 
         Program program = new Program("Computer Science", Program.Acronym.COMP);
-        Student student = new Student("", "", "", program);
+        User student = new User("", "", "", program);
         ArrayList<User> students = new ArrayList<>();
         students.add(student);
 

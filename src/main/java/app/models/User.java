@@ -1,11 +1,10 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -18,6 +17,12 @@ public class User implements Serializable {
 
     @NotNull
     private String password;
+
+    @ManyToOne
+    private Program program;
+
+    @OneToMany(mappedBy = "supervisor")
+    private List<Project> projects;
 
     public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
@@ -35,6 +40,41 @@ public class User implements Serializable {
         this.confPassword = confPassword;
         this.role = role;
     }
+
+    //Student Constructor
+    public User(String username, String password, String confPassword, Program program) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = Role.STUDENT;
+        this.program = program;
+    }
+
+    //Supervisor Constructor
+    public User(String username, String password, String confPassword, ArrayList<Project> projects) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = Role.SUPERVISOR;
+        this.projects = projects;
+    }
+
+    //Coordinator Constructor
+    public User(String username, String password, String confPassword) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = Role.COORDINATOR;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(ArrayList<Project> projects) {
+        this.projects = projects;
+    }
+
 
     public String getUsername() {
         return username;
@@ -79,5 +119,13 @@ public class User implements Serializable {
 
     public void setConfPassword(String pw){
         this.confPassword = pw;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }
