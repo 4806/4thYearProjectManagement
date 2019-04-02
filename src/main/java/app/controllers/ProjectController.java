@@ -116,6 +116,8 @@ public class ProjectController {
 
         Project temp = projectRepository.findByName(oper.getName());
 
+        temp.removeAllStudents();
+
         temp.deactivate();
         projectRepository.save(temp);
 
