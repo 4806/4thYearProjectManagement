@@ -25,6 +25,9 @@ public class Deliverable implements Serializable {
     private String title;
     private String description;
 
+    // Project the Deliverable belongs to
+    private String projectName;
+    private Project project;
     // File to store the submission
     private File file;
     // Default to no file uploaded, update when uploaded
@@ -126,5 +129,13 @@ public class Deliverable implements Serializable {
 
     public void setInputDate(String inputDate) {
         this.inputDate = inputDate;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }

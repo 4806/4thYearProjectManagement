@@ -41,8 +41,6 @@ public class ProjectController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
-
-
         Project temp = projectRepository.findByName(project.getName());
         if (temp == null){
             if (project.getSupervisor()==null){
@@ -53,8 +51,9 @@ public class ProjectController {
                 project.setStudents(new ArrayList<User>());
             }
 
+            // Add project to Supervisor's list
+            user.addProject(project);
             project.activate();
-            user.setProject(project);
             projectRepository.save(project);
             return "redirect:projects";
         }else{
@@ -159,18 +158,7 @@ public class ProjectController {
         } else {
             // Populate project with default deliverables
             test(project);
-
-            // Set status according to actual date (Late - disable upload)
-            Calendar current = Calendar.getInstance();
-
-            for (Deliverable deliverable : project.getDeliverables()) {
-                if (deliverable.getDueDate().before(current)) {
-                    deliverable.setLate(true);
-                    deliverable.setStatus("Deliverable is overdue.");
-                    projectRepository.save(project);
-                    userRepository.save(user);
-                }
-            }
+            updateDeliverables(project);
 
             model.addAttribute("selected", user.getProject());
             model.addAttribute("deliverables", user.getProject().getDeliverables());
@@ -180,31 +168,51 @@ public class ProjectController {
         return "layout";
     }
 
+    @GetMapping("/supervising")
+    public String supervising(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        ArrayList<Project> projects = user.getProjects();
+
+        if (projects == null) {
+            model.addAttribute("addError", true);
+        } else {
+            for(Project project : projects) {
+                test(project);
+                updateDeliverables(project);
+            }
+
+            model.addAttribute("projects", user.getProjects());
+            model.addAttribute("deliverable", new Deliverable());
+        }
+        model.addAttribute("view", "supervising");
+        return "layout";
+    }
+
     @PostMapping("/project")
     public String addDeliverable(Model model, @ModelAttribute Deliverable deliverable, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        Project project = user.getProject();
+        Deliverable deliverable1 = deliverable;
+        Project project = projectRepository.findByName(deliverable.getProjectName());
 
-        // todo: if user supervises multiple projects add deliverable to all?
         if (project == null) {
             model.addAttribute("addError", true);
         } else {
-            if (deliverable != null) {
-                String str = deliverable.getInputDate() + " - " + deliverable.getInputTime();
-                Calendar dueDate1 = convertString(str);
-                deliverable.setDueDate(dueDate1);
-                user.getProject().getDeliverables().add(deliverable);
-                userRepository.save(user);
-                projectRepository.save(project);
-            }
+            String str = deliverable.getInputDate() + " - " + deliverable.getInputTime();
+            Calendar dueDate1 = convertString(str);
+            deliverable.setDueDate(dueDate1);
 
-            model.addAttribute("selected", user.getProject());
-            model.addAttribute("deliverables", user.getProject().getDeliverables());
+            project.getDeliverables().add(deliverable);
+            // Update in user repo too, might work without it JPA Annotations
+            user.updateProject(project);
+            userRepository.save(user);
+            projectRepository.save(project);
+
+            model.addAttribute("projects", user.getProjects());
             model.addAttribute("deliverable", new Deliverable());
         }
 
         model.addAttribute("view", "project");
-        return "redirect:project";
+        return "redirect:supervising";
     }
 
     private boolean executed = false;
@@ -259,6 +267,19 @@ public class ProjectController {
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    // Update the status of all deliverables in a project
+    private void updateDeliverables(Project project) {
+        // Set status according to actual date (Late - disable upload)
+        Calendar current = Calendar.getInstance();
+        for (Deliverable deliverable : project.getDeliverables()) {
+            if (deliverable.getDueDate().before(current)) {
+                deliverable.setLate(true);
+                deliverable.setStatus("Deliverable is overdue.");
+                projectRepository.save(project);
+            }
         }
     }
 }

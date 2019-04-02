@@ -3,6 +3,7 @@ package app.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 public class User implements Serializable {
@@ -27,6 +28,9 @@ public class User implements Serializable {
     // Current Project for user assuming Student
     @Column(length=1000024)
     private Project project;
+
+    @Column(length=1000024)
+    private ArrayList<Project> projects;
 
     public User(){}
 
@@ -88,5 +92,30 @@ public class User implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public void addProject(Project project) {
+        if (projects != null) {
+            projects.add(project);
+        } else {
+            projects = new ArrayList<>();
+            projects.add(project);
+        }
+    }
+
+    public ArrayList<Project> getProjects() {
+        return projects;
+    }
+
+    public void updateProject(Project project) {
+        if (projects != null) {
+            int i = 0;
+            for (Project proj : projects) {
+                if (proj.getName().equals(project.getName())) {
+                    projects.set(i, project);
+                }
+                i++;
+            }
+        }
     }
 }

@@ -82,6 +82,11 @@
         <script> $("#pageTitle").html("Current Project"); </script>
         <div th:replace="project"/>
     </span>
+    <span th:case="'supervising'">
+        <!--<script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>-->
+        <script> $("#pageTitle").html("Supervised Projects"); </script>
+        <div th:replace="supervising"/>
+    </span>
     <div th:case="'index'">
         <!--<script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>-->
         <script> $("#pageTitle").html("4th Year Project"); </script>
