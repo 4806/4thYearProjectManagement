@@ -14,10 +14,7 @@
         </div>
         <hr>
         <div>
-            <h5> Account Settings</h5>
-            <div>
-                <a class="btn btn-outline-primary" th:href="@{/projects}">Change password</a>
-            </div>
+            <h5> Account Settings</h5> <br>
             <div >
                 <h6>Change Password:</h6>
                 <form class="card card-body" th:action="@{/profile}" th:object="${user}" method="post">
