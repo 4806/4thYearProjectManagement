@@ -4,6 +4,8 @@
 
 <div class="mx-auto py-5" style="width: 95%;">
     <p th:if="${addError}" class="error text-danger text-center">Failed to add Student to Project.</p>
+    <input class="form-control" id="SearchContent" type="text" placeholder="Search the table for content according to the header..">
+    <br>
     <table class="table fixed_header">
         <thead class="thead-light" >
         <tr >
@@ -19,7 +21,7 @@
         </thead>
 
 
-        <tbody >
+        <tbody id="TableBody">
         <tr th:if="${project == null}">
             <td colspan="2"> No Projects Available</td>
         </tr>
@@ -123,5 +125,4 @@
     </table>
 
 </div>
-
 </html>

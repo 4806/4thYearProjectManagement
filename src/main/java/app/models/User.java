@@ -31,6 +31,8 @@ public class User {
 
     private String confPassword;
 
+    private ArrayList<String> availability;
+
     public User(){}
 
     public User(String username, String password, String confPassword, Role role) {
@@ -118,6 +120,14 @@ public class User {
 
     public void setConfPassword(String pw){
         this.confPassword = pw;
+    }
+
+    public void setAvailability(ArrayList<String> availability) {
+        this.availability = availability;
+    }
+
+    public ArrayList<String> getAvailability() {
+        return availability;
     }
 
     public Program getProgram() {

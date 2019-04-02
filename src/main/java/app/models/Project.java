@@ -30,6 +30,7 @@ public class Project{
     private List<Program> restrictions;
     //private ArrayList<Program> restrictions;
 
+
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
@@ -134,5 +135,12 @@ public class Project{
     public boolean isActive(){
         return this.status == Status.ACTIVE;
     }
+
+    public void removeAllStudents() {
+        if(!this.getStudents().isEmpty()){
+            this.getStudents().clear();
+        }
+    }
+
 }
 

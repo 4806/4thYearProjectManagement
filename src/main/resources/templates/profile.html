@@ -6,4 +6,79 @@
 </div>
 
 
+<form class="card card-body" th:action="@{/updateAvailability}" th:object="${user}" method="post">
+    <div class="form-group">
+        <select class="form-control input-lg" multiple="multiple" th:field="*{availability}" size="10">
+            <option th:value="M830-930">Monday 8:30 - 9:30</option>
+            <option th:value="M930-1030">Monday 9:30 - 10:30</option>
+            <option th:value="M1030-1130">Monday 10:30 - 11:30</option>
+            <option th:value="M1130-1230">Monday 11:30 - 12:30</option>
+            <option th:value="M130-230">Monday 1:30 - 2:30</option>
+            <option th:value="M230-330">Monday 2:30 - 3:30</option>
+            <option th:value="M330-430">Monday 3:30 - 4:30</option>
+            <option th:value="M430-530">Monday 4:30 - 5:30</option>
+            <option th:value="T830-930">Tuesday 8:30 - 9:30</option>
+            <option th:value="T930-1030">Tuesday 9:30 - 10:30</option>
+            <option th:value="T1030-1130">Tuesday 10:30 - 11:30</option>
+            <option th:value="T1130-1230">Tuesday 11:30 - 12:30</option>
+            <option th:value="T130-230">Tuesday 1:30 - 2:30</option>
+            <option th:value="T230-330">Tuesday 2:30 - 3:30</option>
+            <option th:value="T330-430">Tuesday 3:30 - 4:30</option>
+            <option th:value="T430-530">Tuesday 4:30 - 5:30</option>
+            <option th:value="W830-930">Wednesday 8:30 - 9:30</option>
+            <option th:value="W930-1030">Wednesday 9:30 - 10:30</option>
+            <option th:value="W1030-1130">Wednesday 10:30 - 11:30</option>
+            <option th:value="W1130-1230">Wednesday 11:30 - 12:30</option>
+            <option th:value="W130-230">Wednesday 1:30 - 2:30</option>
+            <option th:value="W230-330">Wednesday 2:30 - 3:30</option>
+            <option th:value="W330-430">Wednesday 3:30 - 4:30</option>
+            <option th:value="W430-530">Wednesday 4:30 - 5:30</option>
+            <option th:value="TH830-930">Thursday 8:30 - 9:30</option>
+            <option th:value="TH930-1030">Thursday 9:30 - 10:30</option>
+            <option th:value="TH1030-1130">Thursday 10:30 - 11:30</option>
+            <option th:value="TH1130-1230">Thursday 11:30 - 12:30</option>
+            <option th:value="TH130-230">Thursday 1:30 - 2:30</option>
+            <option th:value="TH230-330">Thursday 2:30 - 3:30</option>
+            <option th:value="TH330-430">Thursday 3:30 - 4:30</option>
+            <option th:value="TH430-530">Thursday 4:30 - 5:30</option>
+            <option th:value="F830-930">Friday 8:30 - 9:30</option>
+            <option th:value="F930-1030">Friday 9:30 - 10:30</option>
+            <option th:value="F1030-1130">Friday 10:30 - 11:30</option>
+            <option th:value="F1130-1230">Friday 11:30 - 12:30</option>
+            <option th:value="F130-230">Friday 1:30 - 2:30</option>
+            <option th:value="F230-330">Friday 2:30 - 3:30</option>
+            <option th:value="F330-430">Friday 3:30 - 4:30</option>
+            <option th:value="F430-530">Friday 4:30 - 5:30</option>
+        </select>
+
+    </div>
+    <input class="btn btn-lg btn-primary btn-block" value="Update Availability" type="submit">
+</form>
+
+<table class="table fixed_header">
+    <thead class="thead-light" >
+    <tr >
+        <th> Times Available for meetings</th>
+    </tr>
+    </thead>
+    <!--<th:block th:object="${user}">-->
+        <!--<li th:each="avail : *{availability}" th:text="${avail}">Item description here...</li>-->
+    <!--</th:block>-->
+
+    <tr th:if="${user.getAvailability() == null}">
+        <td colspan="2"> No Project Availability chosen</td>
+    </tr>
+    <tr th:each="avail : ${user.availability}" >
+        <td th:text="${avail}"></td>
+
+    </tr>
+    <!--<tr th:each="avail : ${user.getAvailability()}">-->
+        <!--<div th:switch="${proj.getSupervisor()}">-->
+            <!--<span th:case="null">No Supervisor for this project</span>-->
+            <!--<span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>-->
+        <!--</div>-->
+    <!--</tr>-->
+
+</table>
+
 </html>
