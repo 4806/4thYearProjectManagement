@@ -45,7 +45,7 @@
                 <div th:switch="${proj.getRestrictions()}">
                     <span th:case="null">No Restrictions for this project</span>
                     <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
-                        <span th:text="${rest.getName()}">Restrictions</span> </span> </span>
+                        <span th:text="${rest}">Restrictions</span> </span> </span>
                 </div>
 
             </td>
@@ -85,7 +85,7 @@
                                 <span th:switch="${proj.getRestrictions()}">
                                 <span th:case="null">No Restrictions for this project</span>
                                 <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
-                                    <span th:text="${rest.getName()}">Restrictions</span> </span> </span>
+                                    <span th:text="${rest}">Restrictions</span> </span> </span>
                                 </span> </p>
 
                         <div class="modal-footer" th:switch="${proj.isActive()}">

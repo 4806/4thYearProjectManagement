@@ -29,12 +29,26 @@
                                 <!--</li>-->
                             <!--</ul>-->
                             <select form="form-project" class="form-control input-lg" multiple="multiple" name="restrictions" th:field="*{restrictions}">
-                                    <option disabled th:value="'0'">Please Select Restrictions for this project</option>
-                                    <option th:each="program : ${programs}"
-                                            th:value="${program}"
-                                            th:text="${program.name}">
+                                 <option disabled th:value="'0'">Please Select Restrictions for this project</option>
 
-                                    </option>
+                                <option th:value="AERO">Aerospace Engineering</option>
+                                <option th:value="ARCH">Architecture Engineering</option>
+                                <option th:value="CIVE">Civil Engineering</option>
+                                <option th:value="COMM">Communications Engineering</option>
+                                <option th:value="COMP">Computer Systems Engineering</option>
+                                <option th:value="MECH">Mechanical Engineering</option>
+                                <option th:value="SOFT">Software Engineering</option>
+                                <option th:value="SREE">Sustainable and Renewable Engineering Engineering</option>
+
+
+
+
+
+                                <!--<option th:each="program : ${programs}"-->
+                                                                                  <!--th:value="${program}"-->
+                                                                                  <!--th:text="${program.name}">-->
+
+                                        <!--</option>-->
                             </select>
 
                         </div>

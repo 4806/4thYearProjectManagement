@@ -26,17 +26,17 @@ public class Project implements Serializable {
 
     //Required Program for Students Participating
     @Column(length=1024)
-    private ArrayList<Program> restrictions;
+    private ArrayList<String> restrictions;
 
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
     public Project() {
-
+//    restrictions = new ArrayList<String>();
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<String> restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
@@ -87,11 +87,11 @@ public class Project implements Serializable {
         this.students = students;
     }
 
-    public ArrayList<Program> getRestrictions() {
+    public ArrayList<String> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(ArrayList<Program> restrictions) {
+    public void setRestrictions(ArrayList<String> restrictions) {
         this.restrictions = restrictions;
     }
 

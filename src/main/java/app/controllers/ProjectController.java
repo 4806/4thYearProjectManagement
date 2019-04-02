@@ -33,18 +33,18 @@ public class ProjectController {
     public String create(Model model) {
 
         model.addAttribute("project",new Project());
-        List<Program> restrictedPrograms = Arrays.asList(
-                new Program(Acronym.AERO.getValue(), Acronym.AERO),
-                new Program(Acronym.ARCH.getValue(),Acronym.ARCH),
-                new Program(Acronym.CIV.getValue(),Acronym.CIV),
-                new Program(Acronym.COMM.getValue(),Acronym.COMM),
-                new Program(Acronym.COMP.getValue(),Acronym.COMP),
-                new Program(Acronym.MECH.getValue(),Acronym.MECH),
-                new Program(Acronym.SOFT.getValue(),Acronym.SOFT),
-                new Program(Acronym.SREE.getValue(),Acronym.SREE)
-
-        );
-        model.addAttribute("programs", restrictedPrograms);
+//        List<Program> restrictedPrograms = Arrays.asList(
+//                new Program(Acronym.AERO.getValue(), Acronym.AERO),
+//                new Program(Acronym.ARCH.getValue(),Acronym.ARCH),
+//                new Program(Acronym.CIV.getValue(),Acronym.CIV),
+//                new Program(Acronym.COMM.getValue(),Acronym.COMM),
+//                new Program(Acronym.COMP.getValue(),Acronym.COMP),
+//                new Program(Acronym.MECH.getValue(),Acronym.MECH),
+//                new Program(Acronym.SOFT.getValue(),Acronym.SOFT),
+//                new Program(Acronym.SREE.getValue(),Acronym.SREE)
+//
+//        );
+//        model.addAttribute("programs", restrictedPrograms);
         model.addAttribute("view", "createProject");
         return "layout";
     }
@@ -66,10 +66,10 @@ public class ProjectController {
             if (project.getStudents() == null){
                 project.setStudents(new ArrayList<User>());
             }
-//            if (project.getRestrictions() == null){
+            if (project.getRestrictions() == null){
+
 //
-////                project.setRestrictions(new String[]());
-//            }
+            }
 
             project.activate();
             projectRepository.save(project);
