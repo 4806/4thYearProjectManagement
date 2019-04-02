@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
 
-                .antMatchers("/register", "/resources/*", "/projects", "/css/*", "/img/*", "/js/*").permitAll()
+                .antMatchers("/register", "/resources/*", "/projects","/forgot", "/css/*", "/img/*", "/js/*").permitAll()
                 .antMatchers("/join").hasAuthority("STUDENT")
                 .antMatchers("/archive", "/unarchive").hasAuthority("SUPERVISOR")
                 .antMatchers("/delete","/createProject").hasAnyAuthority("SUPERVISOR", "COORDINATOR")
