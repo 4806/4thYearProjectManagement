@@ -31,6 +31,8 @@ public class ProfileController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
+
+        model.addAttribute("user", user);
         model.addAttribute("view", "profile");
         return "layout";
 
@@ -38,6 +40,12 @@ public class ProfileController {
 
     @PostMapping("/updateAvailability")
     public String updateAvailability(Model model, User user){
-        return "Arsalan sucks";
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User realUser = userRepository.findByUsername(auth.getName());
+        realUser.setAvailability(user.getAvailability());
+        userRepository.save(realUser);
+
+        return "redirect:profile";
     }
 }
