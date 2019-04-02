@@ -28,12 +28,8 @@ public class User implements Serializable {
 
     private String confPassword;
 
-
-
-    private String currentPassword;
     public User(){}
-    public User(String currentPassword, String newPassword, String confPassword){
-        this.confPassword = currentPassword;
+    public User( String newPassword, String confPassword){
         this.password = newPassword;
         this.confPassword= confPassword;
     }
@@ -89,11 +85,4 @@ public class User implements Serializable {
         this.confPassword = pw;
     }
 
-    public String getCurrentPassword() {
-        return currentPassword;
-    }
-
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
-    }
 }

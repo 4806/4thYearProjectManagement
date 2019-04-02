@@ -3,6 +3,7 @@ package app.controllers;
 import app.models.*;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
+import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,22 +33,21 @@ public class ProfileController {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
 
     private User user;
     @GetMapping("/profile")
     public String profilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
          user = userRepository.findByUsername(auth.getName());
-
-        System.out.println("logged user "+user.getUsername());
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
         model.addAttribute("view", "profile");
         return "layout";
     }
 
     @PostMapping("/profile")
-    public String  changePassword(@ModelAttribute User formUser,  Model model) {
-        // check if current password matches
+    public String  changePassword(Model model, @ModelAttribute User formUser) {
 
             // check the new password and confirm password match
             if(formUser.getPassword().equals(formUser.getConfPassword())){
@@ -58,7 +59,7 @@ public class ProfileController {
                 return "layout";
             }else {
                 // if password do not match return an error message.
-                model.addAttribute("view", "forgotPassword");
+                model.addAttribute("view", "profile");
                 model.addAttribute("pwError", true);
                 return "layout";
             }
