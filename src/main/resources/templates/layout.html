@@ -78,6 +78,7 @@
     </span>
     <span th:case="'projects'">
         <script> $("#pageTitle").html("Projects List"); </script>
+        <script type="text/javascript" src="js/tableSearch.js"></script>
         <div th:replace="projects"/>
     </span>
     <span th:case="'profile'">
