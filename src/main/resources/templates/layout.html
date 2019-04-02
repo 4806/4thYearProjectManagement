@@ -29,7 +29,7 @@
                     <a class="nav-link" href="profile.html" th:href="@{#}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="hasAuthority('STUDENT')" href="project.html"  th:href="@{/project}">Current Project</a>
+                    <a class="nav-link" sec:authorize="hasAnyAuthority('STUDENT', 'SUPERVISOR')" href="project.html"  th:href="@{/project}">Current Project</a>
                 </li>
             </ul>
         </div>

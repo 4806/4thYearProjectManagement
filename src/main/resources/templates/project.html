@@ -8,9 +8,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
-
 <div class="mx-auto py-5" style="width: 95%;">
-    <p th:if="${addError}" class="error text-danger text-center">Not a Member of a Project</p>
+    <p sec:authorize="hasAuthority('STUDENT')" th:if="${addError}" class="error text-danger text-center">Not a Member of a Project</p>
+    <p sec:authorize="hasAuthority('SUPERVISOR')" th:if="${addError}" class="error text-danger text-center">Not a Supervisor of a Project</p>
 
     <div th:unless="${addError}" th:object="${selected}">
         <h1><span th:text="${selected.getName()}"></span></h1>
