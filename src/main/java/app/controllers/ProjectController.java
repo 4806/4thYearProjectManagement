@@ -54,6 +54,7 @@ public class ProjectController {
             }
 
             project.activate();
+            user.setProject(project);
             projectRepository.save(project);
             return "redirect:projects";
         }else{
@@ -152,6 +153,7 @@ public class ProjectController {
     public String accessProject(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
         Project project = user.getProject();
+
         if (project == null) {
             model.addAttribute("addError", true);
         } else {
