@@ -61,9 +61,6 @@
         <th> Times Available for meetings</th>
     </tr>
     </thead>
-    <!--<th:block th:object="${user}">-->
-        <!--<li th:each="avail : *{availability}" th:text="${avail}">Item description here...</li>-->
-    <!--</th:block>-->
 
     <tr th:if="${user.getAvailability() == null}">
         <td colspan="2"> No Project Availability chosen</td>
@@ -72,12 +69,6 @@
         <td th:text="${avail}"></td>
 
     </tr>
-    <!--<tr th:each="avail : ${user.getAvailability()}">-->
-        <!--<div th:switch="${proj.getSupervisor()}">-->
-            <!--<span th:case="null">No Supervisor for this project</span>-->
-            <!--<span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>-->
-        <!--</div>-->
-    <!--</tr>-->
 
 </table>
 

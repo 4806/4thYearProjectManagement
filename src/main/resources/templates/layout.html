@@ -82,6 +82,10 @@
         <script> $("#pageTitle").html("Profile"); </script>
         <div th:replace="profile"/>
     </span>
+    <span th:case="'schedule'">
+        <script> $("#pageTitle").html("schedule"); </script>
+        <div th:replace="schedule"/>
+    </span>
     <div th:case="'index'">
         <!--<script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>-->
         <script> $("#pageTitle").html("4th Year Project"); </script>

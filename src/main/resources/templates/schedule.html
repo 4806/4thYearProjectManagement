@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="schedule" class="card card-body">
+
+    <h5 th:text="${proj.getName()}"></h5>
+
+
+    <table class="table fixed_header">
+        <thead class="thead-light" >
+        <tr >
+            <th> Times Available for meetings</th>
+        </tr>
+        </thead>
+
+        <tr th:each="option : ${options}" >
+            <td th:text="${option}"></td>
+
+        </tr>
+
+    </table>
+    <!--<form class="card card-body" th:action="@{/chooseMeeting}" th:object="${meeting}" method="post">-->
+        <!--<div class="form-group">-->
+            <!--<select class="form-control input-lg"  th:field="*{meetTime}" size="10">-->
+                <!--<option value="0">select operator</option>-->
+                <!--<option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>-->
+            <!--</select>-->
+        <!--</div>-->
+    <!--</form>-->
+
+
+</div>
