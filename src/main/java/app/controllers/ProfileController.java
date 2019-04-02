@@ -41,8 +41,15 @@ public class ProfileController {
     public String profilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
          user = userRepository.findByUsername(auth.getName());
-        model.addAttribute("user", new User());
-        model.addAttribute("view", "profile");
+
+         // model attributes for displaying User Info
+        model.addAttribute("dbUser", user);
+
+        // model attributes for getting form data
+        // from  change password from  found under account setting section
+         model.addAttribute("user", new User());
+         model.addAttribute("view", "profile");
+
         return "layout";
     }
 

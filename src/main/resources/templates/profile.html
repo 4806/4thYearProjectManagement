@@ -5,8 +5,24 @@
     <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span sec:authentication="name"/>, you are a <span sec:authorize="hasAuthority('STUDENT')">STUDENT</span><span sec:authorize="hasAuthority('COORDINATOR')">COORDINATOR</span><span sec:authorize="hasAuthority('SUPERVISOR')">SUPERVISOR</span>!</p>
 </div >
 <div class="card card-body">
-        <div >
-            <h5>User Info</h5>
+        <div th:action="@{/profile}"  th:object="${dbUser}">
+            <h5>User Info</h5> <hr>
+            <div>
+                <table>
+                    <tbody >
+                    <tr>
+                        <th scope="row">Username:</th>
+                        <td></td>
+                        <td th:text="${dbUser.username}"></td>
+                    </tr>
+                    <tr >
+                        <th scope="row" >Role:</th>
+                        <td></td>
+                        <td th:text="${dbUser.role}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <hr>
         <div>
