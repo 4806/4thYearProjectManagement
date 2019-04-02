@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div class="card card-body">
-        <div th:action="@{/profile}"  th:object="${dbUser}">
+<div class="card card-body"  >
+        <div >
             <h5>User Info</h5> <hr>
-            <div >
-                <table>
-                    <tbody >
-                    <tr>
-                        <th scope="row">Username:</th>
-                        <td></td>
-                        <td th:text="${dbUser.username}"></td>
-                    </tr>
-                    <tr >
-                        <th scope="row" >Role:</th>
-                        <td></td>
-                        <td th:text="${dbUser.role}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <tbody >
+                <tr>
+                    <th scope="row">Username:</th>
+                    <td></td>
+                    <td th:text="${name}"></td>
+                </tr>
+                <tr >
+                    <th scope="row" >Role:</th>
+                    <td></td>
+                    <td th:text="${role}"></td>
+                </tr>
+                </tbody>
+            </table>
+
         </div>
         <hr>
         <div>
@@ -32,7 +31,7 @@
                 <h6>Change Password:</h6>
                 <form class="card card-body" th:action="@{/profile}" th:object="${user}" method="post">
                     <p th:if="${pwError}" class="error text-danger text-left form-group"> Password Does not Match </p>
-                    <p th:if="${resetSuccess}" class="text-success text-left form-group">You have successfuly changed your password </p>
+                    <p th:if="${resetSuccess}" class="text-success text-left form-group">You have successfully changed your password </p>
                     <fieldset>
                         <div class="form-group" >
                         </div>

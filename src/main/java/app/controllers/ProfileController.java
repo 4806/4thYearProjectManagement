@@ -43,7 +43,8 @@ public class ProfileController {
          user = userRepository.findByUsername(auth.getName());
 
          // model attributes for displaying User Info
-        model.addAttribute("dbUser", user);
+         model.addAttribute("role", user.getRole());
+        model.addAttribute("name", user.getUsername());
 
         // model attributes for getting form data
         // from  change password from  found under account setting section
@@ -61,11 +62,15 @@ public class ProfileController {
                 user.setPassword(passwordEncoder.encode(formUser.getPassword()));
                 user.setConfPassword(passwordEncoder.encode(formUser.getConfPassword()));
                 userRepository.save(user);
+                model.addAttribute("role", user.getRole());
+                model.addAttribute("name", user.getUsername());
                 model.addAttribute("view", "profile");
-                model.addAttribute("resetSuccess", true);
+                model.addAttribute( "resetSuccess", true);
                 return "layout";
             }else {
                 // if password do not match return an error message.
+                model.addAttribute("role", user.getRole());
+                model.addAttribute("name", user.getUsername());
                 model.addAttribute("view", "profile");
                 model.addAttribute("pwError", true);
                 return "layout";
