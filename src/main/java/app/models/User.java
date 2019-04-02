@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 public class User implements Serializable {
@@ -27,6 +28,8 @@ public class User implements Serializable {
 
     private String confPassword;
 
+    private ArrayList<String> availability;
+
     public User(){}
 
     public User(String username, String password, String confPassword, Role role) {
@@ -34,6 +37,7 @@ public class User implements Serializable {
         this.password = password;
         this.confPassword = confPassword;
         this.role = role;
+        this.availability = null;
     }
 
     public String getUsername() {

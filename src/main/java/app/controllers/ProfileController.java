@@ -35,4 +35,9 @@ public class ProfileController {
         return "layout";
 
     }
+
+    @PostMapping("/updateAvailability")
+    public String updateAvailability(Model model, User user){
+        return "Arsalan sucks";
+    }
 }

@@ -5,5 +5,21 @@
     <p style="text-align: center; font-size: 30px; font-decoration: bold">Hi <span sec:authentication="name"/>, you are a <span sec:authorize="hasAuthority('STUDENT')">STUDENT</span><span sec:authorize="hasAuthority('COORDINATOR')">COORDINATOR</span><span sec:authorize="hasAuthority('SUPERVISOR')">SUPERVISOR</span>!</p>
 </div>
 
+<form class="card card-body" th:action="@{/updateAvailability}" method="post">
+
+    <ul>
+        <li th:each="checkboxValue: ${multiCheckboxAllValues}">
+            <input type="checkbox"
+                   th:field="*{multiCheckboxSelectedValues}"
+                   th:value="${checkboxValue}" />
+            <label
+                    th:for="${#ids.prev('multiCheckboxSelectedValues')}"
+                    th:text="${checkboxValue}"></label>
+        </li>
+    </ul>
+
+
+</form>
+
 
 </html>
