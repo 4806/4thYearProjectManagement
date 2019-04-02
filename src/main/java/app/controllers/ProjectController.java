@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.models.*;
+import app.models.Program.Acronym;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -30,18 +33,31 @@ public class ProjectController {
     public String create(Model model) {
 
         model.addAttribute("project",new Project());
+        List<Program> restrictedPrograms = Arrays.asList(
+                new Program(Acronym.AERO.getValue(), Acronym.AERO),
+                new Program(Acronym.ARCH.getValue(),Acronym.ARCH),
+                new Program(Acronym.CIV.getValue(),Acronym.CIV),
+                new Program(Acronym.COMM.getValue(),Acronym.COMM),
+                new Program(Acronym.COMP.getValue(),Acronym.COMP),
+                new Program(Acronym.MECH.getValue(),Acronym.MECH),
+                new Program(Acronym.SOFT.getValue(),Acronym.SOFT),
+                new Program(Acronym.SREE.getValue(),Acronym.SREE)
+
+        );
+        model.addAttribute("programs", restrictedPrograms);
         model.addAttribute("view", "createProject");
         return "layout";
     }
 
     @PostMapping("/createProject")
     public String create(@ModelAttribute Project project, Model model){
-
+        System.out.println(project);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
         Project temp = projectRepository.findByName(project.getName());
         ArrayList<Project> projects= new ArrayList<Project>();
+
         if (temp == null){
             if (project.getSupervisor()==null){
                 project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),projects));
@@ -50,9 +66,10 @@ public class ProjectController {
             if (project.getStudents() == null){
                 project.setStudents(new ArrayList<User>());
             }
-            if (project.getRestrictions() == null){
-                project.setRestrictions(new ArrayList<Program>());
-            }
+//            if (project.getRestrictions() == null){
+//
+////                project.setRestrictions(new String[]());
+//            }
 
             project.activate();
             projectRepository.save(project);

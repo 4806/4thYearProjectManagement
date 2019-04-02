@@ -5,9 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Program implements Serializable {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -58,4 +61,30 @@ public class Program implements Serializable {
     public void setAcronym(Acronym acronym) {
         this.acronym = acronym;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+//    @Override
+//    public int hashCode() {
+//        int hash = 5;
+//        hash = 83 * hash + Objects.hashCode(this.id);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Program other = (Program) obj;
+//        if (!Objects.equals(this.id, other.id)) {
+//            return false;
+//        }
+//        return true;
+//    }
 }

@@ -121,6 +121,13 @@ public class Project implements Serializable {
         return true;
     }
 
+//    public boolean addRestrictions(Program.Acronym acronym){
+//        if(this.){
+//            
+//        }
+//        this.restrictions.add(new Program(acronym.getValue(),acronym));
+    //}
+
     public void activate(){
         this.status = Status.ACTIVE;
     }

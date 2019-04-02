@@ -20,12 +20,19 @@
                             <input class="form-control input-lg" placeholder="Number of Students required in the project" name="numberStudents" type="number"  min="1" max="20" th:field="*{numberStudents}" required>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="test" value="testvalue">
-                            <select form="form-project" class="form-control input-lg" multiple="multiple">
-                                    <option disabled>Please Select Restrictions for this project</option>
-                                    <option th:each="acronym : ${T(app.models.Program.Acronym).values()}"
-                                            th:value="${acronym.value}"
-                                            th:text="${acronym.value}">
+                            <!--<input type="checkbox" name="test" value="testvalue">-->
+                            <!--<ul>-->
+                                <!--<li th:each="program : ${programs}">-->
+                                    <!--<input type="checkbox" name="restrictions" th:type="checkbo" th:field ="*{restrictions}" th:value="${program.name}">-->
+                                    <!--<label th:text="${program.name}"></label>-->
+
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <select form="form-project" class="form-control input-lg" multiple="multiple" name="restrictions" th:field="*{restrictions}">
+                                    <option disabled th:value="'0'">Please Select Restrictions for this project</option>
+                                    <option th:each="program : ${programs}"
+                                            th:value="${program}"
+                                            th:text="${program.name}">
 
                                     </option>
                             </select>
