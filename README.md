@@ -53,12 +53,33 @@ means that a user should be able to use several related features of the app and 
 useful. The README on GitHub must be updated with a plan for the next sprint.
 
 ## Milestone 3 - Final demo. Project complete. Public demo during the lab April 3 
-## Completed Use cases : 
+# Completed Use cases : 
  - Profile Page: contains 
  - - USeer Info ,  Select Availability , and  Change Password 
 - Forgot Password: allowes the user to reset passward 
--  Project LOOk up: allowes student to search for projects 
-- Project Deliverables: Superviser sets up deliverable for the project, students submit deliverable
+-  Project Look up: allowes student to search for projects according to diffrent criteria 
+- Project Deliverables: Superviser sets up deliverable for the project
+- Project Specific Pages: supervisior sees the project that he supervises, student sees the projest that he joined 
+
+# Tests: 
+ more testes added to the models, and accrosse the app. 
+ # Database 
+ User
+ - Id 
+ - usename 
+ - password
+ -confPassword
+ -role
+ -answerTosecurityQuestion
+ 
+ Student 
+ Superviser 
+ Coordinator 
+ Program
+ project 
+ Deliverable
+ 
+ 
  
  
 
