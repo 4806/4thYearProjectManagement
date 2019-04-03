@@ -26,16 +26,13 @@
                     <a class="nav-link" sec:authorize="hasAuthority('SUPERVISOR')" href="createProject.html" th:href="@{/createProject}">Create Project</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profile.html" th:href="@{#}">Profile</a>
+                    <a class="nav-link" href="profile.html" th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" sec:authorize="hasAnyAuthority('STUDENT')" href="project.html"  th:href="@{/project}">Current Project</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" sec:authorize="hasAnyAuthority('SUPERVISOR')" href="project.html"  th:href="@{/supervising}">Supervised Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profile.html" th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
                 </li>
             </ul>
         </div>
