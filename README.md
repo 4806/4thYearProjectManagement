@@ -68,9 +68,9 @@ useful. The README on GitHub must be updated with a plan for the next sprint.
  - Id 
  - usename 
  - password
- -confPassword
- -role
- -answerTosecurityQuestion
+ - confPassword
+ - role
+ - answerTosecurityQuestion
 
  Student 
  - Program 
