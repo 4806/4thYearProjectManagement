@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Program {
@@ -43,4 +44,15 @@ public class Program {
     public void setAcronym(Acronym acronym) {
         this.acronym = acronym;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Program program = (Program) o;
+        return Objects.equals(id, program.id) &&
+                Objects.equals(name, program.name) &&
+                acronym == program.acronym;
+    }
+
 }

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -138,4 +139,19 @@ public class User {
     public void setProgram(Program program) {
         this.program = program;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(program, user.program) &&
+                Objects.equals(projects, user.projects) &&
+                role == user.role &&
+                Objects.equals(confPassword, user.confPassword) &&
+                Objects.equals(availability, user.availability);
+    }
+
 }

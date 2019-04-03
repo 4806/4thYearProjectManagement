@@ -32,7 +32,7 @@ public class Project{
 
 
     //Status of the project
-    private enum Status {ACTIVE, INACTIVE}
+    public enum Status {ACTIVE, INACTIVE}
     private Status status;
 
     public Project() {

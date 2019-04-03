@@ -20,13 +20,13 @@ public class ProjectTest {
         programs = new ArrayList<Program>();
         programs.add(program);
 
-        Student student1 = new Student("student1","1234","1234", program);
-        Student student2 = new Student("student2","1234","1234", program);
+        User student1 = new User("student1","1234","1234", program);
+        User student2 = new User("student2","1234","1234", program);
         students = new ArrayList<User>();
         students.add(student1);
         students.add(student2);
 
-        Supervisor supervisor = new Supervisor("Bailey", "1234", "1234", new ArrayList<Project>());
+        User supervisor = new User("Bailey", "1234", "1234", new ArrayList<Project>());
 
         this.project = new Project("project1", "Website", 3, supervisor, students, programs);
     }
@@ -66,13 +66,13 @@ public class ProjectTest {
 
     @Test
     public void getSupervisor() {
-        assertEquals(new Supervisor("Bailey", "1234", "1234", new ArrayList<Project>()), project.getSupervisor());
+        assertEquals(new User("Bailey", "1234", "1234", new ArrayList<Project>()), project.getSupervisor());
     }
 
     @Test
     public void setSupervisor() {
-        project.setSupervisor(new Supervisor("Babak", "5678", "5678", new ArrayList<Project>()));
-        assertEquals(new Supervisor("Babak", "5678", "5678", new ArrayList<Project>()), project.getSupervisor());
+        project.setSupervisor(new User("Babak", "5678", "5678", new ArrayList<Project>()));
+        assertEquals(new User("Babak", "5678", "5678", new ArrayList<Project>()), project.getSupervisor());
 
     }
 
@@ -84,15 +84,15 @@ public class ProjectTest {
     @Test
     public void setStudents() {
         ArrayList<User> newStudents = new ArrayList<User>();
-        newStudents.add(new Student("student3","5678","5678", programs.get(0)));
-        newStudents.add(new Student("student4","5678","5678", programs.get(0)));
+        newStudents.add(new User("student3","5678","5678", programs.get(0)));
+        newStudents.add(new User("student4","5678","5678", programs.get(0)));
         project.setStudents(newStudents);
         assertEquals(newStudents, project.getStudents());
     }
 
     public void addStudents(){
         ArrayList<User> newStudents = new ArrayList<User>();
-        Student student3 = new Student("student3","5678","5678", programs.get(0));
+        User student3 = new User("student3","5678","5678", programs.get(0));
         newStudents.add(student3);
         project.addStudent(student3);
         assertEquals(newStudents, project.getStudents());
