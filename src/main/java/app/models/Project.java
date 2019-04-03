@@ -26,7 +26,10 @@ public class Project implements Serializable {
 
     //Required Program for Students Participating
     @Column(length=1024)
-    private ArrayList<Program> restrictions;
+    private ArrayList<String>  restrictions;
+
+    @Column(length=1024)
+    private ArrayList<Program>  restrictionsProgram;
 
 
     //Status of the project
@@ -37,16 +40,23 @@ public class Project implements Serializable {
 
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program>  restrictionsProgram) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
         this.supervisor = supervisor;
         this.students = students;
-        this.restrictions = restrictions;
+        this.restrictionsProgram = restrictionsProgram;
         this.status = Status.ACTIVE;
     }
 
+    public ArrayList<Program> getRestrictionsProgram() {
+        return restrictionsProgram;
+    }
+
+    public void setRestrictionsProgram(ArrayList<Program> restrictionsProgram) {
+        this.restrictionsProgram = restrictionsProgram;
+    }
 
     public String getName() {
         return name;
@@ -88,11 +98,11 @@ public class Project implements Serializable {
         this.students = students;
     }
 
-    public ArrayList<Program> getRestrictions() {
+    public ArrayList<String>  getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(ArrayList<Program> restrictions) {
+    public void setRestrictions(ArrayList<String>  restrictions) {
         this.restrictions = restrictions;
     }
 

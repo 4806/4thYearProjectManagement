@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 @Entity
 public class Program implements Serializable {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,11 +17,25 @@ public class Program implements Serializable {
     private Acronym acronym;
 
     public enum Acronym {
-        SOFT,
-        MECH,
-        CIV,
-        COMP,
-        OTHER
+        SOFT("Software Engineering"),
+        MECH("Mechanical Engineering"),
+        CIV("Civil Engineering"),
+        COMP("Computer Systems Engineering"),
+        AERO("Aerospace Engineering"),
+        ARCH("Architectural Engineering"),
+        COMM("Communications Engineering"),
+        SREE("Sustainable and Renewable Energy Engineering");
+
+        public String getValue() {
+            return value;
+        }
+
+        private final String value;
+
+        Acronym(String value){
+        this.value=value;
+        }
+
     }
 
     public Program(String name, Acronym acronym) {
@@ -44,4 +60,9 @@ public class Program implements Serializable {
     public void setAcronym(Acronym acronym) {
         this.acronym = acronym;
     }
+
+    public Long getId() {
+        return id;
+    }
+
 }
