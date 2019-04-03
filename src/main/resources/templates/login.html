@@ -9,6 +9,8 @@
                     <h3 class="text-center mb-4">Sign in</h3>
                     <p th:if="${loginError}" class="error text-danger text-center">Invalid username/password</p>
                     <p th:if="${logout}" class="text-success text-center">Logout successful</p>
+                    <p th:if="${resetSuccess}" class="text-success text-center">You have successfully reset your password </p>
+
                     <fieldset>
                         <div class="form-group">
                             <div class="input-group">
@@ -29,7 +31,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-lg btn-primary btn-block"> Login</button>
                         </div> <!-- form-group// -->
-                        <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
+                        <p class="text-center"><a href="forgotPassword.html" th:href="@{/forgot}" class="btn">Forgot password?</a></p>
                     </fieldset>
                 </form>
             </div> <!-- col.// -->
@@ -37,5 +39,4 @@
 
     </div>
 </div>
-
 </html>
