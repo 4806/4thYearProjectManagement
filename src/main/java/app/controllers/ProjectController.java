@@ -141,6 +141,9 @@ public class ProjectController {
 
         Project temp = projectRepository.findByName(delproj.getName());
 
+        temp.removeAllStudents();
+        temp.setSupervisor(null);
+
         projectRepository.delete(temp);
 
         return "redirect:projects";
