@@ -3,6 +3,7 @@ package app.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Project implements Serializable {
@@ -11,6 +12,7 @@ public class Project implements Serializable {
     private Long id;
 
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     //Maximum Number of students
@@ -21,7 +23,7 @@ public class Project implements Serializable {
     private Supervisor supervisor;
 
     //Current Students participating in Project
-    @Column(length=1024)
+    @Column(length=1000024)
     private ArrayList<User> students;
 
     //Required Program for Students Participating
@@ -35,6 +37,10 @@ public class Project implements Serializable {
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
+
+    // Project Deliverables
+    @Column(length=1000024)
+    private ArrayList<Deliverable> deliverables = new ArrayList<>();
 
     public Project() {
 
@@ -132,6 +138,14 @@ public class Project implements Serializable {
         return true;
     }
 
+    public void addDeliverable(Deliverable deliverable) {
+        deliverables.add(deliverable);
+    }
+
+    public List<Deliverable> getDeliverables() {
+        return deliverables;
+    }
+
     public void activate(){
         this.status = Status.ACTIVE;
     }
@@ -144,11 +158,19 @@ public class Project implements Serializable {
         return this.status == Status.ACTIVE;
     }
 
+    public boolean deliverableExists(Deliverable deliverable) {
+        for (Deliverable d : deliverables) {
+            if (d.getTitle().equals(deliverable.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+  
     public void removeAllStudents() {
         if(!this.getStudents().isEmpty()){
             this.getStudents().clear();
         }
     }
-
 }
 

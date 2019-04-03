@@ -25,12 +25,18 @@ public class User implements Serializable {
 
     private String confPassword;
 
+    // Current Project for user assuming Student
+    @Column(length=1000024)
+    private Project project;
+
+    @Column(length=1000024)
+    private ArrayList<Project> projects;
 
     private String answerTosecurityQuestion;
 
     @Column(length=1024)
     private ArrayList<String> availability;
-
+  
     public User(){}
 
     public User(String username, String password, String confPassword,
@@ -95,6 +101,38 @@ public class User implements Serializable {
         this.confPassword = pw;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public void addProject(Project project) {
+        if (projects != null) {
+            projects.add(project);
+        } else {
+            projects = new ArrayList<>();
+            projects.add(project);
+        }
+    }
+
+    public ArrayList<Project> getProjects() {
+        return projects;
+    }
+
+    public void updateProject(Project project) {
+        if (projects != null) {
+            int i = 0;
+            for (Project proj : projects) {
+                if (proj.getName().equals(project.getName())) {
+                    projects.set(i, project);
+                }
+                i++;
+            }
+        }
+    }
     public String getAnswerTosecurityQuestion() {
         return answerTosecurityQuestion;
     }

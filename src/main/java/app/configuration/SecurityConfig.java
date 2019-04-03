@@ -36,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/join").hasAuthority("STUDENT")
                 .antMatchers("/archive", "/unarchive").hasAuthority("SUPERVISOR")
                 .antMatchers("/delete","/createProject").hasAnyAuthority("SUPERVISOR", "COORDINATOR")
+                .antMatchers("/project").hasAnyAuthority("STUDENT", "SUPERVISOR")
+                .antMatchers("/populate").hasAuthority("STUDENT")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -2,6 +2,7 @@ package app.repositories;
 
 import app.models.Project;
 import app.models.Supervisor;
+import app.models.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
 

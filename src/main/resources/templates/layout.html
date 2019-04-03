@@ -28,9 +28,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profile.html" th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
                 </li>
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" href="#">Link</a>-->
-                <!--</li>-->
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="hasAnyAuthority('STUDENT')" href="project.html"  th:href="@{/project}">Current Project</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="hasAnyAuthority('SUPERVISOR')" href="project.html"  th:href="@{/supervising}">Supervised Projects</a>
+                </li>
             </ul>
         </div>
         <div class="mx-auto order-0">
@@ -85,6 +88,16 @@
         <script> $("#pageTitle").html("Projects List"); </script>
         <script type="text/javascript" src="js/tableSearch.js"></script>
         <div th:replace="projects"/>
+    </span>
+    <span th:case="'project'">
+        <!--<script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>-->
+        <script> $("#pageTitle").html("Current Project"); </script>
+        <div th:replace="project"/>
+    </span>
+    <span th:case="'supervising'">
+        <!--<script type="text/javascript" src="js/viewUpdates/loggedOut.js"></script>-->
+        <script> $("#pageTitle").html("Supervised Projects"); </script>
+        <div th:replace="supervising"/>
     </span>
     <span th:case="'profile'">
         <script> $("#pageTitle").html("Profile"); </script>
