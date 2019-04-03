@@ -21,20 +21,8 @@ public class ProjectRepoTest {
     @Test
     public void findByNameTest() {
         Project project1 = new Project();
-        ArrayList<Project> projects = new ArrayList<>();
-        projects.add(project1);
-        User supervisor = new User("Rick", "pass", "pass", projects);
-
-        Program program = new Program("Computer Science", Program.Acronym.COMP);
-        User student = new User("", "", "", program);
-        ArrayList<User> students = new ArrayList<>();
-        students.add(student);
-
-        ArrayList<Program> programs = new ArrayList<>();
-        programs.add(new Program());
-
-        Project project = new Project("Tiny House", "", 6, supervisor, students, programs);
-        projectRepository.save(project);
-        Assert.assertNotNull(projectRepository.findAll());
+        project1.setName("p1");
+        projectRepository.save(project1);
+        Assert.assertNotNull(projectRepository.findByName("p1"));
     }
 }
