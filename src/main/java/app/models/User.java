@@ -132,8 +132,8 @@ public class User implements Serializable {
                 i++;
             }
         }
-
-      public String getAnswerTosecurityQuestion() {
+    }
+    public String getAnswerTosecurityQuestion() {
         return answerTosecurityQuestion;
     }
 
