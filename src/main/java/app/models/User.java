@@ -17,6 +17,7 @@ public class User implements Serializable {
     @NotNull
     private String password;
 
+
     public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
     }
@@ -38,6 +39,11 @@ public class User implements Serializable {
     private ArrayList<String> availability;
   
     public User(){}
+
+    public User( String newPassword, String confPassword){
+        this.password = newPassword;
+        this.confPassword= confPassword;
+    }
 
     public User(String username, String password, String confPassword,
                 Role role) {
@@ -148,4 +154,5 @@ public class User implements Serializable {
     public ArrayList<String> getAvailability() {
         return availability;
     }
+
 }
