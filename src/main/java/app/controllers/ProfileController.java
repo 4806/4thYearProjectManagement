@@ -3,6 +3,7 @@ package app.controllers;
 import app.models.*;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
+
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,6 +32,7 @@ public class ProfileController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -40,16 +42,16 @@ public class ProfileController {
     @GetMapping("/profile")
     public String profilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-         user = userRepository.findByUsername(auth.getName());
+        user = userRepository.findByUsername(auth.getName());
 
          // model attributes for displaying User Info
-         model.addAttribute("role", user.getRole());
+        model.addAttribute("role", user.getRole());
         model.addAttribute("name", user.getUsername());
 
         // model attributes for getting form data
         // from  change password from  found under account setting section
-         model.addAttribute("user", new User());
-         model.addAttribute("view", "profile");
+        model.addAttribute("user", user);
+        model.addAttribute("view", "profile");
 
         return "layout";
     }
@@ -64,6 +66,7 @@ public class ProfileController {
                 userRepository.save(user);
                 model.addAttribute("role", user.getRole());
                 model.addAttribute("name", user.getUsername());
+                model.addAttribute("user", user);
                 model.addAttribute("view", "profile");
                 model.addAttribute( "resetSuccess", true);
                 return "layout";
@@ -72,8 +75,20 @@ public class ProfileController {
                 model.addAttribute("role", user.getRole());
                 model.addAttribute("name", user.getUsername());
                 model.addAttribute("view", "profile");
+                model.addAttribute("user", user);
                 model.addAttribute("pwError", true);
                 return "layout";
             }
+
+    @PostMapping("/updateAvailability")
+    public String updateAvailability(Model model, User user){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User realUser = userRepository.findByUsername(auth.getName());
+        realUser.setAvailability(user.getAvailability());
+        userRepository.save(realUser);
+
+        return "redirect:profile";
+
     }
 }

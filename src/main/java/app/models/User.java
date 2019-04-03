@@ -1,11 +1,9 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 public class User implements Serializable {
@@ -27,6 +25,9 @@ public class User implements Serializable {
     private Role role;
 
     private String confPassword;
+
+    @Column(length=1024)
+    private ArrayList<String> availability;
 
     public User(){}
     public User( String newPassword, String confPassword){
@@ -83,6 +84,14 @@ public class User implements Serializable {
 
     public void setConfPassword(String pw){
         this.confPassword = pw;
+    }
+
+    public void setAvailability(ArrayList<String> availability) {
+        this.availability = availability;
+    }
+
+    public ArrayList<String> getAvailability() {
+        return availability;
     }
 
 }
