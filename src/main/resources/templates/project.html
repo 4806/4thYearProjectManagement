@@ -109,11 +109,11 @@
 
                             <div class="modal-footer" th:switch="${deliverable.isLate()}">
                                 <button hidden type="button" class="btn btn-primary" sec:authorize="hasAuthority('SUPERVISOR')">Edit</button>
-                                <form th:action="@{/upload}" th:object="${deliverable}" method="post" sec:authorize="hasAuthority('STUDENT')">
-                                    <input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>
-                                    <button type="submit" class="btn btn-primary" th:case="false">Upload File</button>
-                                    <button type="submit" class="btn btn-primary" th:case="true" hidden>Upload File</button>
-                                </form>
+                                <!--<form th:action="@{/upload}" th:object="${deliverable}" method="post" sec:authorize="hasAuthority('STUDENT')">-->
+                                    <!--<input type="hidden" th:value="${deliverable.getTitle()}" name="name"/>-->
+                                    <!--<button type="submit" class="btn btn-primary" th:case="false">Upload File</button>-->
+                                    <!--<button type="submit" class="btn btn-primary" th:case="true" hidden>Upload File</button>-->
+                                <!--</form>-->
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
