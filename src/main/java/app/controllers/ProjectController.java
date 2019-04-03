@@ -141,7 +141,14 @@ public class ProjectController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
+        Project projectFound = user.getProject();
+        if(projectFound != null){
+            return "redirect:projects";
+        }
+
         Project selected = projectRepository.findByName(select.getName());
+
+
         if(!(selected.addStudent(user))){
             model.addAttribute("addError", true);
         }
