@@ -31,8 +31,8 @@
             <!-- <td><span th:text="${proj.getDescription()}">Descrpition</span></td> -->
             <td><span th:text="${proj.getNumberStudents()}">Number of students</span></td>
             <td>
-                <div th:switch="${proj.getStudents()}">
-                    <span th:case="null">No Students for this project</span>
+                <div th:switch="${#lists.size(proj.getStudents())}" >
+                    <span th:case="'0'">No Students for this project</span>
                     <span th:case="*"><div th:each="student : ${proj.getStudents()}">
                     <span th:text="${student.getUsername()}">Students</span>
                 </div>
@@ -47,10 +47,10 @@
                 </div>
             </td>
             <td>
-                <div th:switch="${proj.getRestrictions()}">
+                <div th:switch="${proj.getRestrictionsProgram()}">
                     <span th:case="null">No Restrictions for this project</span>
-                    <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
-                        <span th:text="${rest.getName()}">Restrictions</span> </span> </span>
+                    <span th:case="*"><span th:each="rest : ${proj.getRestrictionsProgram()}">
+                        <span th:text="${rest.getName()}">Restrictions</span> <br> </span> </span>
                 </div>
 
             </td>
@@ -87,10 +87,10 @@
                                         <span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>
                                      </span> </p>
                             <p>Restrictions:
-                                <span th:switch="${proj.getRestrictions()}">
+                                <span th:switch="${proj.getRestrictionsProgram()}">
                                 <span th:case="null">No Restrictions for this project</span>
-                                <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
-                                    <span th:text="${rest.getName()}">Restrictions</span> </span> </span>
+                                <span th:case="*"><span th:each="rest : ${proj.getRestrictionsProgram()}">
+                                    <span th:text="${rest.getName()}">Restrictions</span> <br></span> </span>
                                 </span> </p>
 
                         <div class="modal-footer" th:switch="${proj.isActive()}">

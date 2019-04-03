@@ -25,4 +25,9 @@ public class ProjectRepoTest {
         projectRepository.save(project1);
         Assert.assertNotNull(projectRepository.findByName("p1"));
     }
+
+    @Test
+    public void findByStudentTest() {
+        //Need to find a project once user logged in
+    }
 }

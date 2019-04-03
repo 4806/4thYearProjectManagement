@@ -34,14 +34,34 @@ public class User {
     @ElementCollection
     private List<String> availability;
 
+    // Current Project for user assuming Student
+    private Project project;
+
+    private String answerTosecurityQuestion;
+
     public User(){}
 
-    public User(String username, String password, String confPassword, Role role) {
+    public User( String newPassword, String confPassword){
+        this.password = newPassword;
+        this.confPassword= confPassword;
+    }
+
+    public User(String username, String password, String confPassword,
+                Role role) {
         this.username = username;
         this.password = password;
         this.confPassword = confPassword;
         this.role = role;
     }
+    public User(String username, String password, String confPassword,
+                Role role, String answerTosecurityQuestion) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = role;
+        this.answerTosecurityQuestion = answerTosecurityQuestion;
+    }
+
 
     //Student Constructor
     public User(String username, String password, String confPassword, Program program) {
@@ -127,6 +147,46 @@ public class User {
         this.availability = availability;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public void addProject(Project project) {
+        if (projects != null) {
+            projects.add(project);
+        } else {
+            projects = new ArrayList<>();
+            projects.add(project);
+        }
+    }
+
+    public void updateProject(Project project) {
+        if (projects != null) {
+            int i = 0;
+            for (Project proj : projects) {
+                if (proj.getName().equals(project.getName())) {
+                    projects.set(i, project);
+                }
+                i++;
+            }
+        }
+    }
+    public String getAnswerTosecurityQuestion() {
+        return answerTosecurityQuestion;
+    }
+
+    public void setAnswerTosecurityQuestion(String answerTosecurityQuestion) {
+        this.answerTosecurityQuestion = answerTosecurityQuestion;
+    }
+
+    public void setAvailability(ArrayList<String> availability) {
+        this.availability = availability;
+    }
+
     public List<String> getAvailability() {
         return availability;
     }
@@ -138,4 +198,5 @@ public class User {
     public void setProgram(Program program) {
         this.program = program;
     }
+
 }

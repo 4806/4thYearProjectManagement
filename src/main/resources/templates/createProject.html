@@ -7,7 +7,7 @@
     <div class="container-fluid py-2">
         <div class="row">
             <div class="col-md-9 mx-auto">
-                <form class="card card-body" th:action="@{/createProject}" th:object="${project}" method="post">
+                <form id="form-project" class="card card-body" th:action="@{/createProject}" th:object="${project}" method="post">
                     <h3 class="text-center mb-4">Project Form</h3>
                     <fieldset>
                         <div class="form-group">
@@ -17,16 +17,20 @@
                             <textarea class="form-control" placeholder="Description of the Project" name="description" th:field="*{description}" required></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="form-control input-lg" placeholder="Number of Students required in the project" name="numberStudents" type="number"  th:field="*{numberStudents}" required>
+                            <input class="form-control input-lg" placeholder="Number of Students required in the project" name="numberStudents" type="number"  min="1" max="20" th:field="*{numberStudents}" required>
                         </div>
                         <div class="form-group">
-                            <select class="form-control input-lg" multiple="multiple">
-                                    <option value="SOFT">Software Engineering</option>
-                                    <option value="COMP">Computer Systems Engineering</option>
-                                    <option value="CIVE">Civil Engineering</option>
-                                    <option value="MECH">Mechanical Engineering</option>
-                                    <option value="ELEC">Electrical Engineering</option>
-                                </select>
+                            <select form="form-project" class="form-control input-lg" multiple="multiple" name="restrictions" th:field="*{restrictions}">
+                                <option disabled th:value="'0'">Please Select Restrictions for this project</option>
+                                <option th:value="AERO">Aerospace Engineering</option>
+                                <option th:value="ARCH">Architecture Engineering</option>
+                                <option th:value="CIVE">Civil Engineering</option>
+                                <option th:value="COMM">Communications Engineering</option>
+                                <option th:value="COMP">Computer Systems Engineering</option>
+                                <option th:value="MECH">Mechanical Engineering</option>
+                                <option th:value="SOFT">Software Engineering</option>
+                                <option th:value="SREE">Sustainable and Renewable Engineering Engineering</option>
+
                             </select>
 
                         </div>

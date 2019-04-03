@@ -4,8 +4,6 @@ import app.models.Project;
 import app.models.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

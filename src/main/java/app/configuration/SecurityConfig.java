@@ -31,10 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/register", "/resources/*", "/projects", "/css/*", "/img/*", "/js/*").permitAll()
+
+                .antMatchers("/register", "/resources/*", "/projects","/forgot", "/css/*", "/img/*", "/js/*").permitAll()
                 .antMatchers("/join").hasAuthority("STUDENT")
                 .antMatchers("/archive", "/unarchive").hasAuthority("SUPERVISOR")
                 .antMatchers("/delete","/createProject").hasAnyAuthority("SUPERVISOR", "COORDINATOR")
+                .antMatchers("/project").hasAnyAuthority("STUDENT", "SUPERVISOR")
+                .antMatchers("/populate").hasAuthority("STUDENT")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

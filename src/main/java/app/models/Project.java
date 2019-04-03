@@ -27,13 +27,19 @@ public class Project{
 
     //Required Program for Students Participating
     @ManyToMany
-    private List<Program> restrictions;
+    private List<String> restrictions;
     //private ArrayList<Program> restrictions;
 
+    @OneToMany
+    private List<Program>  restrictionsProgram;
 
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
+
+    // Project Deliverables
+    @OneToMany
+    private ArrayList<Deliverable> deliverables = new ArrayList<>();
 
     public Project() {
 
@@ -45,10 +51,17 @@ public class Project{
         this.numberStudents = numberStudents;
         this.supervisor = supervisor;
         this.students = students;
-        this.restrictions = restrictions;
+        this.restrictionsProgram = restrictionsProgram;
         this.status = Status.ACTIVE;
     }
 
+    public List<Program> getRestrictionsProgram() {
+        return restrictionsProgram;
+    }
+
+    public void setRestrictionsProgram(ArrayList<Program> restrictionsProgram) {
+        this.restrictionsProgram = restrictionsProgram;
+    }
 
     public String getName() {
         return name;
@@ -90,11 +103,11 @@ public class Project{
         this.students = students;
     }
 
-    public List<Program> getRestrictions() {
+    public List<String> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(ArrayList<Program> restrictions) {
+    public void setRestrictions(ArrayList<String> restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -124,6 +137,14 @@ public class Project{
         return true;
     }
 
+    public void addDeliverable(Deliverable deliverable) {
+        deliverables.add(deliverable);
+    }
+
+    public List<Deliverable> getDeliverables() {
+        return deliverables;
+    }
+
     public void activate(){
         this.status = Status.ACTIVE;
     }
@@ -134,6 +155,15 @@ public class Project{
 
     public boolean isActive(){
         return this.status == Status.ACTIVE;
+    }
+
+    public boolean deliverableExists(Deliverable deliverable) {
+        for (Deliverable d : deliverables) {
+            if (d.getTitle().equals(deliverable.getTitle())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removeAllStudents() {
