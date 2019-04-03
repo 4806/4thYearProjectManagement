@@ -146,5 +146,14 @@ public class Project implements Serializable {
     public boolean isActive(){
         return this.status == Status.ACTIVE;
     }
+
+    public boolean deliverableExists(Deliverable deliverable) {
+        for (Deliverable d : deliverables) {
+            if (d.getTitle().equals(deliverable.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

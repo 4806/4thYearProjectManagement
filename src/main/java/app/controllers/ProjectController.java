@@ -191,7 +191,6 @@ public class ProjectController {
     @PostMapping("/project")
     public String addDeliverable(Model model, @ModelAttribute Deliverable deliverable, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        Deliverable deliverable1 = deliverable;
         Project project = projectRepository.findByName(deliverable.getProjectName());
 
         if (project == null) {
@@ -201,11 +200,13 @@ public class ProjectController {
             Calendar dueDate1 = convertString(str);
             deliverable.setDueDate(dueDate1);
 
-            project.getDeliverables().add(deliverable);
-            // Update in user repo too, might work without it JPA Annotations
-            user.updateProject(project);
-            userRepository.save(user);
-            projectRepository.save(project);
+            if (!project.deliverableExists(deliverable)) {
+                project.getDeliverables().add(deliverable);
+                // Update in user repo too, might work without it JPA Annotations
+                user.updateProject(project);
+                userRepository.save(user);
+                projectRepository.save(project);
+            }
 
             model.addAttribute("projects", user.getProjects());
             model.addAttribute("deliverable", new Deliverable());
