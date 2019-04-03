@@ -37,6 +37,9 @@ public class Deliverable implements Serializable {
     private Calendar submissionDate;
     private String status = "No attempt";
 
+    private String submission;
+    private Boolean submitted = false;
+
     public Deliverable(Calendar dueDate, String title, String description) {
         this.dueDate = dueDate;
         this.title = title;
@@ -137,5 +140,20 @@ public class Deliverable implements Serializable {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public boolean submitted(){
+        return submitted;
+    }
+
+    public void setSubmitted(boolean sub){submitted = sub;}
+
+    public String getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(String submission) {
+        this.submission = submission;
+        status = this.submission + " has been submitted";
     }
 }

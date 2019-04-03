@@ -271,6 +271,29 @@ public class ProjectController {
         return "redirect:supervising";
     }
 
+    @PostMapping("/upload")
+    public String uploadFile(Model model, @ModelAttribute Deliverable deliverable, Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        Project project = projectRepository.findByName(deliverable.getProjectName());
+        if (project == null) {
+            model.addAttribute("addError", true);
+        }
+        else{
+           List<Deliverable> deliverables =  project.getDeliverables();
+           for(Deliverable deliv : deliverables){
+               if(deliv.getTitle().equals(deliverable.getTitle())){
+                   deliv.setSubmission(deliverable.getSubmission());
+                   deliv.setSubmitted(true);
+                   projectRepository.save(project);
+
+                   return "redirect:project";
+               }
+           }
+        }
+        return "redirect:project";
+
+    }
+
     private boolean executed = false;
     @GetMapping("/populate")
     public String populateProjects(Model model) {
