@@ -53,20 +53,14 @@ means that a user should be able to use several related features of the app and 
 useful. The README on GitHub must be updated with a plan for the next sprint.
 
 ## Milestone 3 - Final demo. Project complete. Public demo during the lab April 3 
-Completed Use cases : 
- Profile Page: contains USeer Info ,  Select Availability , and  Change Password 
- Forgot Password: allowes the user to reset passward 
- Project LOOk up: allowes student to search for projects 
- Project Deliverables: Superviser sets up deliverable for the project, students submit deliverable
+## Completed Use cases : 
+ - Profile Page: contains 
+ - - USeer Info ,  Select Availability , and  Change Password 
+- Forgot Password: allowes the user to reset passward 
+-  Project LOOk up: allowes student to search for projects 
+- Project Deliverables: Superviser sets up deliverable for the project, students submit deliverable
  
  
 
 
 
-
-  
-- 
-For the final sprint of your project you must decide on the final scope of the product: a set of features
-that can be implemented within the given timeline and makes the product usable and useful. The user
-interface should not have any dangling links to non-implemented features.
-The final demo will tentatively be done on a projector, so be prepared to present to the entire class. 
