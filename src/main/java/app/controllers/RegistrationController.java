@@ -1,6 +1,9 @@
 package app.controllers;
 
+import app.models.Program;
+import app.models.Program.*;
 import app.models.User;
+import app.repositories.ProgramRepository;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -22,6 +25,9 @@ public class RegistrationController {
     UserRepository userRepository;
 
     @Autowired
+    ProgramRepository programRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
@@ -34,7 +40,6 @@ public class RegistrationController {
             /* The user is logged in :) */
             return "redirect:";
         }
-
         model.addAttribute("user", new User());
         model.addAttribute("view", "registration");
         return "layout";
@@ -50,6 +55,44 @@ public class RegistrationController {
 
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 user.setConfPassword(passwordEncoder.encode(user.getConfPassword()));
+                if (user.getProgram()==null){
+
+                    String item = user.getProgramString();
+                    switch (item){
+                        case "SOFT":
+                            Program soft = new Program(Acronym.SOFT.getValue(), Acronym.SOFT);
+                            user.setProgram(soft);
+                            break;
+                        case "MECH":
+                            Program mech = new Program(Acronym.MECH.getValue(),Acronym.MECH);
+                            user.setProgram(mech);
+                            break;
+                        case "CIVE":
+                            Program cive = new Program(Acronym.CIV.getValue(),Acronym.CIV);
+                            user.setProgram(cive);
+                            break;
+                        case "COMP":
+                            Program comp = new Program(Acronym.COMP.getValue(),Acronym.COMP);
+                            user.setProgram(comp);
+                            break;
+                        case "AERO":
+                            Program aero = new Program(Acronym.AERO.getValue(),Acronym.AERO);
+                            user.setProgram(aero);
+                            break;
+                        case "ARCH":
+                            Program arch = new Program(Acronym.ARCH.getValue(),Acronym.ARCH);
+                            user.setProgram(arch);
+                            break;
+                        case "COMM":
+                            Program comm = new Program(Acronym.COMM.getValue(),Acronym.COMM);
+                            user.setProgram(comm);
+                            break;
+                        case "SREE":
+                            Program sree = new Program(Acronym.SREE.getValue(),Acronym.SREE);
+                            user.setProgram(sree);
+                            break;
+                    }
+                }
                 userRepository.save(user);
                 return "redirect:login";
             }

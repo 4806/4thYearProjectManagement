@@ -47,6 +47,7 @@ public class ProfileController {
          // model attributes for displaying User Info
         model.addAttribute("role", user.getRole());
         model.addAttribute("name", user.getUsername());
+        model.addAttribute("program",user.getProgram().getName());
 
         // model attributes for getting form data
         // from  change password from  found under account setting section

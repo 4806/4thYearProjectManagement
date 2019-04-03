@@ -18,6 +18,8 @@ public class User implements Serializable {
     private String password;
 
 
+
+
     public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
     }
@@ -34,6 +36,10 @@ public class User implements Serializable {
     private ArrayList<Project> projects;
 
     private String answerTosecurityQuestion;
+
+    private Program program = null;
+
+    private String programString;
 
     @Column(length=1024)
     private ArrayList<String> availability;
@@ -82,6 +88,14 @@ public class User implements Serializable {
         return role;
     }
 
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
     public String getRoleValue(){
 
         switch(role) {
@@ -128,6 +142,13 @@ public class User implements Serializable {
         return projects;
     }
 
+    public String getProgramString() {
+        return programString;
+    }
+
+    public void setProgramString(String programString) {
+        this.programString = programString;
+    }
     public void updateProject(Project project) {
         if (projects != null) {
             int i = 0;
