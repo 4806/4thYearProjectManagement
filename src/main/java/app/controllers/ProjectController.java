@@ -149,23 +149,35 @@ public class ProjectController {
         User user = userRepository.findByUsername(auth.getName());
 
         Project selected = projectRepository.findByName(select.getName());
+        boolean allowed = false;
+        ArrayList<Program> progs = selected.getRestrictionsProgram();
+        for(Program prog:progs){
+            if (prog.getName().equals(user.getProgram().getName())){
+                allowed=true;
+            }
+        }
         if(!(selected.addStudent(user))){
             model.addAttribute("addError", true);
         }
-        projectRepository.save(selected);
-        user.setProject(selected);
-        userRepository.save(user);
-
-        Iterable<Project> all = projectRepository.findAll();
-        List<Project> active = new ArrayList<>();
-        for(Project project : all){
-            if(project.isActive()){
-                active.add(project);
-            }
+        if(allowed){
+            projectRepository.save(selected);
+            user.setProject(selected);
+            userRepository.save(user);
+        }else{
+            model.addAttribute("addError", true);
         }
-        model.addAttribute("project", active);
-        model.addAttribute("view", "projects");
-        return "layout";
+
+        return "redirect:projects";
+//        Iterable<Project> all = projectRepository.findAll();
+//        List<Project> active = new ArrayList<>();
+//        for(Project project : all){
+//            if(project.isActive()){
+//                active.add(project);
+//            }
+//        }
+//        model.addAttribute("project", active);
+//        model.addAttribute("view", "projects");
+//        return "layout";
     }
 
     @PostMapping("/archive")
