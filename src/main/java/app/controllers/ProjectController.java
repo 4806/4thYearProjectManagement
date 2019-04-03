@@ -157,7 +157,7 @@ public class ProjectController {
             model.addAttribute("addError", true);
         } else {
             // Populate project with default deliverables
-            test(project);
+            //test(project);
             updateDeliverables(project);
 
             model.addAttribute("selected", user.getProject());
