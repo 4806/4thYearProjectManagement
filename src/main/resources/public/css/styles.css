@@ -4,6 +4,13 @@
     overflow: auto;
 }
 
+.availability_header tbody{
+    display: block;
+    height: 375px;
+    overflow: auto;
+}
+
+
 .fixed_header thead, tbody tr {
     display: table;
     width: 100%;
