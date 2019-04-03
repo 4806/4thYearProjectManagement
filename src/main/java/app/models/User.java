@@ -31,7 +31,8 @@ public class User {
 
     private String confPassword;
 
-    private ArrayList<String> availability;
+    @ElementCollection
+    private List<String> availability;
 
     public User(){}
 
@@ -122,11 +123,11 @@ public class User {
         this.confPassword = pw;
     }
 
-    public void setAvailability(ArrayList<String> availability) {
+    public void setAvailability(List<String> availability) {
         this.availability = availability;
     }
 
-    public ArrayList<String> getAvailability() {
+    public List<String> getAvailability() {
         return availability;
     }
 
