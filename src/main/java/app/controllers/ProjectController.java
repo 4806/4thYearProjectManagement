@@ -31,23 +31,25 @@ public class ProjectController {
     public String create(Model model) {
 
         model.addAttribute("project",new Project());
-
         model.addAttribute("view", "createProject");
-
         return "layout";
     }
 
     @PostMapping("/createProject")
     public String create(@ModelAttribute Project project, Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
+
+
 
         Project temp = projectRepository.findByName(project.getName());
         ArrayList<Project> projects= new ArrayList<Project>();
 
         if (temp == null){
             if (project.getSupervisor()==null){
-                project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),projects));
+                user.setProjects(new ArrayList<>());
+                project.setSupervisor(user);
             }
 
             if (project.getStudents() == null){
@@ -104,8 +106,7 @@ public class ProjectController {
             projectRepository.save(project);
             return "redirect:projects";
         }else{
-            model.addAttribute("view","createProjects");
-            return "layout";
+            return "redirect:createProject";
         }
 
     }
@@ -114,7 +115,7 @@ public class ProjectController {
     public String listProjects(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
-        Supervisor supervisor = new Supervisor("Supervisor","password","password",null);
+        User supervisor = new User("Supervisor","password","password", new ArrayList<>());
         Iterable<Project> all = projectRepository.findAll();
         if(auth instanceof AnonymousAuthenticationToken || user.getRoleValue().equals("STUDENT")){
             List<Project> active = new ArrayList<>();
@@ -192,6 +193,9 @@ public class ProjectController {
 
         Project temp = projectRepository.findByName(delproj.getName());
 
+        temp.removeAllStudents();
+        temp.setSupervisor(null);
+
         projectRepository.delete(temp);
 
         return "redirect:projects";
@@ -202,7 +206,7 @@ public class ProjectController {
         User user = userRepository.findByUsername(principal.getName());
         Project temp = user.getProject();
         Project project = null;
-        
+
         if (temp != null) {
             project = projectRepository.findByName(temp.getName());
             user.setProject(project);

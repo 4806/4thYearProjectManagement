@@ -1,52 +1,51 @@
 package app.models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Project implements Serializable {
+public class Project{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    @Column(columnDefinition = "TEXT")
     private String description;
 
     //Maximum Number of students
     private int numberStudents;
 
     // Increased Column Size due to serialized objects
-    @Column(length=1024)
-    private Supervisor supervisor;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User supervisor;
 
     //Current Students participating in Project
-    @Column(length=1000024)
-    private ArrayList<User> students;
+    @OneToMany(mappedBy = "program")
+    private List<User> students;
+    //private List<User> students;
 
     //Required Program for Students Participating
-    @Column(length=1024)
-    private ArrayList<String>  restrictions;
+    @ManyToMany
+    private List<String> restrictions;
+    //private ArrayList<Program> restrictions;
 
-    @Column(length=1024)
-    private ArrayList<Program>  restrictionsProgram;
-
+    @OneToMany
+    private List<Program>  restrictionsProgram;
 
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
     // Project Deliverables
-    @Column(length=1000024)
+    @OneToMany
     private ArrayList<Deliverable> deliverables = new ArrayList<>();
 
     public Project() {
 
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program>  restrictionsProgram) {
+    public Project(String name, String description, int numberStudents, User supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
@@ -56,7 +55,7 @@ public class Project implements Serializable {
         this.status = Status.ACTIVE;
     }
 
-    public ArrayList<Program> getRestrictionsProgram() {
+    public List<Program> getRestrictionsProgram() {
         return restrictionsProgram;
     }
 
@@ -88,15 +87,15 @@ public class Project implements Serializable {
         this.numberStudents = numberStudents;
     }
 
-    public Supervisor getSupervisor() {
+    public User getSupervisor() {
         return supervisor;
     }
 
-    public void setSupervisor(Supervisor supervisor) {
+    public void setSupervisor(User supervisor) {
         this.supervisor = supervisor;
     }
 
-    public ArrayList<User> getStudents() {
+    public List<User> getStudents() {
         return students;
     }
 
@@ -104,11 +103,11 @@ public class Project implements Serializable {
         this.students = students;
     }
 
-    public ArrayList<String>  getRestrictions() {
+    public List<String> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(ArrayList<String>  restrictions) {
+    public void setRestrictions(ArrayList<String> restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -166,11 +165,12 @@ public class Project implements Serializable {
         }
         return false;
     }
-  
+
     public void removeAllStudents() {
         if(!this.getStudents().isEmpty()){
             this.getStudents().clear();
         }
     }
+
 }
 

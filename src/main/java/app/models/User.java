@@ -2,11 +2,11 @@ package app.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class User implements Serializable {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +17,11 @@ public class User implements Serializable {
     @NotNull
     private String password;
 
+    @ManyToOne
+    private Program program;
+
+    @OneToMany(mappedBy = "supervisor")
+    private List<Project> projects;
 
     public enum Role {
         STUDENT, SUPERVISOR, COORDINATOR
@@ -26,18 +31,14 @@ public class User implements Serializable {
 
     private String confPassword;
 
-    // Current Project for user assuming Student
-    @Column(length=1000024)
-    private Project project;
+    @ElementCollection
+    private List<String> availability;
 
-    @Column(length=1000024)
-    private ArrayList<Project> projects;
+    // Current Project for user assuming Student
+    private Project project;
 
     private String answerTosecurityQuestion;
 
-    @Column(length=1024)
-    private ArrayList<String> availability;
-  
     public User(){}
 
     public User( String newPassword, String confPassword){
@@ -59,6 +60,41 @@ public class User implements Serializable {
         this.confPassword = confPassword;
         this.role = role;
         this.answerTosecurityQuestion = answerTosecurityQuestion;
+    }
+
+
+    //Student Constructor
+    public User(String username, String password, String confPassword, Program program) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = Role.STUDENT;
+        this.program = program;
+    }
+
+    //Supervisor Constructor
+    public User(String username, String password, String confPassword, ArrayList<Project> projects) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = Role.SUPERVISOR;
+        this.projects = projects;
+    }
+
+    //Coordinator Constructor
+    public User(String username, String password, String confPassword) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = Role.COORDINATOR;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(ArrayList<Project> projects) {
+        this.projects = projects;
     }
 
 
@@ -107,6 +143,10 @@ public class User implements Serializable {
         this.confPassword = pw;
     }
 
+    public void setAvailability(List<String> availability) {
+        this.availability = availability;
+    }
+
     public Project getProject() {
         return project;
     }
@@ -122,10 +162,6 @@ public class User implements Serializable {
             projects = new ArrayList<>();
             projects.add(project);
         }
-    }
-
-    public ArrayList<Project> getProjects() {
-        return projects;
     }
 
     public void updateProject(Project project) {
@@ -151,8 +187,16 @@ public class User implements Serializable {
         this.availability = availability;
     }
 
-    public ArrayList<String> getAvailability() {
+    public List<String> getAvailability() {
         return availability;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 
 }
