@@ -148,7 +148,13 @@ public class ProjectController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
+        Project projectFound = user.getProject();
+        if(projectFound != null){
+            return "redirect:projects";
+        }
+
         Project selected = projectRepository.findByName(select.getName());
+
         boolean allowed = false;
         ArrayList<Program> progs = selected.getRestrictionsProgram();
         for(Program prog:progs){
@@ -156,6 +162,7 @@ public class ProjectController {
                 allowed=true;
             }
         }
+
         if(!(selected.addStudent(user))){
             model.addAttribute("addError", true);
         }
