@@ -151,8 +151,13 @@ public class ProjectController {
     @GetMapping("/project")
     public String accessProject(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        Project project = projectRepository.findByName(user.getProject().getName());
-        user.setProject(project);
+        Project temp = user.getProject();
+        Project project = null;
+        
+        if (temp != null) {
+            project = projectRepository.findByName(temp.getName());
+            user.setProject(project);
+        }
 
         if (project == null) {
             model.addAttribute("addError", true);
