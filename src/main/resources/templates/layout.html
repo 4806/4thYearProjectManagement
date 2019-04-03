@@ -69,6 +69,14 @@
         <script> $("#pageTitle").html("Login"); </script>
         <div th:replace="login"/>
     </span>
+    <span th:case="'forgotPassword'">
+        <script> $("#pageTitle").html("Forgot password?"); </script>
+        <div th:replace="forgotPassword"/>
+    </span>
+    <!--<span th:case="'request'">-->
+        <!--<script> $("#pageTitle").html("Request Project"); </script>-->
+        <!--<div th:replace="request"/>-->
+    <!--</span>-->
     <span th:case="'createProject'">
         <script> $("#pageTitle").html("Create Project"); </script>
         <div th:replace="createProject"/>

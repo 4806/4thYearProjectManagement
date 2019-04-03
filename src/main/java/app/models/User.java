@@ -25,17 +25,30 @@ public class User implements Serializable {
 
     private String confPassword;
 
+
+    private String answerTosecurityQuestion;
+
     @Column(length=1024)
     private ArrayList<String> availability;
 
     public User(){}
 
-    public User(String username, String password, String confPassword, Role role) {
+    public User(String username, String password, String confPassword,
+                Role role) {
         this.username = username;
         this.password = password;
         this.confPassword = confPassword;
         this.role = role;
     }
+    public User(String username, String password, String confPassword,
+                Role role, String answerTosecurityQuestion) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = role;
+        this.answerTosecurityQuestion = answerTosecurityQuestion;
+    }
+
 
     public String getUsername() {
         return username;
@@ -80,6 +93,14 @@ public class User implements Serializable {
 
     public void setConfPassword(String pw){
         this.confPassword = pw;
+    }
+
+    public String getAnswerTosecurityQuestion() {
+        return answerTosecurityQuestion;
+    }
+
+    public void setAnswerTosecurityQuestion(String answerTosecurityQuestion) {
+        this.answerTosecurityQuestion = answerTosecurityQuestion;
     }
 
     public void setAvailability(ArrayList<String> availability) {
