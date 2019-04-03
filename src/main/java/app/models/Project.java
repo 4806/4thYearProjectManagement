@@ -30,6 +30,7 @@ public class Project implements Serializable {
     @Column(length=1024)
     private ArrayList<Program> restrictions;
 
+
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
@@ -154,6 +155,12 @@ public class Project implements Serializable {
             }
         }
         return false;
+    }
+  
+    public void removeAllStudents() {
+        if(!this.getStudents().isEmpty()){
+            this.getStudents().clear();
+        }
     }
 }
 

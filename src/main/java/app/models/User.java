@@ -32,14 +32,29 @@ public class User implements Serializable {
     @Column(length=1000024)
     private ArrayList<Project> projects;
 
+    private String answerTosecurityQuestion;
+
+    @Column(length=1024)
+    private ArrayList<String> availability;
+  
     public User(){}
 
-    public User(String username, String password, String confPassword, Role role) {
+    public User(String username, String password, String confPassword,
+                Role role) {
         this.username = username;
         this.password = password;
         this.confPassword = confPassword;
         this.role = role;
     }
+    public User(String username, String password, String confPassword,
+                Role role, String answerTosecurityQuestion) {
+        this.username = username;
+        this.password = password;
+        this.confPassword = confPassword;
+        this.role = role;
+        this.answerTosecurityQuestion = answerTosecurityQuestion;
+    }
+
 
     public String getUsername() {
         return username;
@@ -117,5 +132,20 @@ public class User implements Serializable {
                 i++;
             }
         }
+
+      public String getAnswerTosecurityQuestion() {
+        return answerTosecurityQuestion;
+    }
+
+    public void setAnswerTosecurityQuestion(String answerTosecurityQuestion) {
+        this.answerTosecurityQuestion = answerTosecurityQuestion;
+    }
+
+    public void setAvailability(ArrayList<String> availability) {
+        this.availability = availability;
+    }
+
+    public ArrayList<String> getAvailability() {
+        return availability;
     }
 }
