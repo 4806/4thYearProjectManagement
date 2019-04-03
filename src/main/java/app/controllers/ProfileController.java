@@ -59,26 +59,27 @@ public class ProfileController {
     @PostMapping("/profile")
     public String  changePassword(Model model, @ModelAttribute User formUser) {
 
-            // check the new password and confirm password match
-            if(formUser.getPassword().equals(formUser.getConfPassword())){
-                user.setPassword(passwordEncoder.encode(formUser.getPassword()));
-                user.setConfPassword(passwordEncoder.encode(formUser.getConfPassword()));
-                userRepository.save(user);
-                model.addAttribute("role", user.getRole());
-                model.addAttribute("name", user.getUsername());
-                model.addAttribute("user", user);
-                model.addAttribute("view", "profile");
-                model.addAttribute( "resetSuccess", true);
-                return "layout";
-            }else {
-                // if password do not match return an error message.
-                model.addAttribute("role", user.getRole());
-                model.addAttribute("name", user.getUsername());
-                model.addAttribute("view", "profile");
-                model.addAttribute("user", user);
-                model.addAttribute("pwError", true);
-                return "layout";
-            }
+        // check the new password and confirm password match
+        if (formUser.getPassword().equals(formUser.getConfPassword())) {
+            user.setPassword(passwordEncoder.encode(formUser.getPassword()));
+            user.setConfPassword(passwordEncoder.encode(formUser.getConfPassword()));
+            userRepository.save(user);
+            model.addAttribute("role", user.getRole());
+            model.addAttribute("name", user.getUsername());
+            model.addAttribute("user", user);
+            model.addAttribute("view", "profile");
+            model.addAttribute("resetSuccess", true);
+            return "layout";
+        } else {
+            // if password do not match return an error message.
+            model.addAttribute("role", user.getRole());
+            model.addAttribute("name", user.getUsername());
+            model.addAttribute("view", "profile");
+            model.addAttribute("user", user);
+            model.addAttribute("pwError", true);
+            return "layout";
+        }
+    }
 
     @PostMapping("/updateAvailability")
     public String updateAvailability(Model model, User user){
