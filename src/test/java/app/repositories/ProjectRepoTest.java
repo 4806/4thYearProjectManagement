@@ -31,7 +31,7 @@ public class ProjectRepoTest {
         students.add(student);
 
         ArrayList<String> programs = new ArrayList<>();
-        programs.add("This");
+        programs.add("");
 
         Project project = new Project("Tiny House", "", 6, supervisor, students, programs);
         projectRepository.save(project);

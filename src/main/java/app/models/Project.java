@@ -26,17 +26,20 @@ public class Project implements Serializable {
 
     //Required Program for Students Participating
     @Column(length=1024)
-    private ArrayList<String> restrictions;
+    private ArrayList<String>  restrictions;
+
+    @Column(length=1024)
+    private ArrayList<Program>  restrictionsProgram;
 
     //Status of the project
     private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
     public Project() {
-//    restrictions = new ArrayList<String>();
+
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<String> restrictions) {
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<String>  restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
@@ -46,6 +49,13 @@ public class Project implements Serializable {
         this.status = Status.ACTIVE;
     }
 
+    public ArrayList<Program> getRestrictionsProgram() {
+        return restrictionsProgram;
+    }
+
+    public void setRestrictionsProgram(ArrayList<Program> restrictionsProgram) {
+        this.restrictionsProgram = restrictionsProgram;
+    }
 
     public String getName() {
         return name;
@@ -87,11 +97,11 @@ public class Project implements Serializable {
         this.students = students;
     }
 
-    public ArrayList<String> getRestrictions() {
+    public ArrayList<String>  getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(ArrayList<String> restrictions) {
+    public void setRestrictions(ArrayList<String>  restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -120,13 +130,6 @@ public class Project implements Serializable {
         this.students.add(student);
         return true;
     }
-
-//    public boolean addRestrictions(Program.Acronym acronym){
-//        if(this.){
-//            
-//        }
-//        this.restrictions.add(new Program(acronym.getValue(),acronym));
-    //}
 
     public void activate(){
         this.status = Status.ACTIVE;

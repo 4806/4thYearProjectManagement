@@ -33,19 +33,9 @@ public class ProjectController {
     public String create(Model model) {
 
         model.addAttribute("project",new Project());
-//        List<Program> restrictedPrograms = Arrays.asList(
-//                new Program(Acronym.AERO.getValue(), Acronym.AERO),
-//                new Program(Acronym.ARCH.getValue(),Acronym.ARCH),
-//                new Program(Acronym.CIV.getValue(),Acronym.CIV),
-//                new Program(Acronym.COMM.getValue(),Acronym.COMM),
-//                new Program(Acronym.COMP.getValue(),Acronym.COMP),
-//                new Program(Acronym.MECH.getValue(),Acronym.MECH),
-//                new Program(Acronym.SOFT.getValue(),Acronym.SOFT),
-//                new Program(Acronym.SREE.getValue(),Acronym.SREE)
-//
-//        );
-//        model.addAttribute("programs", restrictedPrograms);
+
         model.addAttribute("view", "createProject");
+
         return "layout";
     }
 
@@ -66,8 +56,48 @@ public class ProjectController {
             if (project.getStudents() == null){
                 project.setStudents(new ArrayList<User>());
             }
-            if (project.getRestrictions() == null){
 
+            if (project.getRestrictionsProgram() == null){
+                int size=project.getRestrictions().size();
+                ArrayList<Program> programArrayList = new ArrayList<Program>();
+                for (int i=0;i<size;i++){
+                   String item =project.getRestrictions().get(i);
+                   switch (item){
+                       case "SOFT":
+                           Program soft = new Program(Acronym.SOFT.getValue(),Acronym.SOFT);
+                           programArrayList.add(soft);
+                           break;
+                       case "MECH":
+                           Program mech = new Program(Acronym.MECH.getValue(),Acronym.MECH);
+                           programArrayList.add(mech);
+                           break;
+                       case "CIVE":
+                           Program cive = new Program(Acronym.CIV.getValue(),Acronym.CIV);
+                           programArrayList.add(cive);
+                           break;
+                       case "COMP":
+                           Program comp = new Program(Acronym.COMP.getValue(),Acronym.COMP);
+                           programArrayList.add(comp);
+                           break;
+                       case "AERO":
+                           Program aero = new Program(Acronym.AERO.getValue(),Acronym.AERO);
+                           programArrayList.add(aero);
+                           break;
+                       case "ARCH":
+                           Program arch = new Program(Acronym.ARCH.getValue(),Acronym.ARCH);
+                           programArrayList.add(arch);
+                           break;
+                       case "COMM":
+                           Program comm = new Program(Acronym.COMM.getValue(),Acronym.COMM);
+                           programArrayList.add(comm);
+                           break;
+                       case "SREE":
+                           Program sree = new Program(Acronym.SREE.getValue(),Acronym.SREE);
+                           programArrayList.add(sree);
+                           break;
+                   }
+                }
+                project.setRestrictionsProgram(programArrayList);
 //
             }
 

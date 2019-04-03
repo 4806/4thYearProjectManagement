@@ -42,10 +42,10 @@
                 </div>
             </td>
             <td>
-                <div th:switch="${proj.getRestrictions()}">
+                <div th:switch="${proj.getRestrictionsProgram()}">
                     <span th:case="null">No Restrictions for this project</span>
-                    <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
-                        <span th:text="${rest}">Restrictions</span> </span> </span>
+                    <span th:case="*"><span th:each="rest : ${proj.getRestrictionsProgram()}">
+                        <span th:text="${rest.getName()}">Restrictions</span> <br> </span> </span>
                 </div>
 
             </td>
@@ -82,10 +82,10 @@
                                         <span th:case="*"><span th:text="${proj.getSupervisor().getUsername()}">Supervisor</span></span>
                                      </span> </p>
                             <p>Restrictions:
-                                <span th:switch="${proj.getRestrictions()}">
+                                <span th:switch="${proj.getRestrictionsProgram()}">
                                 <span th:case="null">No Restrictions for this project</span>
-                                <span th:case="*"><span th:each="rest : ${proj.getRestrictions()}">
-                                    <span th:text="${rest}">Restrictions</span> </span> </span>
+                                <span th:case="*"><span th:each="rest : ${proj.getRestrictionsProgram()}">
+                                    <span th:text="${rest.getName()}">Restrictions</span> <br></span> </span>
                                 </span> </p>
 
                         <div class="modal-footer" th:switch="${proj.isActive()}">
