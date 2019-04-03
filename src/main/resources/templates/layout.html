@@ -26,11 +26,11 @@
                     <a class="nav-link" sec:authorize="hasAuthority('SUPERVISOR')" href="createProject.html" th:href="@{/createProject}">Create Project</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profile.html" th:href="@{#}">Profile</a>
+                    <a class="nav-link" href="profile.html" th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="#">Link</a>-->
+                <!--</li>-->
             </ul>
         </div>
         <div class="mx-auto order-0">
@@ -75,7 +75,12 @@
     </span>
     <span th:case="'projects'">
         <script> $("#pageTitle").html("Projects List"); </script>
+        <script type="text/javascript" src="js/tableSearch.js"></script>
         <div th:replace="projects"/>
+    </span>
+    <span th:case="'profile'">
+        <script> $("#pageTitle").html("Profile"); </script>
+        <div th:replace="profile"/>
     </span>
     <div th:case="'index'">
         <!--<script type="text/javascript" src="js/viewUpdates/loggedIn.js"></script>-->

@@ -40,24 +40,23 @@ public class ProjectController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
 
-
-
         Project temp = projectRepository.findByName(project.getName());
         if (temp == null){
             if (project.getSupervisor()==null){
-                project.setSupervisor(new Supervisor(user.getUsername(),user.getPassword(),user.getConfPassword(),null));
+                user.setProjects(new ArrayList<>());
+                project.setSupervisor(user);
             }
 
             if (project.getStudents() == null){
-                project.setStudents(new ArrayList<User>());
+                project.setStudents(new ArrayList<>());
             }
 
+            user.getProjects().add(project);
             project.activate();
             projectRepository.save(project);
             return "redirect:projects";
         }else{
-            model.addAttribute("view","createProjects");
-            return "layout";
+            return "redirect:createProject";
         }
 
     }
@@ -66,7 +65,7 @@ public class ProjectController {
     public String listProjects(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
-        Supervisor supervisor = new Supervisor("Supervisor","password","password",null);
+        User supervisor = new User("Supervisor","password","password", new ArrayList<>());
         Iterable<Project> all = projectRepository.findAll();
         if(auth instanceof AnonymousAuthenticationToken || user.getRoleValue().equals("STUDENT")){
             List<Project> active = new ArrayList<>();
@@ -116,6 +115,8 @@ public class ProjectController {
 
         Project temp = projectRepository.findByName(oper.getName());
 
+        temp.removeAllStudents();
+
         temp.deactivate();
         projectRepository.save(temp);
 
@@ -139,6 +140,9 @@ public class ProjectController {
     public String deleteProject(Model model, Project delproj){
 
         Project temp = projectRepository.findByName(delproj.getName());
+
+        temp.removeAllStudents();
+        temp.setSupervisor(null);
 
         projectRepository.delete(temp);
 

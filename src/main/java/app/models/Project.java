@@ -1,12 +1,11 @@
 package app.models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
-public class Project implements Serializable {
+public class Project{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,26 +17,29 @@ public class Project implements Serializable {
     private int numberStudents;
 
     // Increased Column Size due to serialized objects
-    @Column(length=1024)
-    private Supervisor supervisor;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User supervisor;
 
     //Current Students participating in Project
-    @Column(length=1024)
-    private ArrayList<User> students;
+    @OneToMany(mappedBy = "program")
+    private List<User> students;
+    //private List<User> students;
 
     //Required Program for Students Participating
-    @Column(length=1024)
-    private ArrayList<Program> restrictions;
+    @ManyToMany
+    private List<Program> restrictions;
+    //private ArrayList<Program> restrictions;
+
 
     //Status of the project
-    public enum Status {ACTIVE, INACTIVE}
+    private enum Status {ACTIVE, INACTIVE}
     private Status status;
 
     public Project() {
 
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
+    public Project(String name, String description, int numberStudents, User supervisor, ArrayList<User> students, ArrayList<Program> restrictions) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
@@ -72,15 +74,15 @@ public class Project implements Serializable {
         this.numberStudents = numberStudents;
     }
 
-    public Supervisor getSupervisor() {
+    public User getSupervisor() {
         return supervisor;
     }
 
-    public void setSupervisor(Supervisor supervisor) {
+    public void setSupervisor(User supervisor) {
         this.supervisor = supervisor;
     }
 
-    public ArrayList<User> getStudents() {
+    public List<User> getStudents() {
         return students;
     }
 
@@ -88,7 +90,7 @@ public class Project implements Serializable {
         this.students = students;
     }
 
-    public ArrayList<Program> getRestrictions() {
+    public List<Program> getRestrictions() {
         return restrictions;
     }
 
@@ -134,19 +136,10 @@ public class Project implements Serializable {
         return this.status == Status.ACTIVE;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Project)) return false;
-        Project project = (Project) o;
-        return numberStudents == project.numberStudents &&
-                Objects.equals(id, project.id) &&
-                Objects.equals(name, project.name) &&
-                Objects.equals(description, project.description) &&
-                Objects.equals(supervisor, project.supervisor) &&
-                Objects.equals(students, project.students) &&
-                Objects.equals(restrictions, project.restrictions) &&
-                status == project.status;
+    public void removeAllStudents() {
+        if(!this.getStudents().isEmpty()){
+            this.getStudents().clear();
+        }
     }
 
 }
