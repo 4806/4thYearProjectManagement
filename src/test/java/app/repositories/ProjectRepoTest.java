@@ -30,8 +30,8 @@ public class ProjectRepoTest {
         ArrayList<User> students = new ArrayList<>();
         students.add(student);
 
-        ArrayList<String> programs = new ArrayList<>();
-        programs.add("");
+        ArrayList<Program> programs = new ArrayList<>();
+        programs.add(new Program());
 
         Project project = new Project("Tiny House", "", 6, supervisor, students, programs);
         projectRepository.save(project);

@@ -39,13 +39,13 @@ public class Project implements Serializable {
 
     }
 
-    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<String>  restrictions) {
+    public Project(String name, String description, int numberStudents, Supervisor supervisor, ArrayList<User> students, ArrayList<Program>  restrictionsProgram) {
         this.name = name;
         this.description = description;
         this.numberStudents = numberStudents;
         this.supervisor = supervisor;
         this.students = students;
-        this.restrictions = restrictions;
+        this.restrictionsProgram = restrictionsProgram;
         this.status = Status.ACTIVE;
     }
 
