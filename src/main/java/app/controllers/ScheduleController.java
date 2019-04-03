@@ -1,9 +1,11 @@
 package app.controllers;
 
 import app.models.Project;
+import app.models.Supervisor;
 import app.models.User;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,10 @@ public class ScheduleController {
         }
         Project project = projectRepository.findByName(select.getName());
 
-        User prof = project.getSupervisor();
+        Supervisor profTemp = project.getSupervisor();
+
+        User prof = userRepository.findByUsername(profTemp.getUsername());
+
         List<String> profSchedule = prof.getAvailability();
         if(profSchedule == null){
             return "redirect:projects";

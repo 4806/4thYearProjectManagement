@@ -6,27 +6,33 @@
     <h5 th:text="${proj.getName()}"></h5>
 
 
-    <table class="table fixed_header">
-        <thead class="thead-light" >
-        <tr >
-            <th> Times Available for meetings</th>
-        </tr>
-        </thead>
+    <!--<table class="table fixed_header">-->
+        <!--<thead class="thead-light" >-->
+        <!--<tr >-->
+            <!--<th> Times Available for meetings</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
 
-        <tr th:each="option : ${options}" >
-            <td th:text="${option}"></td>
+        <!--<tr th:each="option : ${options}" >-->
+            <!--<td th:text="${option}"></td>-->
 
-        </tr>
+        <!--</tr>-->
 
-    </table>
-    <!--<form class="card card-body" th:action="@{/chooseMeeting}" th:object="${meeting}" method="post">-->
-        <!--<div class="form-group">-->
-            <!--<select class="form-control input-lg"  th:field="*{meetTime}" size="10">-->
-                <!--<option value="0">select operator</option>-->
-                <!--<option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>-->
-            <!--</select>-->
-        <!--</div>-->
-    <!--</form>-->
+    <!--</table>-->
+    <form class="card card-body" th:action="@{/chooseMeeting}" method="post">
+        <h4 class="mx-auto">Input a meeting room</h4>
+        <div class="form-group">
+            <input class="form-control input-lg" placeholder="Presentation Room" name="room" type="text" required>
+        </div>
+        <h4 class="mx-auto">Select an available meeting time</h4>
+        <div class="form-group">
+
+            <select class="form-control input-lg"  size="10">
+                <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+            </select>
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" value="Schedule Meeting" type="submit">
+    </form>
 
 
 </div>
