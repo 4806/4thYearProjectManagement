@@ -55,14 +55,15 @@ useful. The README on GitHub must be updated with a plan for the next sprint.
 ## Milestone 3 - Final demo. Project complete. Public demo during the lab April 3 
 ### Completed Use cases : 
  - Profile Page: contains 
- - - USeer Info ,  Select Availability , and  Change Password 
-- Forgot Password: allowes the user to reset passward 
--  Project Look up: allowes student to search for projects according to diffrent criteria 
+    - User Info ,  Select Availability , and  Change Password 
+- Forgot Password: allows the user to reset password using security question.
+- Project Look up: allows student to search for projects according to different criteria 
 - Project Deliverables: Superviser sets up deliverable for the project
-- Project Specific Pages: supervisior sees the project that he supervises, student sees the projest that he joined 
+- Project Specific Pages: supervisor sees the project that he supervises, student sees the projest that he joined
+- Project restrictions on joining projects
 
 ### Tests: 
- more testes added to the models, and accrosse the app. 
+ more tests added to the models, and across the app. 
  ### Database 
  User
  - Id 
@@ -70,7 +71,7 @@ useful. The README on GitHub must be updated with a plan for the next sprint.
  - password
  - confPassword
  - role
- - answerTosecurityQuestion
+ - answerToSecurityQuestion
 
  Student 
  - Program 
