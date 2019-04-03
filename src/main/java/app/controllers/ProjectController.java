@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.models.*;
 import app.models.Program.Acronym;
+import app.repositories.ProgramRepository;
 import app.repositories.ProjectRepository;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class ProjectController {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    ProgramRepository programRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -95,6 +99,9 @@ public class ProjectController {
                            programArrayList.add(sree);
                            break;
                    }
+                    for (Program prog:programArrayList) {
+                        programRepository.save(prog);
+                    }
                 }
                 project.setRestrictionsProgram(programArrayList);
 //
